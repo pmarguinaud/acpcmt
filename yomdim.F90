@@ -63,87 +63,12 @@ TYPE :: TDIM
 !           : .FALSE. NPROMA will not be optimised (forced by
 !           : negative NPROMA in namelist)
 
-INTEGER(KIND=JPIM) :: NDGLG
-INTEGER(KIND=JPIM) :: NDGLL
-INTEGER(KIND=JPIM) :: NDGNH
-INTEGER(KIND=JPIM) :: NDGSUR
-INTEGER(KIND=JPIM) :: NDGSAG
-INTEGER(KIND=JPIM) :: NDGSAL
-INTEGER(KIND=JPIM) :: NDGSAH
-INTEGER(KIND=JPIM) :: NDGSAFPH
-INTEGER(KIND=JPIM) :: NDGENG
-INTEGER(KIND=JPIM) :: NDGENL
-INTEGER(KIND=JPIM) :: NDGENH
-INTEGER(KIND=JPIM) :: NDGENFPH
-INTEGER(KIND=JPIM) :: NDGUNG
-INTEGER(KIND=JPIM) :: NDGUXG
-INTEGER(KIND=JPIM) :: NDGUNL
-INTEGER(KIND=JPIM) :: NDGUXL
 INTEGER(KIND=JPIM) :: NDLON
-INTEGER(KIND=JPIM) :: NDSUR1
-INTEGER(KIND=JPIM) :: NSTENCILWIDE
-INTEGER(KIND=JPIM) :: NDLSUR
-INTEGER(KIND=JPIM) :: NDLSM
-INTEGER(KIND=JPIM) :: NDLUNG
-INTEGER(KIND=JPIM) :: NDLUXG
-INTEGER(KIND=JPIM), ALLOCATABLE :: NDLUNL(:,:)
-INTEGER(KIND=JPIM), ALLOCATABLE :: NDLUXL(:,:)
-INTEGER(KIND=JPIM) :: NPROMA
-INTEGER(KIND=JPIM) :: NPROMA9
-INTEGER(KIND=JPIM) :: NPROMM
-INTEGER(KIND=JPIM) :: NPROMM9
-INTEGER(KIND=JPIM) :: NPROMNH
-INTEGER(KIND=JPIM) :: NPROMNH9
-INTEGER(KIND=JPIM) :: NPROMVC
-INTEGER(KIND=JPIM) :: NPROMVC9
-INTEGER(KIND=JPIM) :: NPROMDLW
-INTEGER(KIND=JPIM) :: NPROMDLR
-INTEGER(KIND=JPIM) :: NPROMDLR2
-INTEGER(KIND=JPIM) :: NPROMDLG
-INTEGER(KIND=JPIM) :: NGPBLKS
-LOGICAL :: LOPTPROMA
-
-! === SPECTRAL SPACE ==========================================================
-
-! NRESOL  : resolution identifier
-! NSMAX   : truncation order
-! NMSMAX  : truncation order in longitude
-! NVARMAX: truncation order in 3d-var distributed direction
-!          this is a priori longitude, so that nvarmax = nsmax in Arp/IFS
-!          and nvarmax = nmsmax in Aladin
-! NSEFRE : number of degrees of freedom in the spectral space
-! NSPECG : number of complex spectral coefficients (global)
-! NSPEC2G = 2*NSPECG
-! NSPEC  : number of complex spectral coefficients (local, i.e. on this PE)
-! NSPEC2 = 2*NSPEC
-! NSPEC2MX : maximun NSPEC2 among all PEs
-! NTCMAX : truncation order for transmission coefficients.
-! NCMAX  : upper trunc. order for dilatation matrices (used in TRAGEO, fullpos)
-
-INTEGER(KIND=JPIM) :: NRESOL
 INTEGER(KIND=JPIM) :: NSMAX
-INTEGER(KIND=JPIM) :: NMSMAX
-INTEGER(KIND=JPIM) :: NVARMAX
-INTEGER(KIND=JPIM) :: NSEFRE
-INTEGER(KIND=JPIM) :: NSPECG
-INTEGER(KIND=JPIM) :: NSPEC2G
-INTEGER(KIND=JPIM) :: NSPEC
-INTEGER(KIND=JPIM) :: NSPEC2
-INTEGER(KIND=JPIM) :: NSPEC2MX
-INTEGER(KIND=JPIM) :: NTCMAX
-INTEGER(KIND=JPIM) :: NCMAX
-
-! === DISTRIBUTED MEMORY DIMENSIONS ===========================================
-
-! NUMP  :  Number of spectral waves handled by this processor
-! NUMCP :  Same as NUMP, but related to NCMAX
-
-INTEGER(KIND=JPIM) :: NUMP
-INTEGER(KIND=JPIM) :: NUMCP
 
 END TYPE TDIM
 
-TYPE(TDIM), POINTER :: YRDIM => NULL()
+TYPE(TDIM) :: YRDIM 
 
 !     ------------------------------------------------------------------
 
