@@ -1,0 +1,10 @@
+*.o
+*.mod
+*.optrpt
+*.xml
+*.swp
+*.IN
+*.OUT
+*.COUNT
+*.x
+slurm-*.out
