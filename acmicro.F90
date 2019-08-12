@@ -116,7 +116,6 @@ REAL(KIND=JPRB) :: ZQL,ZQI,ZCAUT,&
 REAL(KIND=JPRB) :: ZAUTOL(KLON,KLEV), ZAUTOI(KLON,KLEV) &
  & , ZDELT(KLON,KLEV) , ZEFFA(KLON,KLEV)  
 INTEGER(KIND=JPIM) :: JLON,JLEV
-REAL(KIND=JPRB) :: ZHOOK_HANDLE
 
 !     ------------------------------------------------------------------
 

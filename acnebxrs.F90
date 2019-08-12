@@ -97,7 +97,6 @@ REAL(KIND=JPRB)   ,INTENT(INOUT) :: PNEB(KLON,KLEV)
 INTEGER(KIND=JPIM) :: JLEV, JLON
 
 REAL(KIND=JPRB) :: ZEPS1, ZRH, ZRHLIM, ZNEB, ZBIN, ZARGLI, ZRHEXP
-REAL(KIND=JPRB) :: ZHOOK_HANDLE
 
 !*
 !     ------------------------------------------------------------------

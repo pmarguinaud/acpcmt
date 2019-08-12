@@ -67,7 +67,7 @@ REAL(KIND=JPRB) :: ZDPSG(KLON,KLEV)
 
 
 INTEGER(KIND=JPIM) :: JLEV, JLON
-REAL(KIND=JPRB) :: ZHOOK_HANDLE,ZLN_NEGLIG,ZUSCFL
+REAL(KIND=JPRB) :: ZLN_NEGLIG,ZUSCFL
 
 ! --------------------------------------------------------
 
