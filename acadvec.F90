@@ -78,8 +78,10 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE,ZLN_NEGLIG,ZUSCFL
 ! --------------------------------------------------------
 
 DO JLEV = 0, KLEV
-  ZFDN(:,JLEV) = 0.0_JPRB
-  ZFUP(:,JLEV) = 0.0_JPRB
+  DO JLON = KIDIA, KFDIA
+    ZFDN(JLON,JLEV) = 0.0_JPRB
+    ZFUP(JLON,JLEV) = 0.0_JPRB
+  ENDDO
 ENDDO
 
 !- - - - - - - - - - - - - - -

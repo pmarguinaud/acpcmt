@@ -693,7 +693,11 @@ DO JLEV=KTDIA,KLEV
       & *ZBINID(JLON,JLEV)*PDELP(JLON,JLEV)/RG
   ENDDO
 ENDDO
-ZRHOH(:,KLEV) = ZRHO(:,KLEV) ! Usefull for extra-bound computation !!!!
+
+DO JLON=KIDIA,KFDIA
+  ZRHOH(JLON,KLEV) = ZRHO(JLON,KLEV) ! Usefull for extra-bound computation !!!!
+ENDDO
+
 DO JLON=KIDIA,KFDIA
   ZSATDEF(JLON)=ZSATDEF(JLON)/MAX(100._JPRB,ZDENO(JLON))
   ZRH(JLON)=ZRH(JLON)/MAX(100._JPRB,ZDENO(JLON))
@@ -2855,7 +2859,9 @@ IF (YRPHY0%NCAPEMOD /= 0) THEN
   !- - - - - - - - - - - - - - -
   ! Set the "SBCAPE" to zero :
   !- - - - - - - - - - - - - - -
-  PCAPE(KIDIA:KFDIA)=0.0_JPRB
+  DO JLON = KIDIA, KFDIA
+  PCAPE(JLON)=0.0_JPRB
+  ENDDO
   !
   !- - - - - - - - - - - - - - - - - - - - -
   ! Compute the "SBCAPE" for the parcel at 
