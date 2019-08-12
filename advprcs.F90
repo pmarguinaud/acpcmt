@@ -178,24 +178,18 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 
 !     CHECK RELIABILITY OF INPUT ARGUMENTS.
 
-ASSOCIATE(RACCEF=>YRPHY0%RACCEF, RSMOOTHMELT=>YRPHY0%RSMOOTHMELT, &
- & REVASX=>YRPHY0%REVASX, TFVL=>YRPHY0%TFVL, TFVI=>YRPHY0%TFVI, &
- & RRIMEF=>YRPHY0%RRIMEF, RNINTS=>YRPHY0%RNINTS, RNINTR=>YRPHY0%RNINTR, &
- & RAGGEF=>YRPHY0%RAGGEF, TFVR=>YRPHY0%TFVR, TFVS=>YRPHY0%TFVS, &
- & TSPHY=>YRPHY2%TSPHY, &
- & LSMOOTHMELT=>YRPHY%LSMOOTHMELT, LCOLLEC=>YRPHY%LCOLLEC, &
- & LEVAPP=>YRPHY%LEVAPP)
 
-ZDZL   = TFVL*TSPHY
-ZDZI   = TFVI*TSPHY
+
+ZDZL   = YRPHY0%TFVL*YRPHY2%TSPHY
+ZDZI   = YRPHY0%TFVI*YRPHY2%TSPHY
 
 !- - - - - - - - - - - - - - -
-IF (TSPHY > 0.0_JPRB) THEN
+IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 !- - - - - - - - - - - - - - -
 
   LLMELTS = .TRUE.
   LLFREEZ = .TRUE.
-  LLEVAPX = ( REVASX /= 0.0_JPRB )
+  LLEVAPX = ( YRPHY0%REVASX /= 0.0_JPRB )
 
       ! ----------
       ! Constants      
@@ -228,12 +222,12 @@ IF (TSPHY > 0.0_JPRB) THEN
       ! ------------
 
       
-  ZFVELR = TFVR
-  ZFVELS = TFVS
+  ZFVELR = YRPHY0%TFVR
+  ZFVELS = YRPHY0%TFVS
   
   ZTMELT = RTT 
   ZRHOW = 1000._JPRB
-  ZNRHOW = RNINTR * ZRHOW
+  ZNRHOW = YRPHY0%RNINTR * ZRHOW
   ZDVISC = 1.669E-05_JPRB
   ZSQTVIS = SQRT(ZDVISC)
   ZCDARV = 2.31E-02_JPRB * RV
@@ -242,15 +236,15 @@ IF (TSPHY > 0.0_JPRB) THEN
   ZEXP4 = 2.0_JPRB*ZEXP1
   ZEXP6 = 17._JPRB/24._JPRB
   ZPREF = 1.E+05_JPRB
-  ZCOEFF1 = 12.695_JPRB * ZNU1 * FCGENERALIZED_GAMMA(3._JPRB+ZNU2) * RACCEF &
+  ZCOEFF1 = 12.695_JPRB * ZNU1 * FCGENERALIZED_GAMMA(3._JPRB+ZNU2) * YRPHY0%RACCEF &
    & / (4._JPRB * ZRHOW)  
 !LOP  ZCOEFF2 = 0.0485_JPRB * ZTAU1 * FCGENERALIZED_GAMMA(3._JPRB+ZTAU2) * RRIMEF &
 !LOP   & * RPI / (4._JPRB * (2.0_JPRB**(1.0_JPRB+ZTAU2/3._JPRB)) * ZSIGMA1) 
-  ZCOEFF2 = 0.0485_JPRB * ZTAU1 * FCGENERALIZED_GAMMA(3._JPRB+ZTAU2) * RRIMEF &
+  ZCOEFF2 = 0.0485_JPRB * ZTAU1 * FCGENERALIZED_GAMMA(3._JPRB+ZTAU2) * YRPHY0%RRIMEF &
    & * RPI /  4._JPRB &
    & / (FCGENERALIZED_GAMMA(ZSIGMA2+1.0_JPRB)**((3._JPRB+ZTAU2)/(1.0_JPRB+ZSIGMA2))) &
    & / ZSIGMA1   
-  ZCOEFF2B = ZCOEFF2 * RAGGEF / RRIMEF
+  ZCOEFF2B = ZCOEFF2 * YRPHY0%RAGGEF / YRPHY0%RRIMEF
   ZCOEFF3 = 2.0_JPRB * ZFVENTR1 * SQRT(RPI)
   ZCOEFF4 = 2.0_JPRB * RPI**((3._JPRB-ZNU2)/8._JPRB) * ZFVENTR2 * SQRT(ZNU1) &
    & * (ZRHOREF**0.2_JPRB) * FCGENERALIZED_GAMMA((ZNU2+5._JPRB)/2.0_JPRB)   
@@ -276,7 +270,7 @@ IF (TSPHY > 0.0_JPRB) THEN
   DO JLEV = KTDIA, KFLEV
     DO JLON = KIDIA, KFDIA
       ZDPSG(JLON,JLEV) = PDELP(JLON,JLEV) / RG
-      ZDPSGDT(JLON,JLEV) = ZDPSG(JLON,JLEV) * TSPHY
+      ZDPSGDT(JLON,JLEV) = ZDPSG(JLON,JLEV) * YRPHY2%TSPHY
       ZDELT(JLON,JLEV) = PT(JLON,JLEV) - RTT
       ZRHO(JLON,JLEV) = PAPRSF(JLON,JLEV) / PR(JLON,JLEV)&
        & / PT(JLON,JLEV)  
@@ -311,12 +305,12 @@ IF (TSPHY > 0.0_JPRB) THEN
        ! ---------------------------------------------------------
        ! Intercept parameter for ice as a function of temperature.
        ! ---------------------------------------------------------
-      ZNS(JLON,JLEV) = RNINTS * EXP(-0.1222_JPRB * ZDELT(JLON,JLEV))
+      ZNS(JLON,JLEV) = YRPHY0%RNINTS * EXP(-0.1222_JPRB * ZDELT(JLON,JLEV))
 
       ZQL(JLON,JLEV) = MAX(0.0_JPRB,PQL(JLON,JLEV) &
-       & -PAUTOL(JLON,JLEV)*TSPHY)
+       & -PAUTOL(JLON,JLEV)*YRPHY2%TSPHY)
       ZQI(JLON,JLEV) = MAX(0.0_JPRB,PQI(JLON,JLEV) &
-       & -PAUTOI(JLON,JLEV)*TSPHY)
+       & -PAUTOI(JLON,JLEV)*YRPHY2%TSPHY)
 
       ZCLEAR = 1.0_JPRB - PNEB(JLON,JLEV)
       ZKDIFF = 2.E-5_JPRB * ZPREF / PAPRSF(JLON,JLEV)
@@ -332,7 +326,7 @@ IF (TSPHY > 0.0_JPRB) THEN
       ZCONDT = ( FOLH(PT(JLON,JLEV),0.0_JPRB)/PT(JLON,JLEV) )**2 /ZCDARV
       ZDIFFV = ZFACT4 / ZWORK1(JLON)
 
-      ZCEV = ZSSATW * ZCLEAR * RNINTR &
+      ZCEV = ZSSATW * ZCLEAR * YRPHY0%RNINTR &
        & / ZRHO(JLON,JLEV) / (ZCONDT + ZDIFFV)  
       ZCEV = MAX(0.0_JPRB,ZCEV)
       ZCEV1(JLON,JLEV) = ZCEV * ZCOEFF3 
@@ -385,12 +379,12 @@ IF (TSPHY > 0.0_JPRB) THEN
 
     DO JLON = KIDIA, KFDIA
     
-      ZDZ(JLON)   = ZFVEL(JLON,JLEV)*TSPHY
+      ZDZ(JLON)   = ZFVEL(JLON,JLEV)*YRPHY2%TSPHY
     
       ZWORK3(JLON) = MAX(0.0_JPRB,ZDPSG(JLON,JLEV)*ZQPR(JLON,JLEV) + &
-       &              TSPHY*(PFPLSL(JLON,JLEV-1)) + ZAUTOL(JLON,JLEV))
+       &              YRPHY2%TSPHY*(PFPLSL(JLON,JLEV-1)) + ZAUTOL(JLON,JLEV))
       ZQPSTOT(JLON) = MAX(0.0_JPRB,ZDPSG(JLON,JLEV)*ZQPS(JLON,JLEV) + &
-       &              TSPHY*(PFPLSN(JLON,JLEV-1)) + ZAUTOI(JLON,JLEV))
+       &              YRPHY2%TSPHY*(PFPLSN(JLON,JLEV-1)) + ZAUTOI(JLON,JLEV))
 
 !  New formulation which does not take into account initial contents
 ! This implies a total independence to CFL criteria therefore to the layers thickness
@@ -405,7 +399,7 @@ IF (TSPHY > 0.0_JPRB) THEN
       ZQR = ZWORK3(JLON) / ZDZ(JLON)
       ZQS = ZQPSTOT(JLON) / ZDZ(JLON)
       
-      IF (LEVAPP) THEN
+      IF (YRPHY%LEVAPP) THEN
 
         ZWORK1(JLON) =  ZQR / ZNRHOW
         ZWORK2(JLON) =  ZQS / ZNS(JLON,JLEV)
@@ -414,7 +408,7 @@ IF (TSPHY > 0.0_JPRB) THEN
 
     ENDDO
 
-    IF (LEVAPP) THEN
+    IF (YRPHY%LEVAPP) THEN
       DO JLON = KIDIA, KFDIA
         ZPOW1(JLON)=ZCEV2(JLON,JLEV)*ZWORK1(JLON)**ZEXP6
         ZPOW2(JLON)=ZCSU1(JLON,JLEV)*ZWORK2(JLON)**ZEXP4
@@ -435,7 +429,7 @@ IF (TSPHY > 0.0_JPRB) THEN
       ZQFRZX    = 0.0_JPRB  
       ZACCR     = 0.0_JPRB
 
-      IF (LEVAPP) THEN
+      IF (YRPHY%LEVAPP) THEN
 
            ! ----------------------------------------
            ! Evaporation/Sublimation of precipitation
@@ -447,7 +441,7 @@ IF (TSPHY > 0.0_JPRB) THEN
         ZINT1 = 1.0_JPRB / MAX(ZEPS,ZEVAPPL+ZEVAPPN)
 
         IF (LLEVAPX) THEN
-          ZSUBSA = REVASX*ZINT1*(1.0_JPRB-EXP(-1.0_JPRB/(REVASX*ZINT1)))
+          ZSUBSA = YRPHY0%REVASX*ZINT1*(1.0_JPRB-EXP(-1.0_JPRB/(YRPHY0%REVASX*ZINT1)))
           ZEVAPPL = ZSUBSA*ZEVAPPL
           ZEVAPPN = ZSUBSA*ZEVAPPN
         ENDIF
@@ -468,25 +462,25 @@ IF (TSPHY > 0.0_JPRB) THEN
       ZQR = ZQPRTOT1 / ZDZ(JLON)
       ZQS = ZQPSTOT1 / ZDZ(JLON)
 
-      IF (LCOLLEC) THEN
+      IF (YRPHY%LCOLLEC) THEN
 
            ! ----------------------------------------
            ! Collection of cloud liquid water by rain
            ! ----------------------------------------
 
-        ZACCR = ZQL(JLON,JLEV)*(1.0_JPRB-EXP(-ZCACC(JLON,JLEV)*ZQR*TSPHY)) &
+        ZACCR = ZQL(JLON,JLEV)*(1.0_JPRB-EXP(-ZCACC(JLON,JLEV)*ZQR*YRPHY2%TSPHY)) &
         &     * MAX(0.0_JPRB,SIGN(1.0_JPRB,PT(JLON,JLEV)-RTT))
         
 
            ! -------------------------------
            ! Collection of cloud ice by snow
            ! -------------------------------
-        ZAGGR = ZQI(JLON,JLEV)*(1.0_JPRB-EXP(-ZCAGG(JLON,JLEV)*ZQS*TSPHY))
+        ZAGGR = ZQI(JLON,JLEV)*(1.0_JPRB-EXP(-ZCAGG(JLON,JLEV)*ZQS*YRPHY2%TSPHY))
 
            ! ----------------------------------------
            ! Collection of cloud liquid water by snow
            ! ----------------------------------------
-        ZRIMI = ZQL(JLON,JLEV)*(1.0_JPRB-EXP(-ZCRIM(JLON,JLEV)*ZQS*TSPHY))
+        ZRIMI = ZQL(JLON,JLEV)*(1.0_JPRB-EXP(-ZCRIM(JLON,JLEV)*ZQS*YRPHY2%TSPHY))
 
            ! ----------------------------
            ! Sum up collection processes
@@ -510,10 +504,10 @@ IF (TSPHY > 0.0_JPRB) THEN
         ZQMLTX = ZDPSG(JLON,JLEV) * PCP(JLON,JLEV) &
          & * MAX(0.0_JPRB,ZDELT(JLON,JLEV)) / ZLHFUS
 
-         IF (.NOT. LSMOOTHMELT) THEN 
+         IF (.NOT. YRPHY%LSMOOTHMELT) THEN 
           ZQMLT = MIN ( ZQMLTX , ZQPSTOT2 - ZTQEVAPPN )
          ELSE
-          ZQMLT=(ZQPSTOT2-ZTQEVAPPN)*(1+TANH(ZDELT(JLON,JLEV)/RSMOOTHMELT))/2.0_JPRB
+          ZQMLT=(ZQPSTOT2-ZTQEVAPPN)*(1+TANH(ZDELT(JLON,JLEV)/YRPHY0%RSMOOTHMELT))/2.0_JPRB
          ENDIF
        ENDIF 
        IF (LLFREEZ) THEN  
@@ -531,14 +525,14 @@ IF (TSPHY > 0.0_JPRB) THEN
 
       
       PFPEVPL(JLON,JLEV) = PFPEVPL(JLON,JLEV-1) &
-       & + ( ZTQEVAPPL - ZQMLT + ZQFRZ) / TSPHY
+       & + ( ZTQEVAPPL - ZQMLT + ZQFRZ) / YRPHY2%TSPHY
       PFPEVPN(JLON,JLEV) = PFPEVPN(JLON,JLEV-1) &
-       & + ( ZTQEVAPPN + ZQMLT - ZQFRZ) / TSPHY
+       & + ( ZTQEVAPPN + ZQMLT - ZQFRZ) / YRPHY2%TSPHY
 
       PFPFPL (JLON,JLEV) = PFPFPL (JLON,JLEV-1) &
-       & + ( ZTCOLLL + ZAUTOL(JLON,JLEV) ) / TSPHY
+       & + ( ZTCOLLL + ZAUTOL(JLON,JLEV) ) / YRPHY2%TSPHY
       PFPFPN (JLON,JLEV) = PFPFPN (JLON,JLEV-1) &
-       & + ( ZTCOLLN + ZAUTOI(JLON,JLEV) ) / TSPHY
+       & + ( ZTCOLLN + ZAUTOI(JLON,JLEV) ) / YRPHY2%TSPHY
 
 
            ! ----------------------------
@@ -567,23 +561,23 @@ IF (TSPHY > 0.0_JPRB) THEN
     ! ================================================================
 
       PFPLSL(JLON,JLEV) = (ZP1*ZDPSG(JLON,JLEV)*ZQPR(JLON,JLEV)      &
-      &                 + ZP2*TSPHY*PFPLSL(JLON,JLEV-1)              &      
+      &                 + ZP2*YRPHY2%TSPHY*PFPLSL(JLON,JLEV-1)              &      
       &                 + ZP3*(ZAUTOL(JLON,JLEV) + ZTCOLLL + ZQMLT)) &
       &                 * MAX(0.0_JPRB,                              &
-      &                (1._JPRB - (ZTQEVAPPL+ZQFRZ)/MAX(ZEPS,ZQPRTOT2))) / TSPHY
+      &                (1._JPRB - (ZTQEVAPPL+ZQFRZ)/MAX(ZEPS,ZQPRTOT2))) / YRPHY2%TSPHY
       
 
       PFPLSN(JLON,JLEV) = (ZP1*ZDPSG(JLON,JLEV)*ZQPS(JLON,JLEV)      &
-      &                 + ZP2*TSPHY*PFPLSN(JLON,JLEV-1)              &      
+      &                 + ZP2*YRPHY2%TSPHY*PFPLSN(JLON,JLEV-1)              &      
       &                 + ZP3*(ZAUTOI(JLON,JLEV) + ZTCOLLN + ZQFRZ)) &
       &                 * MAX(0.0_JPRB,                              &
-      &                (1._JPRB - (ZTQEVAPPN+ZQMLT)/MAX(ZEPS,ZQPSTOT2))) / TSPHY
+      &                (1._JPRB - (ZTQEVAPPN+ZQMLT)/MAX(ZEPS,ZQPSTOT2))) / YRPHY2%TSPHY
 
       PSEDIQL(JLON,JLEV) = (ZP1L*ZDPSG(JLON,JLEV)*ZQL(JLON,JLEV)      &
-       &                  + ZP2L*TSPHY*PSEDIQL(JLON,JLEV-1) ) / TSPHY
+       &                  + ZP2L*YRPHY2%TSPHY*PSEDIQL(JLON,JLEV-1) ) / YRPHY2%TSPHY
        
       PSEDIQN(JLON,JLEV) = (ZP1I*ZDPSG(JLON,JLEV)*ZQI(JLON,JLEV)      &
-       &                  + ZP2I*TSPHY*PSEDIQN(JLON,JLEV-1) ) / TSPHY
+       &                  + ZP2I*YRPHY2%TSPHY*PSEDIQN(JLON,JLEV-1) ) / YRPHY2%TSPHY
        
     ENDDO ! JLON = KIDIA, KFDIA
 
@@ -595,5 +589,5 @@ IF (TSPHY > 0.0_JPRB) THEN
 ENDIF  ! End of test on TSPHY > 0.0_JPRB
 !- - - - - - - - - - - - - - - - - - - - - - -
 
-END ASSOCIATE
+
 END SUBROUTINE ADVPRCS

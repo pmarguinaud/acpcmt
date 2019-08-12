@@ -127,7 +127,7 @@ REAL(KIND=JPRB) :: ZHOOK_HANDLE
 #include "fcttrm.func.h"
 #include "fcttim.func.h"
 
-ASSOCIATE(NTCVIM=>YRTOPH%NTCVIM)
+
 
 !-------------------------------------------------
 ! INITIALIZE DEFAULT VALUES.
@@ -160,7 +160,7 @@ ZQI(KIDIA:KFDIA)=0.0_JPRB
 
 IPREVIOUS_NULL_ZRT(KIDIA:KFDIA)=999999
 
-DO JLEV=KLEVST,NTCVIM+1,-1
+DO JLEV=KLEVST,YRTOPH%NTCVIM+1,-1
   DO JLON=KIDIA,KFDIA
     !
     !-------------------------------------------------
@@ -402,5 +402,5 @@ DO JLEV=KLEVST,NTCVIM+1,-1
   ENDDO                     ! JLON
 ENDDO                     !JLEV
 
-END ASSOCIATE
+
 END SUBROUTINE FPCINCAPE
