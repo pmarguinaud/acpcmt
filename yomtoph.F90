@@ -98,7 +98,7 @@ REAL(KIND=JPRB) :: TPSCLIM
 
 END TYPE TTOPH
 
-TYPE(TTOPH), POINTER :: YRTOPH => NULL()
+TYPE(TTOPH) :: YRTOPH 
 
 
 !     ------------------------------------------------------------------
