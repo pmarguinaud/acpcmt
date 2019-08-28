@@ -11,7 +11,13 @@ FC = /home/gmap/mrpm/marguina/install/gmkpack_support/wrapper/I161150/ifort $(FR
 
 all: wrap_acpcmt.x
 
-MODULES=parkind1.o yemgeo.o yomcst.o yomct0.o yomct3.o yomdim.o yomgem.o yomphy.o yomphy0.o yomphy2.o yomrip.o yomscm.o load_mod.o yomcape.o yomfpc.o yomphy1.o yomtoph.o
+MODULES=parkind1.o yemgeo.o yomcst.o yomct0.o yomct3.o yomdim.o yomgem.o yomphy.o yomphy0.o yomphy2.o yomrip.o yomscm.o load_mod.o yomcape.o yomfpc.o yomphy1.o yomtoph.o xrd_getoptions.o xrd_unix_env.o
+
+xrd_getoptions.o: xrd_getoptions.F90 xrd_unix_env.o parkind1.o
+	$(FC) -c xrd_getoptions.F90
+
+xrd_unix_env.o: xrd_unix_env.F90 parkind1.o
+	$(FC) -c xrd_unix_env.F90
 
 fcgeneralized_gamma.o: fcgeneralized_gamma.F90 $(MODULES)
 	$(FC) -c fcgeneralized_gamma.F90
@@ -109,8 +115,8 @@ yomgem.o: yomgem.F90 parkind1.o
 abor1.o: abor1.F90
 	$(FC) -c abor1.F90
 
-wrap_acpcmt.x: yomrip.o yomphy.o acmtud.o acadvec.o acpcmt_load_all.o acnebxrs.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o fpcincape.o acnebsm.o yomdim.o acpluiz.o acmtentr.o acmicro.o yomtoph.o yomct0.o yomscm.o advprcs.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o acmtddd.o yomgem.o fcgeneralized_gamma.o load_mod.o abor1.o
-	$(FC) -o wrap_acpcmt.x yomrip.o yomphy.o acmtud.o acadvec.o acpcmt_load_all.o acnebxrs.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o fpcincape.o acnebsm.o yomdim.o acpluiz.o acmtentr.o acmicro.o yomtoph.o yomct0.o yomscm.o advprcs.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o acmtddd.o yomgem.o fcgeneralized_gamma.o load_mod.o abor1.o
+wrap_acpcmt.x: yomrip.o yomphy.o acmtud.o acadvec.o acpcmt_load_all.o acnebxrs.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o fpcincape.o acnebsm.o yomdim.o acpluiz.o acmtentr.o acmicro.o yomtoph.o yomct0.o yomscm.o advprcs.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o acmtddd.o yomgem.o fcgeneralized_gamma.o load_mod.o abor1.o xrd_unix_env.o xrd_getoptions.o
+	$(FC) -o wrap_acpcmt.x yomrip.o yomphy.o acmtud.o acadvec.o acpcmt_load_all.o acnebxrs.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o fpcincape.o acnebsm.o yomdim.o acpluiz.o acmtentr.o acmicro.o yomtoph.o yomct0.o yomscm.o advprcs.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o acmtddd.o yomgem.o fcgeneralized_gamma.o load_mod.o abor1.o xrd_unix_env.o xrd_getoptions.o
 
 clean:
 	\rm -f *.o *.x *.mod *.xml *.optrpt
