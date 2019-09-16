@@ -1,4 +1,4 @@
-! -----------------------------------------------------------------------
+#include "attr.h"
 SUBROUTINE ACMTDDD( KIDIA,KFDIA,KLON,KTDIA,KLEV,KTRA,&
 ! -----------------------------------------------------------------------
 ! - INPUT  2D .
@@ -235,6 +235,8 @@ REAL(KIND=JPRB) :: ZGAMA, ZKD, ZRVMD, ZCPVMD, ZCPVMW, ZCPVMS&
 !     LOCAL SCALAR
 INTEGER(KIND=JPIM) :: JLEV, JLON, ITOP, JIT, ICDN, IBDC, IVVER, IDOMDP&
     &, IKUO1, IKUO2, INUA, ILEVBDC, ISUM, ISDELTAP
+
+#include "abor1.intfb.h"
 
 INTEGER(KIND=JPIM) :: JTRA
 INTEGER(KIND=JPIM) :: IPSTPT_ZBCC_CD_HALF

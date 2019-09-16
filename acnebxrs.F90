@@ -1,4 +1,4 @@
-!OPTIONS XOPT(NOEVAL)
+#include "attr.h"
 SUBROUTINE ACNEBXRS ( KIDIA,KFDIA,KLON,KTDIA,KLEV,&
  !-----------------------------------------------------------------------
  ! - INPUT  2D .
@@ -103,6 +103,7 @@ INTEGER(KIND=JPIM) :: JLEV, JLON
 REAL(KIND=JPRB) :: ZEPS1, ZRH, ZRHLIM, ZNEB, ZBIN, ZARGLI, ZRHEXP
 INTEGER(KIND=JPIM) :: IPSTPT, IKSTPT
 
+#include "abor1.intfb.h"
 
 !*
 !     ------------------------------------------------------------------

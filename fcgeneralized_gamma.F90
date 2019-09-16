@@ -1,3 +1,4 @@
+#include "attr.h"
 FUNCTION FCGENERALIZED_GAMMA(PX)  
 
 !****  *FCGENERALIZED_GAMMA * -  Gamma  function

@@ -1,3 +1,4 @@
+#include "attr_mod.h"
 MODULE YOMDIM
 
 USE PARKIND1  ,ONLY : JPIM
@@ -68,7 +69,7 @@ INTEGER(KIND=JPIM) :: NSMAX
 
 END TYPE TDIM
 
-TYPE(TDIM) :: YRDIM 
+TYPE(TDIM) ATTR_MOD :: YRDIM 
 
 !     ------------------------------------------------------------------
 

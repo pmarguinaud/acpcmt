@@ -1,3 +1,4 @@
+#include "attr_mod.h"
 MODULE YOMPHY
 
 USE PARKIND1  ,ONLY : JPIM
@@ -22,7 +23,7 @@ INTEGER (KIND=JPIM) :: NPHYREP
 
 END TYPE TPHY
 
-TYPE(TPHY) :: YRPHY
+TYPE(TPHY) ATTR_MOD :: YRPHY
 
 
 !     ------------------------------------------------------------------

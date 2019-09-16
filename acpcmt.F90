@@ -1,4 +1,4 @@
-!OPTIONS XOPT(NOEVAL)
+#include "attr.h"
 SUBROUTINE ACPCMT ( KIDIA,KFDIA,KLON,KTDIA,KLEV,KTRA,&
   !-----------------------------------------------------------------------
   ! - INPUT  2D .
@@ -331,7 +331,7 @@ INTEGER(KIND=JPIM) :: JLEV,JLON,INEBC,IQLIC,IQLIC_MICRO,JTRA
 REAL(KIND=JPRB) :: ZCCHSL,ZCCHSN,ZEPS
 !REAL(KIND=JPRB) :: ZMAX(KLON)
 
-
+#include "abor1.intfb.h"
 
  ! Temperature for microphysics
  ! Specific moisture for microphysics

@@ -1,3 +1,4 @@
+#include "attr.h"
 SUBROUTINE ACMTENTR ( KIDIA,KFDIA,KLON,KTDIA,KLEV,&
 !-----------------------------------------------------------------------
 ! - INPUT  2D .
@@ -74,6 +75,7 @@ REAL(KIND=JPRB),   INTENT(OUT)   :: PSTACK (KLON, KPSTSZ)
 INTEGER(KIND=JPIM),INTENT(OUT)   :: KSTACK (KLON, KKSTSZ)
 INTEGER(KIND=JPIM),INTENT(IN)    :: KPSTSZ, KKSTSZ, KPSTPT, KKSTPT
 
+#include "abor1.intfb.h"
 
 REAL(KIND=JPRB) :: ZINC,ZMINVALUE_ZINC,ZMAXVALUE_ZINC
 INTEGER(KIND=JPIM) :: JLEV,JLON

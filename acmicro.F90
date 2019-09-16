@@ -1,4 +1,4 @@
-!-----------------------------------------------------------------------
+#include "attr.h"
 SUBROUTINE ACMICRO( KIDIA, KFDIA, KLON, KTDIA, KLEV,&
  !-----------------------------------------------------------------------
  ! - INPUT -
@@ -117,6 +117,7 @@ INTEGER(KIND=JPIM),INTENT(IN)    :: KPSTSZ, KKSTSZ, KPSTPT, KKSTPT
 REAL(KIND=JPRB) :: ZQL,ZQI,ZCAUT,&
  & ZALPH,ZDUM,ZQCR,ZARG1,ZARG2,ZBETA,ZFACICE
 
+#include "abor1.intfb.h"
   
 INTEGER(KIND=JPIM) :: JLON,JLEV
 INTEGER(KIND=JPIM) :: IPSTPT_ZEFFA

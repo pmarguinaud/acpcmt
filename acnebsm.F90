@@ -1,3 +1,4 @@
+#include "attr.h"
 SUBROUTINE ACNEBSM ( KIDIA, KFDIA, KLON, KTDIA, KLEV,&
  !-----------------------------------------------------------------------
  ! - INPUT -
@@ -155,6 +156,7 @@ INTEGER(KIND=JPIM) :: IPSTPT_ZRHCRI1
 
 INTEGER(KIND=JPIM) :: IPSTPT, IKSTPT
 
+#include "abor1.intfb.h"
 
 #include "fcttrm.func.h"
 #include "fctdoi.func.h"

@@ -1,4 +1,4 @@
-!-----------------------------------------------------------------------
+#include "attr.h"
 SUBROUTINE ACPLUIZ( KIDIA, KFDIA, KLON, KTDIA, KLEV,&
  !-----------------------------------------------------------------------
  ! - INPUT -
@@ -199,17 +199,7 @@ INTEGER(KIND=JPIM),INTENT(OUT)   :: KSTACK (KLON, KKSTSZ)
 INTEGER(KIND=JPIM),INTENT(IN)    :: KPSTSZ, KKSTSZ, KPSTPT, KKSTPT
  
 
-
-
-
-
-
-
-
-
-
-
-
+#include "abor1.intfb.h"
 
 REAL(KIND=JPRB) :: ZDPSGDT,ZICE,ZGDT,ZGDTI,ZIGEL,ZEPS1
 INTEGER(KIND=JPIM) :: JLON,JLEV

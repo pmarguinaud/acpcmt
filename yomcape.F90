@@ -1,3 +1,4 @@
+#include "attr_mod.h"
 MODULE YOMCAPE
 
 USE PARKIND1  ,ONLY : JPIM     ,JPRB
@@ -36,11 +37,11 @@ SAVE
 !            Default value is 0.
 !-------------------------------------------------
 
-INTEGER(KIND=JPIM) :: NCAPEITER
-INTEGER(KIND=JPIM) :: NETAPES
+INTEGER(KIND=JPIM) ATTR_MOD :: NCAPEITER
+INTEGER(KIND=JPIM) ATTR_MOD :: NETAPES
 
-REAL(KIND=JPRB) :: GCAPERET
-REAL(KIND=JPRB) :: GCAPEPSD
+REAL(KIND=JPRB) ATTR_MOD :: GCAPERET
+REAL(KIND=JPRB) ATTR_MOD :: GCAPEPSD
 
 !     ------------------------------------------------------------------
 END MODULE YOMCAPE

@@ -1,3 +1,4 @@
+#include "attr.h"
 SUBROUTINE ACMTUD ( KIDIA,KFDIA,KLON,KTDIA,KLEV,KTRA,&
 !-----------------------------------------------------------------------
 ! - INPUT  2D .
@@ -276,29 +277,9 @@ REAL(KIND=JPRB),   INTENT(OUT)   :: PSTACK (KLON, KPSTSZ)
 INTEGER(KIND=JPIM),INTENT(OUT)   :: KSTACK (KLON, KKSTSZ)
 INTEGER(KIND=JPIM),INTENT(IN)    :: KPSTSZ, KKSTSZ, KPSTPT, KKSTPT
 
-
 ! LOCALS.
 
-
-
-
-
-
-
-
-
-
-
 INTEGER(KIND=JPIM) :: JTRA
-
-
-
-
-
-
-
-
-
 INTEGER(KIND=JPIM) :: ISUM, ITOP, JIT, JLEV, JLON
 
 REAL(KIND=JPRB) :: ZARLII,ZBAS, &
@@ -317,9 +298,6 @@ REAL(KIND=JPRB) :: ZARLII,ZBAS, &
 INTEGER(KIND=JPIM) :: ILEV
 REAL(KIND=JPRB) :: ZBETA1RIO,ZA1RIO,ZBRIO,ZCRIO
 
-
-
-
 REAL(KIND=JPRB) :: ZCPH,ZTNSEC,ZTVNL,ZTVEL
 
 REAL(KIND=JPRB) :: ZFLO_OMEGA,ZDELPF,ZENTR_TUR,ZKDL,ZVVERDEN
@@ -331,87 +309,22 @@ REAL(KIND=JPRB) :: ZFMDSN,ZDPLAB
 REAL(KIND=JPRB) :: ZDLON,ZDLONL,ZFORMV
 REAL(KIND=JPRB) :: ZTD
 REAL(KIND=JPRB) :: ZDIVERG,ZBIN,ZTKLEV
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 INTEGER(KIND=JPIM) :: ISDELTAP
 INTEGER(KIND=JPIM) :: IVVER,IDOMDP,IVVN,IVVX,INUA,ICHIS,IENTR
 INTEGER(KIND=JPIM) :: IE0,ICIN
-
-
-
-
-
 REAL(KIND=JPRB) :: ZEPS3
 REAL(KIND=JPRB) :: ZE,ZR,ZTCOND
-
-
-
-
-
-
 REAL(KIND=JPRB) :: ZCCHSL,ZCCHSN
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 REAL(KIND=JPRB) :: ZEPS1,ZEPS4
-
-
 
  ! Reduce Entrainment factor, total.
  ! Reduce Entrainment factor, due to saturation deficit.
 
-
-
 REAL(KIND=JPRB) :: ZRT,ZIWGREAT
 REAL(KIND=JPRB) :: ZBINTKE,ZBINDEPTH,ZHEIGHT
 
-
  ! geopotential at full levels within updraft, under the equipressure hypothesis.
  ! geopotential at full levels within updraft.
-
-
-
-
-
-
-
-
 
 REAL(KIND=JPRB) :: ZA,ZA2
 REAL(KIND=JPRB) :: ZC
@@ -423,6 +336,7 @@ REAL(KIND=JPRB) :: ZRESOL
 REAL(KIND=JPRB) :: ZNEBCX
 ! Dummy setup for CALL FPCINCAPE
 
+#include "abor1.intfb.h"
 
 
 LOGICAL :: LLTEXC,LLNHACC,LLCOND1,LLCAPECIN

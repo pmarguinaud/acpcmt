@@ -1,3 +1,4 @@
+#include "attr.h"
 SUBROUTINE ABOR1 (CDMESS)
 
 CHARACTER (LEN=*) :: CDMESS

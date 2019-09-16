@@ -1,3 +1,4 @@
+#include "attr.h"
 SUBROUTINE ACADVEC (KIDIA, KFDIA, KLON, KTDIA, KLEV, PDELP, PAPHI, PVAR, PVARW, PFVAR, &
                   & KSTACK, PSTACK, KPSTSZ, KKSTSZ, KPSTPT, KKSTPT)
 
@@ -67,7 +68,7 @@ INTEGER(KIND=JPIM),INTENT(IN)    :: KPSTSZ, KKSTSZ, KPSTPT, KKSTPT
 
 REAL(KIND=JPRB) :: ZP1, ZEPS
 
-       
+#include "abor1.intfb.h"
 
 
 

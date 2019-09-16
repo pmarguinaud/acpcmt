@@ -1,3 +1,4 @@
+#include "attr_mod.h"
 MODULE YOMTOPH
 
 USE PARKIND1  ,ONLY : JPIM     ,JPRB
@@ -45,10 +46,6 @@ TYPE TTOPH
 
 !       TPSCLIM   : Temperature threshold for activation of heterogeneous
 !                   chemistry (polar stratospheric clouds temperature formation)
-
-REAL(KIND=JPRB),ALLOCATABLE:: RMESOU(:)
-REAL(KIND=JPRB),ALLOCATABLE:: RMESOT(:)
-REAL(KIND=JPRB),ALLOCATABLE:: RMESOQ(:)
 
 REAL(KIND=JPRB) :: RFMESOQ
 
@@ -98,7 +95,7 @@ REAL(KIND=JPRB) :: TPSCLIM
 
 END TYPE TTOPH
 
-TYPE(TTOPH) :: YRTOPH 
+TYPE(TTOPH) ATTR_MOD :: YRTOPH 
 
 
 !     ------------------------------------------------------------------

@@ -1,3 +1,4 @@
+#include "attr_mod.h"
 MODULE YOMCT3
 
 USE PARKIND1  ,ONLY : JPIM
@@ -11,7 +12,7 @@ SAVE
 !*    Control variables for the model  (changed at level 3)
 
 ! NSTEP       : current timestep of model
-INTEGER(KIND=JPIM) :: NSTEP
+INTEGER(KIND=JPIM) ATTR_MOD :: NSTEP
 
 !     ------------------------------------------------------------------
 END MODULE YOMCT3

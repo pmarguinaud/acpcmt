@@ -1,3 +1,4 @@
+#include "attr_mod.h"
 MODULE YOMRIP
 
 USE PARKIND1  ,ONLY : JPIM     ,JPRB
@@ -18,7 +19,7 @@ END TYPE TRIP
 
 !     --------------------------------------------------------------------------------
 
-TYPE(TRIP) :: YRRIP 
+TYPE(TRIP) ATTR_MOD :: YRRIP 
 
 !     --------------------------------------------------------------------------------
 
