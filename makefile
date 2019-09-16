@@ -8,7 +8,9 @@ OPT_FRTFLAGS = -fp-model source -g -O2 -ip -check bounds -debug full
 #FC = /home/gmap/mrpm/marguina/install/gmkpack_support/wrapper/I161150/ifort $(FRTFLAGS) $(OPT_FRTFLAGS)
 #FC = /home/gmap/mrpm/marguina/install/gmkpack_support/wrapper/I161150/ifort $(FRTFLAGS) -g -O0
 
-FC = pgf90 -DCPU  -mp -byteswapio -Mlarge_arrays
+#FC = pgf90 -DCPU  -mp -byteswapio -Mlarge_arrays
+
+FC = pgf90 -DGPU  -mp -byteswapio -Mlarge_arrays -Mcuda -Mcuda=lineinfo
 
 
 all: wrap_acpcmt.x

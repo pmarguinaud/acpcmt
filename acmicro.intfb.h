@@ -1,4 +1,5 @@
 INTERFACE
+#include "attr.h"
 SUBROUTINE ACMICRO( KIDIA, KFDIA, KLON, KTDIA, KLEV,&
  !-----------------------------------------------------------------------
  ! - INPUT -

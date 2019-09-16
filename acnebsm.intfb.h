@@ -1,4 +1,5 @@
 INTERFACE
+#include "attr.h"
 SUBROUTINE ACNEBSM ( KIDIA, KFDIA, KLON, KTDIA, KLEV,&
  !-----------------------------------------------------------------------
  ! - INPUT -

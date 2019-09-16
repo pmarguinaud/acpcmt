@@ -1,4 +1,5 @@
 INTERFACE
+#include "attr.h"
 SUBROUTINE ACPLUIZ( KIDIA, KFDIA, KLON, KTDIA, KLEV,&
  !-----------------------------------------------------------------------
  ! - INPUT -

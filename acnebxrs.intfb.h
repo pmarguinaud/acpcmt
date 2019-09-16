@@ -1,4 +1,5 @@
 INTERFACE
+#include "attr.h"
 SUBROUTINE ACNEBXRS ( KIDIA,KFDIA,KLON,KTDIA,KLEV,&
  !-----------------------------------------------------------------------
  ! - INPUT  2D .

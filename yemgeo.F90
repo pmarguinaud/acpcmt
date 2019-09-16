@@ -1,3 +1,4 @@
+#include "attr_mod.h"
 MODULE YEMGEO
 
 USE PARKIND1  ,ONLY : JPRB
@@ -78,6 +79,6 @@ REAL(KIND=JPRB) :: EDELY
 
 END TYPE TEGEO
 
-TYPE(TEGEO) :: YREGEO 
+TYPE(TEGEO) ATTR_MOD :: YREGEO 
 !     ------------------------------------------------------------------
 END MODULE YEMGEO

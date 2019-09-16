@@ -1,4 +1,5 @@
 INTERFACE
+#include "attr.h"
 SUBROUTINE ACMTDDD( KIDIA,KFDIA,KLON,KTDIA,KLEV,KTRA,&
 ! -----------------------------------------------------------------------
 ! - INPUT  2D .
