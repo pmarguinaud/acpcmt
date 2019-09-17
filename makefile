@@ -70,9 +70,6 @@ yomcape.o: $(TOP)/yomcape.F90 parkind1.o
 yomphy2.o: $(TOP)/yomphy2.F90 parkind1.o
 	$(FC) -c $(TOP)/yomphy2.F90
 
-fpcincape.o: $(TOP)/fpcincape.F90 $(MODULES)
-	$(FC) -c $(TOP)/fpcincape.F90
-
 acnebsm.o: $(TOP)/acnebsm.F90 $(MODULES)
 	$(FC) -c $(TOP)/acnebsm.F90
 
@@ -115,9 +112,6 @@ parkind1.o: $(TOP)/parkind1.F90
 yomphy0.o: $(TOP)/yomphy0.F90 parkind1.o
 	$(FC) -c $(TOP)/yomphy0.F90
 
-acmtddd.o: $(TOP)/acmtddd.F90 $(MODULES)
-	$(FC) -c $(TOP)/acmtddd.F90
-
 yomgem.o: $(TOP)/yomgem.F90 parkind1.o
 	$(FC) -c $(TOP)/yomgem.F90
 
@@ -127,8 +121,8 @@ abor1.o: $(TOP)/abor1.F90
 run_acpcmt.o: $(TOP)/run_acpcmt.F90
 	$(FC) -c $(TOP)/run_acpcmt.F90
 
-wrap_acpcmt.x: yomrip.o yomphy.o acmtud.o acadvec.o acpcmt_load_all.o acnebxrs.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o fpcincape.o acnebsm.o yomdim.o acpluiz.o acmtentr.o acmicro.o yomtoph.o yomct0.o yomscm.o advprcs.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o acmtddd.o yomgem.o fcgeneralized_gamma.o load_mod.o abor1.o xrd_unix_env.o xrd_getoptions.o run_acpcmt.o
-	$(FC) -o wrap_acpcmt.x yomrip.o yomphy.o acmtud.o acadvec.o acpcmt_load_all.o acnebxrs.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o fpcincape.o acnebsm.o yomdim.o acpluiz.o acmtentr.o acmicro.o yomtoph.o yomct0.o yomscm.o advprcs.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o acmtddd.o yomgem.o fcgeneralized_gamma.o load_mod.o abor1.o xrd_unix_env.o xrd_getoptions.o run_acpcmt.o
+wrap_acpcmt.x: yomrip.o yomphy.o acmtud.o acadvec.o acpcmt_load_all.o acnebxrs.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o acnebsm.o yomdim.o acpluiz.o acmtentr.o acmicro.o yomtoph.o yomct0.o yomscm.o advprcs.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o yomgem.o fcgeneralized_gamma.o load_mod.o abor1.o xrd_unix_env.o xrd_getoptions.o run_acpcmt.o
+	$(FC) -o wrap_acpcmt.x yomrip.o yomphy.o acmtud.o acadvec.o acpcmt_load_all.o acnebxrs.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o acnebsm.o yomdim.o acpluiz.o acmtentr.o acmicro.o yomtoph.o yomct0.o yomscm.o advprcs.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o yomgem.o fcgeneralized_gamma.o load_mod.o abor1.o xrd_unix_env.o xrd_getoptions.o run_acpcmt.o
 
 clean:
 	\rm -f *.o *.x *.mod *.xml *.optrpt
