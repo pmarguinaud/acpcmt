@@ -135,7 +135,7 @@ INTEGER(KIND=JPIM),INTENT(IN)    :: NGPBLKS
 
 #include "acpcmt.intfb.h"
 
-INTEGER (KIND=JPIM) :: IBL, JIDIA, JFDIA
+INTEGER (KIND=JPIM) :: IBL, JIDIA, JFDIA, JJ
 
 
 #ifdef GPU
@@ -143,50 +143,48 @@ INTEGER (KIND=JPIM) :: IBL, JIDIA, JFDIA
   JIDIA  = THREADIDX%X
   JFDIA  = THREADIDX%X
 
-
 #else
 
-!$OMP PARALLEL DO PRIVATE (IBL, JIDIA, JFDIA)
+!$OMP PARALLEL DO PRIVATE (IBL, JIDIA, JFDIA, JJ)
 
 DO IBL = 1, NGPBLKS
 
-  JIDIA = 1
-  JFDIA = KLON
+  DO JJ = 1, KLON
+  
+  JIDIA = JJ
+  JFDIA = JJ
 
 #endif
-
-  PRINT *, IBL, JIDIA, JFDIA
 
   CALL ACPCMT (JIDIA, JFDIA,KLON,KTDIA,KLEV,KTRA,&
     & PALPH (:,:,IBL),PAPHI (:,:,IBL),PAPHIF (:,:,IBL),PAPRS (:,:,IBL),&
     & PAPRSF (:,:,IBL),PCP (:,:,IBL),PLH (:,:,IBL),PR (:,:,IBL),&
-    & PDELP (:,:,IBL),PLNPR (:,:,IBL),&
-    & PQ (:,:,IBL),PQI (:,:,IBL),PQL (:,:,IBL),PRR (:,:,IBL),&
+    & PDELP (:,:,IBL),PLNPR (:,:,IBL),PQ (:,:,IBL),PQI (:,:,IBL),PQL (:,:,IBL),PRR (:,:,IBL),&
     & PS (:,:,IBL),PQLIS (:,:,IBL),PQSAT (:,:,IBL),PQW (:,:,IBL),&
     & PRDELP (:,:,IBL),PCVGQ (:,:,IBL),PT (:,:,IBL),PTW (:,:,IBL),&
     & PU (:,:,IBL),PV (:,:,IBL),PTKE (:,:,IBL),PTRA (:,:,:,IBL),&
     & PQLCONV (:,:,IBL), PQICONV (:,:,IBL) , PQRCONV (:,:,IBL), PQSCONV (:,:,IBL), &
     & PGM (:,IBL), PTS (:,IBL), PQS (:,IBL), PNEIJ (:,IBL), &
-    & PLSM (:,IBL), PVETAF (:,IBL), &
-    & PDIFCQ (:,:,IBL),PDIFCQL (:,:,IBL),PDIFCQI (:,:,IBL),PDIFCQLC (:,:,IBL),&
+    & PLSM (:,IBL), PVETAF (:,IBL),PDIFCQ (:,:,IBL),PDIFCQL (:,:,IBL),PDIFCQI (:,:,IBL),PDIFCQLC (:,:,IBL),&
     & PDIFCQIC (:,:,IBL),PDIFCS (:,:,IBL),PDIFCTH (:,:,IBL),&
     & PFCCQL (:,:,IBL),PFCCQN (:,:,IBL),PSTRCU (:,:,IBL),PSTRCV (:,:,IBL),&
-    & PSTRCTRA (:,:,:,IBL),&
-    & PFIMCC (:,:,IBL),PFPEVPCL (:,:,IBL),PFPEVPCN (:,:,IBL),&
-    & PFPLCL (:,:,IBL),PFPLCN (:,:,IBL),PMF_UP (:,:,IBL),&
-    & PFPFPCL (:,:,IBL),PFPFPCN (:,:,IBL),&
+    & PSTRCTRA (:,:,:,IBL),PFIMCC (:,:,IBL),PFPEVPCL (:,:,IBL),PFPEVPCN (:,:,IBL),&
+    & PFPLCL (:,:,IBL),PFPLCN (:,:,IBL),PMF_UP (:,:,IBL),PFPFPCL (:,:,IBL),PFPFPCN (:,:,IBL),&
     & PFEDQLC (:,:,IBL), PFEDQIC (:,:,IBL), PFEDQRC (:,:,IBL), PFEDQSC (:,:,IBL),&
     & PFCNEGQLC (:,:,IBL),PFCNEGQIC (:,:,IBL),PFCNEGQRC (:,:,IBL),PFCNEGQSC (:,:,IBL), &
-    & KNLAB (:,:,IBL),&
-    & PNEBC (:,:,IBL),PQLIC (:,:,IBL),PTU (:,:,IBL),PQU (:,:,IBL),&
-    & PQC_DET_PCMT (:,:,IBL),PCSGC (:,:,IBL), &
-    & KNND (:,IBL), PCAPE (:,IBL),PAIPCMT (:,IBL),&
+    & KNLAB (:,:,IBL),PNEBC (:,:,IBL),PQLIC (:,:,IBL),PTU (:,:,IBL),PQU (:,:,IBL),&
+    & PQC_DET_PCMT (:,:,IBL),PCSGC (:,:,IBL),KNND (:,IBL), PCAPE (:,IBL),PAIPCMT (:,IBL),&
     & PALF_CAPE (:,IBL),PALF_CVGQ (:,IBL),&
     & PUDAL (:,:,IBL),PUDOM (:,:,IBL),PDDAL (:,:,IBL),PDDOM (:,:,IBL),&
     & KSTACK (:,:,IBL), PSTACK (:,:,IBL), KPSTSZ, KKSTSZ, KPSTPT, KKSTPT)
 
+
 #ifdef GPU
+
 #else
+
+  ENDDO
+
 ENDDO
 !$OMP END PARALLEL DO
 #endif
