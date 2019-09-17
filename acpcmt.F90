@@ -410,11 +410,7 @@ INTEGER(KIND=JPIM) :: IPSTPT_ZEROV
 INTEGER(KIND=JPIM) :: IPSTPT, IKSTPT
 
 
-#include "acadvec.intfb.h"
-#include "acmtentr.intfb.h"
 #include "acmtud.intfb.h"
-#include "acpluiz.intfb.h"
-#include "acnebxrs.intfb.h"
 #include "fcttrm.func.h"
 #include "fctdoi.func.h"
 
