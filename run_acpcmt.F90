@@ -149,10 +149,8 @@ INTEGER (KIND=JPIM) :: IBL, JIDIA, JFDIA, JJ
 
 DO IBL = 1, NGPBLKS
 
-  DO JJ = 1, KLON
-  
-  JIDIA = JJ
-  JFDIA = JJ
+  JIDIA = 1
+  JFDIA = KLON
 
 #endif
 
@@ -182,8 +180,6 @@ DO IBL = 1, NGPBLKS
 #ifdef GPU
 
 #else
-
-  ENDDO
 
 ENDDO
 !$OMP END PARALLEL DO
