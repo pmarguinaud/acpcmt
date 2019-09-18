@@ -91,14 +91,11 @@ yomphy0.o: $(TOP)/yomphy0.F90 parkind1.o
 yomgem.o: $(TOP)/yomgem.F90 parkind1.o
 	$(FC) -c $(TOP)/yomgem.F90
 
-abor1.o: $(TOP)/abor1.F90
-	$(FC) -c $(TOP)/abor1.F90
-
 run_acpcmt.o: $(TOP)/run_acpcmt.F90
 	$(FC) -c $(TOP)/run_acpcmt.F90
 
-wrap_acpcmt.x: yomrip.o yomphy.o acmtud.o acpcmt_load_all.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o yomdim.o yomtoph.o yomct0.o yomscm.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o yomgem.o load_mod.o abor1.o xrd_unix_env.o xrd_getoptions.o run_acpcmt.o
-	$(FC) -o wrap_acpcmt.x yomrip.o yomphy.o acmtud.o acpcmt_load_all.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o yomdim.o yomtoph.o yomct0.o yomscm.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o yomgem.o load_mod.o abor1.o xrd_unix_env.o xrd_getoptions.o run_acpcmt.o
+wrap_acpcmt.x: yomrip.o yomphy.o acmtud.o acpcmt_load_all.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o yomdim.o yomtoph.o yomct0.o yomscm.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o yomgem.o load_mod.o xrd_unix_env.o xrd_getoptions.o run_acpcmt.o
+	$(FC) -o wrap_acpcmt.x yomrip.o yomphy.o acmtud.o acpcmt_load_all.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o yomdim.o yomtoph.o yomct0.o yomscm.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o yomgem.o load_mod.o xrd_unix_env.o xrd_getoptions.o run_acpcmt.o
 
 clean:
 	\rm -f *.o *.x *.mod *.xml *.optrpt

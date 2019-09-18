@@ -23,7 +23,7 @@ cd ..
 cd gpu
 make ARCH=GPU -f ../makefile
 
-for i in $(seq 10)
+for i in $(seq 20)
 do
 ./wrap_acpcmt.x   --case ../t0031 --print --diff --diff-block-list 1 > out.txt 2>&1
 set +e
