@@ -134,11 +134,13 @@ INTEGER(KIND=JPIM),INTENT(IN)    :: KPSTSZ, KKSTSZ, KPSTPT, KKSTPT
 INTEGER(KIND=JPIM),INTENT(IN)    :: NGPBLKS
 
 #include "acpcmt.intfb.h"
+#include "acmtud.intfb.h"
 
 INTEGER (KIND=JPIM) :: IBL, JIDIA, JFDIA, JJ
 
 
 #ifdef GPU
+
   IBL    = BLOCKIDX%X
   JIDIA  = THREADIDX%X
   JFDIA  = THREADIDX%X
@@ -153,6 +155,8 @@ DO IBL = 1, NGPBLKS
   JFDIA = KLON
 
 #endif
+
+#ifdef UNDEF
 
   CALL ACPCMT (JIDIA, JFDIA,KLON,KTDIA,KLEV,KTRA,&
     & PALPH (:,:,IBL),PAPHI (:,:,IBL),PAPHIF (:,:,IBL),PAPRS (:,:,IBL),&
@@ -175,6 +179,13 @@ DO IBL = 1, NGPBLKS
     & PALF_CAPE (:,IBL),PALF_CVGQ (:,IBL),&
     & PUDAL (:,:,IBL),PUDOM (:,:,IBL),PDDAL (:,:,IBL),PDDOM (:,:,IBL),&
     & KSTACK (:,:,IBL), PSTACK (:,:,IBL), KPSTSZ, KKSTSZ, KPSTPT, KKSTPT)
+#else
+
+CALL ACMTUD ( JIDIA,JFDIA,KLON,KTDIA,KLEV,KTRA, &
+& PAPRSF (:,:,IBL), PR (:,:,IBL), PT (:,:,IBL), PQLIC (:,:,IBL), PUDOM (:,:,IBL), PSTACK (:,:,IBL), KPSTSZ, KPSTPT)
+
+
+#endif
 
 
 #ifdef GPU
