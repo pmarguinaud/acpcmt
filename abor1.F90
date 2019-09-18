@@ -1,7 +1,0 @@
-#include "attr.h"
-SUBROUTINE ABOR1 
-
-!PRINT *, CDMESS
-!STOP 1
-
-END SUBROUTINE
