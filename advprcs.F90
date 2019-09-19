@@ -104,6 +104,7 @@ USE YOMPHY2   , ONLY : YRPHY2
 USE YOMCST    , ONLY : RG   , RV   , RTT  , RPI  ,&
  & RCS  , RCW  , RCPV , RLVTT, RLSTT, RETV , RALPW, RALPS,&
  & RALPD, RBETW, RBETS, RBETD, RGAMW, RGAMS, RGAMD
+USE YOMADVPRCS
 
 
 IMPLICIT NONE
@@ -140,26 +141,19 @@ INTEGER(KIND=JPIM),INTENT(OUT)   :: KSTACK (KLON, KKSTSZ)
 INTEGER(KIND=JPIM),INTENT(IN)    :: KPSTSZ, KKSTSZ, KPSTPT, KKSTPT
 
 
-REAL(KIND=JPRB) :: ZEPS,ZFVELR,ZFVELS,ZTMELT,ZRHOW,ZNRHOW      &
- & , ZDVISC,ZSQTVIS,ZCDARV,ZRHOREF,ZEXP1,ZEXP4,ZEXP6           &
- & , ZPREF,ZCLEAR,ZKDIFF,ZFACT3,ZFACT4                    &
- & , ZSSATW,ZCONDT,ZDIFFV,ZCEV,ZCSU                   &
- & , ZSSATI,ZQR,ZQS                                &
- & , ZACCR,ZAGGR,ZRIMI                             &
- & , ZCOEFF1,ZCOEFF2,ZCOEFF2B,ZCOEFF3,ZCOEFF4,ZCOEFF5,ZCOEFF6  &
- & , ZNU1,ZNU2,ZTAU1,ZTAU2,ZSIGMA1,ZSIGMA2                     &
- & , ZFVENTR1,ZFVENTR2,ZFVENTS1,ZFVENTS2                       &
+REAL(KIND=JPRB) :: &
+ &   ZCLEAR,ZKDIFF,ZFACT3,ZFACT4                         &
+ & , ZSSATW,ZCONDT,ZDIFFV,ZCEV,ZCSU                            &
+ & , ZSSATI,ZQR,ZQS                                            &
+ & , ZACCR,ZAGGR,ZRIMI                                         &
  & , ZLHFUS,ZSUBSA,ZEVAPPL,ZEVAPPN,ZINT1,ZQMLTX,ZQFRZX,ZQFRZ   &
  & , ZTQEVAPPL,ZTQEVAPPN,ZTCOLLL,ZTCOLLN,ZQFPFPL,ZQFPFPN,ZQMLT &
- & , ZQPRTOT1,ZQPSTOT1,ZQPSTOT2,ZQPRTOT2       &
+ & , ZQPRTOT1,ZQPSTOT1,ZQPSTOT2,ZQPRTOT2                       &
  & , ZALPHA,ZDZS, ZP1, ZP2, ZP3, ZDZL, ZDZI, ZP1L, ZP2L, ZP1I, ZP2I
 
 
-#include "fcgeneralized_gamma.intfb.h"
 #include "abor1.intfb.h"
 
-LOGICAL :: LLMELTS,LLFREEZ
-LOGICAL :: LLEVAPX
 INTEGER(KIND=JPIM) :: JLEV, JLON
 INTEGER(KIND=JPIM) :: IPSTPT_ZAUTOI
 
@@ -366,72 +360,6 @@ ZDZI   = YRPHY0%TFVI*YRPHY2%TSPHY
 !- - - - - - - - - - - - - - -
 IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 !- - - - - - - - - - - - - - -
-
-  LLMELTS = .TRUE.
-  LLFREEZ = .TRUE.
-  LLEVAPX = ( YRPHY0%REVASX /= 0.0_JPRB )
-
-      ! ----------
-      ! Constants      
-      ! ----------
-
-  ZEPS = 1.E-20_JPRB
-
-      ! ----------------------------------------------------------
-      ! COEFFICIENTS IN DISTRIBUTIONS OF PARTICLE SPEED AND MASS  
-      ! ----------------------------------------------------------
-
-  ZNU1 = 377.8_JPRB
-  ZNU2 = 2.0_JPRB/3._JPRB
-  ZTAU1 = 21._JPRB
-  ZTAU2 = 0.5_JPRB
-  ZSIGMA1 = 0.069_JPRB
-  ZSIGMA2 = 2.0_JPRB
-
-      ! ------------------------------------------------------
-      ! COEFFICIENTS IN VENTILATION FACTOR FOR RAIN AND SNOW
-      ! ------------------------------------------------------
-
-  ZFVENTR1 = 0.78_JPRB
-  ZFVENTR2 = 0.31_JPRB
-  ZFVENTS1 = 0.65_JPRB
-  ZFVENTS2 = 0.44_JPRB
-
-      ! ------------
-      ! FALL SPEEDS
-      ! ------------
-
-      
-  ZFVELR = YRPHY0%TFVR
-  ZFVELS = YRPHY0%TFVS
-  
-  ZTMELT = RTT 
-  ZRHOW = 1000._JPRB
-  ZNRHOW = YRPHY0%RNINTR * ZRHOW
-  ZDVISC = 1.669E-05_JPRB
-  ZSQTVIS = SQRT(ZDVISC)
-  ZCDARV = 2.31E-02_JPRB * RV
-  ZRHOREF = 1.2_JPRB
-  ZEXP1 = 1.0_JPRB/3._JPRB
-  ZEXP4 = 2.0_JPRB*ZEXP1
-  ZEXP6 = 17._JPRB/24._JPRB
-  ZPREF = 1.E+05_JPRB
-  ZCOEFF1 = 12.695_JPRB * ZNU1 * FCGENERALIZED_GAMMA(3._JPRB+ZNU2) * YRPHY0%RACCEF &
-   & / (4._JPRB * ZRHOW)  
-!LOP  ZCOEFF2 = 0.0485_JPRB * ZTAU1 * FCGENERALIZED_GAMMA(3._JPRB+ZTAU2) * RRIMEF &
-!LOP   & * RPI / (4._JPRB * (2.0_JPRB**(1.0_JPRB+ZTAU2/3._JPRB)) * ZSIGMA1) 
-  ZCOEFF2 = 0.0485_JPRB * ZTAU1 * FCGENERALIZED_GAMMA(3._JPRB+ZTAU2) * YRPHY0%RRIMEF &
-   & * RPI /  4._JPRB &
-   & / (FCGENERALIZED_GAMMA(ZSIGMA2+1.0_JPRB)**((3._JPRB+ZTAU2)/(1.0_JPRB+ZSIGMA2))) &
-   & / ZSIGMA1   
-  ZCOEFF2B = ZCOEFF2 * YRPHY0%RAGGEF / YRPHY0%RRIMEF
-  ZCOEFF3 = 2.0_JPRB * ZFVENTR1 * SQRT(RPI)
-  ZCOEFF4 = 2.0_JPRB * RPI**((3._JPRB-ZNU2)/8._JPRB) * ZFVENTR2 * SQRT(ZNU1) &
-   & * (ZRHOREF**0.2_JPRB) * FCGENERALIZED_GAMMA((ZNU2+5._JPRB)/2.0_JPRB)   
-  ZCOEFF5 = 4._JPRB * ZFVENTS1 / (2.0_JPRB * ZSIGMA1)**ZEXP4 
-  ZCOEFF6 = 5.784_JPRB * 4._JPRB * ZFVENTS2 * SQRT(ZTAU1) &
-   & * (ZRHOREF**0.2_JPRB) * FCGENERALIZED_GAMMA((ZTAU2+5._JPRB)/2.0_JPRB) &
-   & / (2.0_JPRB * ZSIGMA1)**((ZTAU2+5._JPRB)/6._JPRB)   
 
       ! ---------------
       ! Initializations

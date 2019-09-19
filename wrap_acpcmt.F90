@@ -156,6 +156,7 @@ CHARACTER (LEN=32) :: CLCASE
 INTEGER, POINTER :: IDIFFBLOCK (:) => NULL ()
 
 #include "run_acpcmt.intfb.h"
+#include "initadvprcs.intfb.h"
 
 CALL INITOPTIONS ()
 CALL GETOPTION ("--case", CLCASE, MND = .TRUE.)
@@ -293,6 +294,13 @@ ALLOCATE (PSTACK_ALL (KLON, KPSTSZ, ICOUNT))
 
 KSTACK_ALL = 1234_JPIM
 PSTACK_ALL = 1234._JPRB
+
+#ifdef GPU
+CALL INITADVPRCS <<<1,1>>>
+#else
+CALL INITADVPRCS
+#endif
+
 
 PRINT *, "-- RUN"
 
