@@ -13,17 +13,23 @@ OPT_FRTFLAGS = -fp-model source -g -O2 -ip -check bounds -debug full
 TOP=..
 
 ifeq ($(ARCH), CPU) 
-FC = pgf90 -DCPU  -mp -byteswapio -Mlarge_arrays -I$(TOP) -g
+#FC = pgf90 -DCPU  -mp -byteswapio -Mlarge_arrays -I$(TOP) -g
+FC = /home/vili//dwarf/I20193199OMPI313MKL/f90 -DCPU -DMPI -convert big_endian -assume byterecl -qopenmp -fp-model source -g -O2 -ip -march=core-avx2 -ftz -I$(TOP) -g
+CC = /home/vili//dwarf/I20193199OMPI313MKL/cc -DCPU -DMPI -qopenmp -g -O2
 endif
 
 ifeq ($(ARCH), GPU)
 FC = pgf90 -DGPU  -mp -byteswapio -Mlarge_arrays -Mcuda -Mcuda=lineinfo -I$(TOP)
+CC = pgcc
 endif
 
 
 all: wrap_acpcmt.x
 
 MODULES=parkind1.o yemgeo.o yomcst.o yomct0.o yomct3.o yomdim.o yomgem.o yomphy.o yomphy0.o yomphy2.o yomrip.o yomscm.o load_mod.o yomcape.o yomfpc.o yomphy1.o yomtoph.o xrd_getoptions.o xrd_unix_env.o yomadvprcs.o
+
+linux_bind.o: $(TOP)/linux_bind.c
+	$(CC) -c -g $(TOP)/linux_bind.c
 
 xrd_getoptions.o: $(TOP)/xrd_getoptions.F90 xrd_unix_env.o parkind1.o
 	$(FC) -c $(TOP)/xrd_getoptions.F90
@@ -136,8 +142,8 @@ initadvprcs.o: $(TOP)/initadvprcs.F90
 run_acpcmt.o: $(TOP)/run_acpcmt.F90
 	$(FC) -c $(TOP)/run_acpcmt.F90
 
-wrap_acpcmt.x: yomrip.o yomphy.o acmtud.o acadvec.o acpcmt_load_all.o acnebxrs.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o fpcincape.o acnebsm.o yomdim.o acpluiz.o acmtentr.o acmicro.o yomtoph.o yomct0.o yomscm.o advprcs.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o acmtddd.o yomgem.o fcgeneralized_gamma.o load_mod.o abor1.o xrd_unix_env.o xrd_getoptions.o run_acpcmt.o yomadvprcs.o initadvprcs.o
-	$(FC) -o wrap_acpcmt.x yomrip.o yomphy.o acmtud.o acadvec.o acpcmt_load_all.o acnebxrs.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o fpcincape.o acnebsm.o yomdim.o acpluiz.o acmtentr.o acmicro.o yomtoph.o yomct0.o yomscm.o advprcs.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o acmtddd.o yomgem.o fcgeneralized_gamma.o load_mod.o abor1.o xrd_unix_env.o xrd_getoptions.o run_acpcmt.o yomadvprcs.o initadvprcs.o
+wrap_acpcmt.x: yomrip.o yomphy.o acmtud.o acadvec.o acpcmt_load_all.o acnebxrs.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o fpcincape.o acnebsm.o yomdim.o acpluiz.o acmtentr.o acmicro.o yomtoph.o yomct0.o yomscm.o advprcs.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o acmtddd.o yomgem.o fcgeneralized_gamma.o load_mod.o abor1.o xrd_unix_env.o xrd_getoptions.o run_acpcmt.o yomadvprcs.o initadvprcs.o linux_bind.o
+	$(FC) -o wrap_acpcmt.x yomrip.o yomphy.o acmtud.o acadvec.o acpcmt_load_all.o acnebxrs.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o fpcincape.o acnebsm.o yomdim.o acpluiz.o acmtentr.o acmicro.o yomtoph.o yomct0.o yomscm.o advprcs.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o acmtddd.o yomgem.o fcgeneralized_gamma.o load_mod.o abor1.o xrd_unix_env.o xrd_getoptions.o run_acpcmt.o yomadvprcs.o initadvprcs.o linux_bind.o
 
 clean:
 	\rm -f *.o *.x *.mod *.xml *.optrpt
