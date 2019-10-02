@@ -1,5 +1,5 @@
 FUNCTION FCGENERALIZED_GAMMA(PX)  
-
+!$acc routine seq 
 !****  *FCGENERALIZED_GAMMA * -  Gamma  function
 
 

@@ -22,4 +22,5 @@ TYPE(TRIP) :: YRRIP
 
 !     --------------------------------------------------------------------------------
 
+!$acc declare create(YRRIP)
 END MODULE YOMRIP

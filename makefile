@@ -7,6 +7,7 @@ OPT_FRTFLAGS = -fp-model source -g -O0 -ip -check bounds -debug full
 
 FC = /home/gmap/mrpm/marguina/install/gmkpack_support/wrapper/I161150/ifort $(FRTFLAGS) $(OPT_FRTFLAGS)
 #FC = /home/gmap/mrpm/marguina/install/gmkpack_support/wrapper/I161150/ifort $(FRTFLAGS) -g -O0
+FC = pgf90 -DACC -acc -mp -byteswapio -Mlarge_arrays -ta=tesla:managed -Minfo=all 
 
 
 all: wrap_acpcmt.x

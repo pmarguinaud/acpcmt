@@ -43,4 +43,5 @@ REAL(KIND=JPRB) :: GCAPERET
 REAL(KIND=JPRB) :: GCAPEPSD
 
 !     ------------------------------------------------------------------
+!$acc declare create(NCAPEITER,NETAPES,GCAPERET,GCAPEPSD)
 END MODULE YOMCAPE

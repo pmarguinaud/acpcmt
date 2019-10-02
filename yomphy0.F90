@@ -1015,5 +1015,7 @@ END TYPE TPHY0
 
 TYPE(TPHY0) :: YRPHY0 
 
+!$acc declare create(YRPHY0)
+
 END MODULE YOMPHY0
 

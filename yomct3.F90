@@ -14,4 +14,5 @@ SAVE
 INTEGER(KIND=JPIM) :: NSTEP
 
 !     ------------------------------------------------------------------
+!$acc declare create(NSTEP)
 END MODULE YOMCT3

@@ -8,4 +8,5 @@ SAVE
 
 LOGICAL :: LELAM
 
+!$acc declare create(LELAM)
 END

@@ -1,4 +1,3 @@
-
 USE PARKIND1, ONLY : JPIM, JPRB
 USE XRD_GETOPTIONS
 
@@ -135,6 +134,7 @@ CHARACTER (LEN=32) :: CLCASE
 INTEGER, POINTER :: IDIFFBLOCK (:) => NULL ()
 
 #include "acpcmt.intfb.h"
+#include "simple4.h"
 
 CALL INITOPTIONS ()
 CALL GETOPTION ("--case", CLCASE, MND = .TRUE.)
@@ -262,21 +262,16 @@ KLON = KLON1; ICOUNT = ICOUNT1
 KFDIA = KLON
 
 PRINT *, "-- RUN"
-
+#ifdef ACC
+!$acc parallel loop gang vector private(IBL) private(JJ) collapse(2)
+#else
 !$OMP PARALLEL DO PRIVATE (IBL,JJ,JIDIA,JFDIA)
+#endif
 DO IBL = 1, ICOUNT
+ DO JJ = KIDIA, KFDIA
 
-  PRINT *, IBL
 
-  JIDIA = KIDIA
-  JFDIA = KFDIA
-
-! DO JJ = KIDIA, KFDIA
-
-! JIDIA = JJ
-! JFDIA = JJ
-
-  CALL ACPCMT ( KIDIA,KFDIA,KLON,KTDIA,KLEV,KTRA,&
+  CALL ACPCMT ( JJ,JJ,KLON,KTDIA,KLEV,KTRA,&
     & PALPH_ALL (:,:,IBL),PAPHI_ALL (:,:,IBL),PAPHIF_ALL (:,:,IBL),PAPRS_ALL (:,:,IBL),&
     & PAPRSF_ALL (:,:,IBL),PCP_ALL (:,:,IBL),PLH_ALL (:,:,IBL),PR_ALL (:,:,IBL),&
     & PDELP_ALL (:,:,IBL),PLNPR_ALL (:,:,IBL),&
@@ -303,11 +298,15 @@ DO IBL = 1, ICOUNT
     & PALF_CAPE_ALL (:,IBL),PALF_CVGQ_ALL (:,IBL),&
     & PUDAL_ALL (:,:,IBL),PUDOM_ALL (:,:,IBL),PDDAL_ALL (:,:,IBL),PDDOM_ALL (:,:,IBL))
 
-! ENDDO
+ ENDDO
 
 ENDDO
+#ifdef ACC
+!$acc end parallel
+#else
 !$OMP END PARALLEL DO
-
+#endif
+#ifdef undef
 IF (LLDIFF .AND. ICOUNT0 == ICOUNT1 .AND. KLON0 == KLON1) THEN
 
 PRINT *, "-- DIFF"
@@ -376,6 +375,7 @@ CALL CLOSE_LOAD
 
 #undef SAVEA
 
+#endif
 CONTAINS
 
 #include "contains.h"

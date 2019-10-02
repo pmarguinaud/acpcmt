@@ -13,4 +13,5 @@ END TYPE TPHY2
 TYPE(TPHY2) :: YRPHY2 
 
 !     ------------------------------------------------------------------
+!$acc declare create(YRPHY2)
 END MODULE YOMPHY2

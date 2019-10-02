@@ -26,4 +26,5 @@ TYPE(TPHY) :: YRPHY
 
 
 !     ------------------------------------------------------------------
+!$acc declare create(YRPHY)
 END MODULE YOMPHY

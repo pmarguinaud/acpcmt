@@ -1,4 +1,5 @@
 !OPTIONS XOPT(NOEVAL)
+#include "simple4.h"
 SUBROUTINE FPCINCAPE(KIDIA,KFDIA,KLON,KLEV,KLEVST,PT,PRP,PQV,PCAPE,PCIN,KLCL,KFCL,KLNB)
 
 ! --------------------------------------------------------------

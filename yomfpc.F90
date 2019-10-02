@@ -8,6 +8,7 @@ SAVE
 
 REAL(KIND=JPRB) :: RENTRA
 
+!$acc declare create(RENTRA)
 END MODULE YOMFPC
 
 

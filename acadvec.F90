@@ -1,3 +1,4 @@
+#include "simple4.h"
 SUBROUTINE ACADVEC (KIDIA, KFDIA, KLON, KTDIA, KLEV, PDELP, PAPHI, PVAR, PVARW, PFVAR)
 
 ! ========================================================

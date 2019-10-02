@@ -79,5 +79,7 @@ REAL(KIND=JPRB) :: EDELY
 END TYPE TEGEO
 
 TYPE(TEGEO) :: YREGEO 
+!$acc declare create(YREGEO)
+
 !     ------------------------------------------------------------------
 END MODULE YEMGEO
