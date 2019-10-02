@@ -25,7 +25,7 @@ END INTERFACE
 
 !! @TODO : LIST WITH FIXED SIZE
 
-PUBLIC :: GETOPTION, INITOPTIONS, CHECKOPTIONS, ADDGROUP
+PUBLIC :: GETOPTION, INITOPTIONS, ADDGROUP
 
 INTEGER, PARAMETER :: ARGSIZEMAX = 256
 
@@ -269,121 +269,6 @@ SUBROUTINE INITOPTIONS( CDMESSAGE, KOPTMIN, KOPTMAX, CDARGS )
 
 END SUBROUTINE
 
-
-
-SUBROUTINE CHECKOPTIONS()
- INTEGER(KIND=JPIM) :: I, N, IS, NS, KS
- CHARACTER(LEN=ARGSIZEMAX) :: OPT, PROG
- LOGICAL(KIND=JPLM) :: PB
- CHARACTER(LEN=10) :: FMT
- CHARACTER(LEN=110) :: BUF
-
- CALL MYGETARG( 0_JPIM, PROG )
-
- IF( LHELP ) THEN
-   PRINT *, "PROGRAM: ", TRIM(XRD_BASENAME( PROG ))
-   IF( TRIM(MESSAGE_OPT) .NE. "" ) THEN
-     NS = LEN(MESSAGE_OPT)
-     DO IS = 1, NS / 96
-       KS = LEN( TRIM(MESSAGE_OPT(1+(IS-1)*96:IS*96)) )
-       IF( KS .GT. 0 ) THEN
-         IF( IS .EQ. 1 ) THEN
-           WRITE( *, '("    ")', ADVANCE = 'NO' )
-         ELSE
-           WRITE( *, '("  > ")', ADVANCE = 'NO' )
-         ENDIF
-         WRITE( FMT, '("(A",I2,")")' ) KS
-         WRITE( *, FMT ) TRIM(MESSAGE_OPT(1+(IS-1)*96:IS*96))
-       ENDIF
-     ENDDO
-   ENDIF
-   DO I = 1, NOPT_SEEN
-
-     IF(OPT_SEEN(I)%GROUP) THEN
-       WRITE( *, * ) 
-       IF( TRIM(OPT_SEEN(I)%USE) .NE. "" ) &
-         WRITE( *, * ) '* '//TRIM(OPT_SEEN(I)%USE)
-       CYCLE
-     ENDIF
-
-     BUF = ""
-
-     WRITE( BUF, '(A32," = ",A15)' ) &
-         TRIM(OPT_SEEN(I)%KEY), &
-         TRIM(OPT_SEEN(I)%TYPE)
-
-     IF( TRIM(OPT_SEEN(I)%USE) .NE. '' ) THEN
-       NS = LEN( OPT_SEEN(I)%USE) 
-       DO IS = 1, NS / 48
-         KS = LEN(TRIM(OPT_SEEN(I)%USE(1+(IS-1)*48:IS*48)))
-         IF( KS .GT. 0 ) THEN
-           IF( IS .EQ. 1 ) THEN
-             BUF = TRIM(BUF)//" :   "//TRIM(OPT_SEEN(I)%USE(1+(IS-1)*48:IS*48))
-           ELSE
-!                   000000000011111111112222222222333333333344444444445555555555
-!                   012345678901234567890123456789012345678901234567890123456789
-             BUF = "                                                     > "&
-                   //TRIM(OPT_SEEN(I)%USE(1+(IS-1)*48:IS*48))
-           ENDIF
-           WRITE( *, * ) BUF
-         ENDIF
-       ENDDO
-     ELSE
-       WRITE( *, * ) BUF
-       WRITE( *, * )
-     ENDIF
-
-   ENDDO
-   STOP
- ELSE IF( ASSOCIATED( CHECK_ARGS ) ) THEN
-   N = SIZE( CHECK_ARGS )
-   PB = .FALSE.
-   DO I = 1, N
-     IF( .NOT. CHECK_ARGS(I) ) THEN
-       CALL MYGETARG( I, OPT )
-       IF( OPT(1:2) .EQ. '--' ) THEN
-         PRINT *, 'INVALID OPTION: ', TRIM(OPT)
-         PB = .TRUE.
-         CHECK_ARGS(I) = .TRUE.
-       ENDIF
-     ENDIF
-   ENDDO
-
-   DO I = 1, N
-     IF( .NOT. CHECK_ARGS(I) ) THEN
-       CALL MYGETARG( I, OPT )
-       PRINT *, 'GARBAGE IN OPTIONS:`', TRIM(OPT), "'"
-       PB = .TRUE.
-       EXIT
-     ENDIF
-   ENDDO
-
-   IF( PB ) CALL XRD_EXIT(1_JPIM)
-
-   DEALLOCATE( CHECK_ARGS )
- ELSE IF( LSHELL ) THEN
-   OPEN( 77, FILE = TRIM(PROG)//'.sh', FORM = 'FORMATTED' )
-   WRITE( 77, '("#!/bin/sh")' )
-   WRITE( 77, * )
-   WRITE( 77, '(A)', ADVANCE = 'NO' ) TRIM(PROG)
-   N = UBOUND( MYARGS, 1 )
-   DO I = 1, N
-     IF( MYARGS(I) .EQ. '--shell' ) CYCLE
-     IF( MYARGS(I)(1:2) .EQ. '--' ) THEN
-       WRITE( 77, '(" \")' )
-       WRITE( 77, '("    ")', ADVANCE = 'NO' )
-     ENDIF
-     WRITE( 77, '(" ",A)', ADVANCE = 'NO' ) TRIM(MYARGS(I))
-   ENDDO
-   WRITE( 77, * )
-   CLOSE(77)
- ENDIF
-
-
-
- IF( ASSOCIATED( OPT_SEEN ) ) DEALLOCATE( OPT_SEEN )
- IF( ASSOCIATED( MYARGS ) ) DEALLOCATE( MYARGS )
-END SUBROUTINE
 
 
 SUBROUTINE CHECK_MND( KEY, MND, USE )
