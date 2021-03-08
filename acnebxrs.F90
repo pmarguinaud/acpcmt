@@ -6,6 +6,9 @@ SUBROUTINE ACNEBXRS ( KIDIA,KFDIA,KLON,KTDIA,KLEV,&
  ! - OUTPUT 2D .
  & PNEB,KSTPT,KSTSZ,PSTACK)  
 
+
+#include "temp.h"
+
 !**** *ACNEBXR* - CALCUL DE LA NEBULOSITE XU-RANDALL.
 !                 COMPUTATION OF XU-RANDALL CLOUDINESS.
 
@@ -105,6 +108,11 @@ REAL(KIND=JPRB) :: ZEPS1, ZRH, ZRHLIM, ZNEB, ZBIN, ZARGLI, ZRHEXP
 !     ------------------------------------------------------------------
 !     I - CALCUL DE LA NEBULOSITE.
 !         CLOUDINESS COMPUTATION.
+
+init_stack ()
+
+
+
 
 
 ZEPS1=1.E-6_JPRB

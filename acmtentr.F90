@@ -5,6 +5,9 @@ SUBROUTINE ACMTENTR ( KIDIA,KFDIA,KLON,KTDIA,KLEV,&
 ! - OUTPUT 2D .
 &PFCED,KSTPT,KSTSZ,PSTACK)
 
+
+#include "temp.h"
+
 !**** *ACMTENTR * - FLUX DUE TO ENTRAINMENT AND DETRAINMENT PROCESSES.
 
 !     Sujet.
@@ -82,6 +85,11 @@ INTEGER(KIND=JPIM) :: JLEV,JLON
 !-------------------------------------------------
 ! INITIALIZATION.
 !-------------------------------------------------
+
+init_stack ()
+
+
+
 
 PFCED(KIDIA:KFDIA)=0._JPRB
 DO JLEV=KTDIA,KLEV

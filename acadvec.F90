@@ -1,5 +1,8 @@
 SUBROUTINE ACADVEC (KIDIA, KFDIA, KLON, KTDIA, KLEV, PDELP, PAPHI, PVAR, PVARW, PFVAR,KSTPT,KSTSZ,PSTACK)
 
+
+#include "temp.h"
+
 ! ========================================================
 
 !   Compute vertical flux of a variable with vertical speed PVARW
@@ -63,12 +66,19 @@ REAL(KIND=JPRB)   ,INTENT(OUT)    :: PFVAR(KLON,0:KLEV)
 INTEGER(KIND=JPIM),INTENT(IN)     :: KSTSZ
 INTEGER(KIND=JPIM),INTENT(IN)     :: KSTPT
 REAL (KIND=JPRB)   ,INTENT(INOUT)  :: PSTACK (KSTSZ)
-REAL(KIND=JPRB) :: ZP1, ZP2(KLON), ZDZV(KLON), ZDZL(KLON), ZEPS
+REAL(KIND=JPRB) :: ZP1, ZEPS
 
-REAL(KIND=JPRB) :: ZFUP(KLON,0:KLEV), ZFDN(KLON,0:KLEV), ZALTIH(KLON,0:KLEV)       
-REAL(KIND=JPRB) :: ZDPSG(KLON,KLEV)
+temp (REAL(KIND=JPRB), ZDZL, (KLON))
+temp (REAL(KIND=JPRB), ZDZV, (KLON))
+temp (REAL(KIND=JPRB), ZP2, (KLON))
+       
+temp (REAL(KIND=JPRB), ZALTIH, (KLON,0:KLEV))
+temp (REAL(KIND=JPRB), ZFDN, (KLON,0:KLEV))
+temp (REAL(KIND=JPRB), ZFUP, (KLON,0:KLEV))
 
 
+
+temp (REAL(KIND=JPRB), ZDPSG, (KLON,KLEV))
 INTEGER(KIND=JPIM) :: JLEV, JLON
 REAL(KIND=JPRB) :: ZLN_NEGLIG,ZUSCFL
 
@@ -79,6 +89,18 @@ REAL(KIND=JPRB) :: ZLN_NEGLIG,ZUSCFL
 
 
 ! --------------------------------------------------------
+
+init_stack ()
+
+alloc (ZP2)
+alloc (ZDZV)
+alloc (ZDZL)
+alloc (ZFUP)
+alloc (ZFDN)
+alloc (ZALTIH)
+alloc (ZDPSG)
+
+
 
 DO JLEV = 0, KLEV
   DO JLON = KIDIA, KFDIA

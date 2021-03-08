@@ -6,6 +6,9 @@ SUBROUTINE ACMICRO( KIDIA, KFDIA, KLON, KTDIA, KLEV,&
  ! - OUTPUT -
  & PAUTOL, PAUTOI,KSTPT,KSTSZ,PSTACK )
 
+
+#include "temp.h"
+
 !**** *ACMICRO * - CALCULS D'AUTOCONVERSION.
 !                  AUTOCONVERSION COMPUTATIONS.
 
@@ -116,8 +119,11 @@ REAL (KIND=JPRB)   ,INTENT(INOUT) :: PSTACK (KSTSZ)
 REAL(KIND=JPRB) :: ZQL,ZQI,ZCAUT,&
  & ZALPH,ZDUM,ZQCR,ZARG1,ZARG2,ZBETA,ZFACICE
 
-REAL(KIND=JPRB) :: ZAUTOL(KLON,KLEV), ZAUTOI(KLON,KLEV) &
- & , ZDELT(KLON,KLEV) , ZEFFA(KLON,KLEV)  
+  
+temp (REAL(KIND=JPRB), ZEFFA, (KLON,KLEV))
+temp (REAL(KIND=JPRB), ZDELT, (KLON,KLEV))
+temp (REAL(KIND=JPRB), ZAUTOI, (KLON,KLEV))
+temp (REAL(KIND=JPRB), ZAUTOL, (KLON,KLEV))
 INTEGER(KIND=JPIM) :: JLON,JLEV
 
 !     ------------------------------------------------------------------
@@ -130,6 +136,15 @@ INTEGER(KIND=JPIM) :: JLON,JLEV
 
 ! Define threshold for ice autoconversion as a function of temperature
 ! --------------------------------------------------------------------
+
+init_stack ()
+
+alloc (ZAUTOL)
+alloc (ZAUTOI)
+alloc (ZDELT)
+alloc (ZEFFA)
+
+
  
 ZARG1 = 2.0_JPRB*YRPHY0%RQICRMAX*(1.0_JPRB-0.999_JPRB)/(YRPHY0%RQICRMAX-YRPHY0%RQICRMIN)-1.0_JPRB
 ZARG2 = 2.0_JPRB*(YRPHY0%RQICRMAX-1.5_JPRB*YRPHY0%RQICRMIN)/(YRPHY0%RQICRMAX-YRPHY0%RQICRMIN)-1.0_JPRB
