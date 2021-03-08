@@ -1,5 +1,4 @@
-!$acc routine (FCGENERALIZED_GAMMA) seq
-SUBROUTINE FCGENERALIZED_GAMMA (PX, PY)  
+FUNCTION FCGENERALIZED_GAMMA(PX)  
 
 !****  *FCGENERALIZED_GAMMA * -  Gamma  function
 
@@ -48,7 +47,6 @@ IMPLICIT NONE
 !*       0.1 declarations of arguments and result
 
 REAL(KIND=JPRB), INTENT(IN)                     :: PX
-REAL(KIND=JPRB), INTENT(OUT)                    :: PY
 
 !*       0.2 declarations of local variables
 
@@ -61,7 +59,7 @@ REAL(KIND=JPRB), DIMENSION(6)   :: ZCOEF=(/ 76.18009172947146,-86.50532032941677
        &          -1.231739572450155,0.1208650973866179E-2,-0.5395239384953E-5 /)
 REAL(KIND=JPRB)         :: ZSERCST=1.000000000190015
 
-REAL(KIND=JPRB)         :: ZGAMMA
+REAL(KIND=JPRB)         :: ZGAMMA,  FCGENERALIZED_GAMMA
 REAL(KIND=JPRB)         :: ZSER,ZTTMMP,ZTMP,ZX,ZY
 
 
@@ -77,10 +75,10 @@ ZTMP = (ZX + 0.5)*LOG(ZTTMMP) - ZTTMMP
    &     + ZCOEF(5)/(5.+ZY) + ZCOEF(6)/(6.+ZY)
 
    ZGAMMA = EXP( ZTMP + LOG( ZSTP*ZSER/ZX ) )
-   PY = ZGAMMA * MAX(SIGN(1._JPRB,PX),0._JPRB) &
+   FCGENERALIZED_GAMMA = ZGAMMA * MAX(SIGN(1._JPRB,PX),0._JPRB) &
     &                    + (RPI/SIN(RPI*PX)/ZGAMMA)         &
     &                    *(1._JPRB-MAX(SIGN(1._JPRB,PX),0._JPRB))
 
 
 
-END SUBROUTINE FCGENERALIZED_GAMMA
+END FUNCTION FCGENERALIZED_GAMMA

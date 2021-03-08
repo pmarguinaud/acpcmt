@@ -14,7 +14,7 @@ FC = pgf90 -acc -byteswapio -Mlarge_arrays -fast -Minfo=accel,all,intensity,ccff
 
 all: wrap_acpcmt.x
 
-MODULES=parkind1.o yemgeo.o yomcst.o yomct0.o yomct3.o yomdim.o yomgem.o yomphy.o yomphy0.o yomphy2.o yomrip.o yomscm.o load_mod.o yomcape.o yomfpc.o yomphy1.o yomtoph.o xrd_unix_env.o xrd_getoptions.o
+MODULES=parkind1.o yemgeo.o yomcst.o yomct0.o yomct3.o yomdim.o yomgem.o yomphy.o yomphy0.o yomphy2.o yomrip.o yomscm.o load_mod.o yomcape.o yomfpc.o yomphy1.o yomtoph.o xrd_unix_env.o xrd_getoptions.o yomadvprcs.o
 
 xrd_unix_env.o: xrd_unix_env.F90 parkind1.o
 	$(FC) -c xrd_unix_env.F90
@@ -94,6 +94,9 @@ yomscm.o: yomscm.F90 parkind1.o
 advprcs.o: advprcs.F90 $(MODULES)
 	$(FC) -c advprcs.F90
 
+initadvprcs.o: initadvprcs.F90 $(MODULES)
+	$(FC) -c initadvprcs.F90
+
 yomcst.o: yomcst.F90 parkind1.o
 	$(FC) -c yomcst.F90
 
@@ -115,8 +118,11 @@ acmtddd.o: acmtddd.F90 $(MODULES)
 yomgem.o: yomgem.F90 parkind1.o
 	$(FC) -c yomgem.F90
 
-wrap_acpcmt.x: yomrip.o yomphy.o acmtud.o acadvec.o acpcmt_load_all.o acnebxrs.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o fpcincape.o acnebsm.o yomdim.o acpluiz.o acmtentr.o acmicro.o yomtoph.o yomct0.o yomscm.o advprcs.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o acmtddd.o yomgem.o fcgeneralized_gamma.o load_mod.o xrd_unix_env.o xrd_getoptions.o abor1.o
-	$(FC) -o wrap_acpcmt.x yomrip.o yomphy.o acmtud.o acadvec.o acpcmt_load_all.o acnebxrs.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o fpcincape.o acnebsm.o yomdim.o acpluiz.o acmtentr.o acmicro.o yomtoph.o yomct0.o yomscm.o advprcs.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o acmtddd.o yomgem.o fcgeneralized_gamma.o load_mod.o xrd_unix_env.o xrd_getoptions.o abor1.o
+yomadvprcs.o: yomadvprcs.F90 parkind1.o
+	$(FC) -c yomadvprcs.F90
+
+wrap_acpcmt.x: yomrip.o yomphy.o acmtud.o acadvec.o acpcmt_load_all.o acnebxrs.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o fpcincape.o acnebsm.o yomdim.o acpluiz.o acmtentr.o acmicro.o yomtoph.o yomct0.o yomscm.o advprcs.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o acmtddd.o yomgem.o fcgeneralized_gamma.o load_mod.o xrd_unix_env.o xrd_getoptions.o abor1.o yomadvprcs.o initadvprcs.o
+	$(FC) -o wrap_acpcmt.x yomrip.o yomphy.o acmtud.o acadvec.o acpcmt_load_all.o acnebxrs.o yomphy1.o wrap_acpcmt.o acpcmt.o yomfpc.o yomcape.o yomphy2.o fpcincape.o acnebsm.o yomdim.o acpluiz.o acmtentr.o acmicro.o yomtoph.o yomct0.o yomscm.o advprcs.o yomcst.o yemgeo.o yomct3.o parkind1.o yomphy0.o acmtddd.o yomgem.o fcgeneralized_gamma.o load_mod.o xrd_unix_env.o xrd_getoptions.o abor1.o yomadvprcs.o initadvprcs.o
 
 abor1.o: abor1.F90
 	$(FC) -c abor1.F90
