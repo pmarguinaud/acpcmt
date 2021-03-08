@@ -277,7 +277,7 @@ sub f
     }
 
 
-  my @x = $xpc->findnodes ($xpath, $_[0]);
+  my  @x = $xpc->findnodes ($xpath, $_[0]);
 
   if (! defined ($_[1]))
     {
