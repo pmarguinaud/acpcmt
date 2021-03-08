@@ -19,6 +19,7 @@ my ($s2) = &f ('.//f:subroutine-stmt', $d2);
 my ($n2) = &f ('./f:subroutine-N/f:N/f:n/text ()', $s2, 1);
 
 my @da = &f ('./f:dummy-arg-LT/f:arg-N/f:N/f:n/text ()', $s2, 1);
+my %da2aa;
 
 my @call = &f ('.//f:call-stmt[./f:procedure-designator/f:named-E/f:N/f:n/text ()="?"]', $n2, $d1);
 
@@ -35,24 +36,14 @@ for my $call (@call)
           }
       }
     @aa = map { $_->textContent } @aa;
-    my %da2aa;
     for my $i (0 .. $#aa)
       {
         $da2aa{$da[$i]} = $aa[$i];
       }
     
-    # Replace dummy arguments by actual arguments
-    for my $da (@da)
-      {
-        my @n = &f ('.//f:named-E/f:N/f:n[text ()="?"]/text ()', $da, $d2);
-        for (@n)
-          {
-            $_->replaceNode (&t ($da2aa{$da}));
-          }
-      }
-
     last;
   }
+
 
 # Remove dummy arguments declaration
 
@@ -111,6 +102,7 @@ $s2->unbindNode ();
 
 for my $en_decl2 (@en_decl2)
   {
+
     my ($v2) = &f ('./f:EN-N/f:N/f:n/text ()', $en_decl2);
 
     my ($v1) = &f ('.//f:EN-decl[./f:EN-N/f:N/f:n[text ()="?"]]', $v2->textContent, $d1);
@@ -127,6 +119,17 @@ for my $en_decl2 (@en_decl2)
           }
       }
   }
+
+# Replace dummy arguments by actual arguments
+for my $da (@da)
+  {
+    my @n = &f ('.//f:named-E/f:N/f:n[text ()="?"]/text ()', $da, $d2);
+    for (@n)
+      {
+        $_->replaceNode (&t ($da2aa{$da}));
+      }
+  }
+
 
 my @decl_stmt1 = &f ('.//f:' . &Fxtran::xpath_by_type ('stmt') . '[.//f:EN-decl]', $d1);
 

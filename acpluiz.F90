@@ -154,6 +154,11 @@ USE YOMPHY    , ONLY : YRPHY
 USE YOMPHY0   , ONLY : YRPHY0
 USE YOMPHY2   , ONLY : YRPHY2
 USE YOMCST    , ONLY : RG   , RTT  , RDT
+USE PARKIND1  ,ONLY : JPIM     ,JPRB
+USE YOMPHY0   , ONLY : YRPHY0
+USE YOMPHY1   , ONLY : YRPHY1
+USE YOMPHY2   , ONLY : YRPHY2
+USE YOMCST    , ONLY : RTT
 
 IMPLICIT NONE
 
@@ -216,9 +221,15 @@ temp (REAL(KIND=JPRB), ZFLUXCOR, (KLON,KLEV))
 
 REAL(KIND=JPRB) :: ZDPSGDT,ZICE,ZGDT,ZGDTI,ZIGEL,ZEPS1
 INTEGER(KIND=JPIM) :: JLON,JLEV
+INTEGER(KIND=JPIM) :: JLON,JLEV
+REAL(KIND=JPRB) :: ZAUTOL_ACMI
+REAL(KIND=JPRB) :: ZAUTOI_ACMI
+REAL(KIND=JPRB) :: ZDELT_ACMI
+REAL(KIND=JPRB) :: ZEFFA_ACMI
+REAL(KIND=JPRB) :: ZQL_ACMI,ZQI_ACMI,ZCAUT_ACMI,&
+ & ZALPH_ACMI,ZDUM_ACMI,ZQCR_ACMI,ZARG1_ACMI,ZARG2_ACMI,ZBETA_ACMI,ZFACICE_ACMI
 
 #include "abor1.intfb.h"
-#include "acmicro.intfb.h"
 #include "acnebsm.intfb.h"
 #include "advprcs.intfb.h"
 
@@ -253,6 +264,27 @@ alloc (ZFLUXCOR)
 
 ZEPS1=1.E-12_JPRB
 
+ZGDT=RG*YRPHY2%TSPHY
+ZGDTI=1.0_JPRB/ZGDT
+
+! - - - - - - - -
+! AUTOCONVERSION
+! - - - - - - - -
+
+!     ------------------------------------------------------------------
+!     CHECK RELIABILITY OF INPUT ARGUMENTS.
+!     ------------------------------------------------------------------
+! Define threshold for ice autoconversion as a function of temperature
+! --------------------------------------------------------------------
+
+ZARG1_ACMI = 2.0_JPRB*YRPHY0%RQICRMAX*(1.0_JPRB-0.999_JPRB)/(YRPHY0%RQICRMAX-YRPHY0%RQICRMIN)-1.0_JPRB
+ZARG2_ACMI = 2.0_JPRB*(YRPHY0%RQICRMAX-1.5_JPRB*YRPHY0%RQICRMIN)/(YRPHY0%RQICRMAX-YRPHY0%RQICRMIN)-1.0_JPRB
+ZARG1_ACMI = 0.5_JPRB*LOG(ABS((1.0_JPRB+ZARG1_ACMI)/(1.0_JPRB-ZARG1_ACMI)))
+ZARG2_ACMI = 0.5_JPRB*LOG(ABS((1.0_JPRB+ZARG2_ACMI)/(1.0_JPRB-ZARG2_ACMI)))
+ZALPH_ACMI = (ZARG1_ACMI - ZARG2_ACMI)/(YRPHY0%RQICRT2-YRPHY0%RQICRT1)
+ZBETA_ACMI = ZARG1_ACMI - YRPHY0%RQICRT2 * ZALPH_ACMI
+ 
+
 JLON = KIDIA
 
 IF ( LDADJCLD ) THEN
@@ -286,25 +318,53 @@ DO JLEV = KTDIA, KLEV
     PNEBS(JLON,JLEV) = MAX( PNEBS(JLON,JLEV) , PNEB_CVPP(JLON,JLEV) )
     ZQL  (JLON,JLEV) = PQCS(JLON,JLEV)*(1.0_JPRB-ZICE)
     ZQI  (JLON,JLEV) = PQCS(JLON,JLEV)*ZICE
-ENDDO
 
-! - - - - - - - -
-! AUTOCONVERSION
-! - - - - - - - -
+    ZDELT_ACMI = ZT(JLON,JLEV) - RTT
 
-CALL ACMICRO ( KIDIA, KFDIA, KLON, KTDIA, KLEV,&
-             & PNEBS, ZT, ZQL, ZQI, PTS, PNEIJ, PLSM,&
-             & ZAUTOL, ZAUTOI,ISTPT,KSTSZ,PSTACK )
+! Efficiency for ice conversion as a function of temperature.
+! -----------------------------------------------------------
+    ZEFFA_ACMI = EXP(YRPHY0%RAUTSBET*ZDELT_ACMI)
 
-! - - - - - - - - - - - - - - - - - -
+! ---------------------------------------------------
+! MICROPHYSICAL AUTOCONVERSION IN THE STRATIFORM CASE
+! ---------------------------------------------------
+
+! Compute in-cloud values
+! -----------------------
+
+    ZQL_ACMI = MAX(0.0_JPRB,ZQL(JLON,JLEV)/PNEBS(JLON,JLEV))
+    ZQI_ACMI = MAX(0.0_JPRB,ZQI(JLON,JLEV)/PNEBS(JLON,JLEV))
+
+! AUTOCONVERSION OF CLOUD LIQUID WATER INTO RAIN
+! ----------------------------------------------
+
+    ZCAUT_ACMI = YRPHY0%RAUTEFR
+    ZDUM_ACMI = (1.0_JPRB-EXP(-ZCAUT_ACMI*YRPHY2%TSPHY)) * (ZQL_ACMI-YRPHY0%RQLCR) / YRPHY2%TSPHY
+    ZAUTOL_ACMI = MAX(0.0_JPRB,ZDUM_ACMI)
+
+! AUTOCONVERSION OF CLOUD ICE INTO PRECIPITATING ICE
+! --------------------------------------------------
+
+    ZCAUT_ACMI = YRPHY0%RAUTEFS * ZEFFA_ACMI
+    ZQCR_ACMI = YRPHY0%RQICRMAX - (YRPHY0%RQICRMAX - YRPHY0%RQICRMIN) * 0.5_JPRB &
+     & * (1.0_JPRB + TANH(ZALPH_ACMI * ZDELT_ACMI + ZBETA_ACMI))
+    ZFACICE_ACMI = PLSM(JLON)*PNEIJ(JLON) + (1.0_JPRB-PLSM(JLON)) &
+     & * MAX(0.0_JPRB,SIGN(1.0_JPRB,YRPHY1%TMERGL-PTS(JLON)))
+    ZQCR_ACMI = ZQCR_ACMI * (1.0_JPRB-ZFACICE_ACMI*(1.0_JPRB-YRPHY0%RQICRSN))
+    ZDUM_ACMI = (1.0_JPRB-EXP(-ZCAUT_ACMI*YRPHY2%TSPHY)) * (ZQI_ACMI-ZQCR_ACMI) / YRPHY2%TSPHY
+    ZAUTOI_ACMI = MAX(0.0_JPRB,ZDUM_ACMI)
+ 
+! TOTAL AUTOCONVERSION TERM
+! -------------------------
+
+    ZAUTOL(JLON,JLEV) = ZAUTOL_ACMI * PNEBS(JLON,JLEV)
+    ZAUTOI(JLON,JLEV) = ZAUTOI_ACMI * PNEBS(JLON,JLEV)
+
 ! In case of negative temperature 
 ! no rain production by autoconversion 
 ! - - - - - - - - - - - - - - - - - -
 
-ZGDT=RG*YRPHY2%TSPHY
-ZGDTI=1.0_JPRB/ZGDT
 
-DO JLEV = KTDIA, KLEV
     ZDPSGDT  = ZGDTI * PDELP(JLON,JLEV)
     ZIGEL = MAX(0.0_JPRB,SIGN(1.0_JPRB,RTT-PT(JLON,JLEV)))
     ZFLUXCOR(JLON,JLEV) = ZIGEL*ZAUTOL(JLON,JLEV)
