@@ -1,5 +1,8 @@
 MODULE YEMGEO
 
+
+#include "create.h"
+
 USE PARKIND1  ,ONLY : JPRB
 
 IMPLICIT NONE
@@ -79,5 +82,6 @@ REAL(KIND=JPRB) :: EDELY
 END TYPE TEGEO
 
 TYPE(TEGEO) :: YREGEO 
+create (YREGEO)
 !     ------------------------------------------------------------------
 END MODULE YEMGEO

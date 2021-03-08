@@ -1,3 +1,4 @@
+!$acc routine (ACNEBSM) seq
 SUBROUTINE ACNEBSM ( KIDIA, KFDIA, KLON, KTDIA, KLEV,&
  !-----------------------------------------------------------------------
  ! - INPUT -
@@ -152,6 +153,7 @@ REAL(KIND=JPRB) :: ZLS,ZLEFF,ZTLIQ,ZSIGS,ZRAT2,ZQC,ZQCS
 REAL(KIND=JPRB) :: ZESAT,ZESP,ZQSAT
 INTEGER(KIND=JPIM) :: JLON,JLEV
 
+#include "abor1.intfb.h"
 #include "fcttrm.func.h"
 #include "fctdoi.func.h"
                                                                                 

@@ -1,4 +1,5 @@
 !OPTIONS XOPT(NOEVAL)
+!$acc routine (ACPCMT) seq
 SUBROUTINE ACPCMT ( KIDIA,KFDIA,KLON,KTDIA,KLEV,KTRA,&
   !-----------------------------------------------------------------------
   ! - INPUT  2D .
@@ -377,6 +378,7 @@ REAL(KIND=JPRB) :: ZFRACP,ZTH
 
 LOGICAL         :: LLADJCLD
 
+#include "abor1.intfb.h"
 #include "acadvec.intfb.h"
 #include "acmtentr.intfb.h"
 #include "acmtud.intfb.h"

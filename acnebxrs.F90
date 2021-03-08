@@ -1,4 +1,5 @@
 !OPTIONS XOPT(NOEVAL)
+!$acc routine (ACNEBXRS) seq
 SUBROUTINE ACNEBXRS ( KIDIA,KFDIA,KLON,KTDIA,KLEV,&
  !-----------------------------------------------------------------------
  ! - INPUT  2D .
@@ -103,6 +104,8 @@ REAL (KIND=JPRB)   ,INTENT(INOUT) :: PSTACK (KSTSZ)
 INTEGER(KIND=JPIM) :: JLEV, JLON
 
 REAL(KIND=JPRB) :: ZEPS1, ZRH, ZRHLIM, ZNEB, ZBIN, ZARGLI, ZRHEXP
+
+#include "abor1.intfb.h"
 
 !*
 !     ------------------------------------------------------------------

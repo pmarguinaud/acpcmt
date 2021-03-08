@@ -1,5 +1,8 @@
 MODULE YOMGEM
 
+
+#include "create.h"
+
 USE PARKIND1, ONLY : JPIM, JPRB
 
 IMPLICIT NONE
@@ -15,6 +18,7 @@ END TYPE TGEM
 
 TYPE(TGEM) :: YRGEM 
 
+create (YRGEM)
 !     ------------------------------------------------------------------
 
 END MODULE YOMGEM

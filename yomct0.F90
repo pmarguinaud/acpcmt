@@ -1,5 +1,8 @@
 MODULE YOMCT0
 
+
+#include "create.h"
+
 USE PARKIND1  ,ONLY : JPIM, JPRB
 
 IMPLICIT NONE
@@ -8,4 +11,5 @@ SAVE
 
 LOGICAL :: LELAM
 
+create (LELAM)
 END

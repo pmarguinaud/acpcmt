@@ -1,5 +1,8 @@
 MODULE YOMCAPE
 
+
+#include "create.h"
+
 USE PARKIND1  ,ONLY : JPIM     ,JPRB
 
 IMPLICIT NONE
@@ -37,10 +40,14 @@ SAVE
 !-------------------------------------------------
 
 INTEGER(KIND=JPIM) :: NCAPEITER
+create (NCAPEITER)
 INTEGER(KIND=JPIM) :: NETAPES
 
+create (NETAPES)
 REAL(KIND=JPRB) :: GCAPERET
+create (GCAPERET)
 REAL(KIND=JPRB) :: GCAPEPSD
 
+create (GCAPEPSD)
 !     ------------------------------------------------------------------
 END MODULE YOMCAPE

@@ -1,4 +1,5 @@
 !-----------------------------------------------------------------------
+!$acc routine (ACPLUIZ) seq
 SUBROUTINE ACPLUIZ( KIDIA, KFDIA, KLON, KTDIA, KLEV,&
  !-----------------------------------------------------------------------
  ! - INPUT -
@@ -226,6 +227,7 @@ temp (REAL(KIND=JPRB), ZFLUXCOR, (KLON,KLEV))
 REAL(KIND=JPRB) :: ZDPSGDT,ZICE,ZGDT,ZGDTI,ZIGEL,ZEPS1
 INTEGER(KIND=JPIM) :: JLON,JLEV
 
+#include "abor1.intfb.h"
 #include "acmicro.intfb.h"
 #include "acnebsm.intfb.h"
 #include "advprcs.intfb.h"

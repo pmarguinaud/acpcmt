@@ -1,3 +1,4 @@
+!$acc routine (ACMTENTR) seq
 SUBROUTINE ACMTENTR ( KIDIA,KFDIA,KLON,KTDIA,KLEV,&
 !-----------------------------------------------------------------------
 ! - INPUT  2D .
@@ -81,6 +82,7 @@ REAL(KIND=JPRB) :: ZINC,ZMINVALUE_ZINC,ZMAXVALUE_ZINC
 INTEGER(KIND=JPIM) :: JLEV,JLON
 
 
+#include "abor1.intfb.h"
 
 !-------------------------------------------------
 ! INITIALIZATION.

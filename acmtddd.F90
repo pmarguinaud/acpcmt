@@ -1,4 +1,5 @@
 ! -----------------------------------------------------------------------
+!$acc routine (ACMTDDD) seq
 SUBROUTINE ACMTDDD( KIDIA,KFDIA,KLON,KTDIA,KLEV,KTRA,&
 ! -----------------------------------------------------------------------
 ! - INPUT  2D .
@@ -257,6 +258,7 @@ INTEGER(KIND=JPIM) :: JLEV, JLON, ITOP, JIT, ICDN, IBDC, IVVER, IDOMDP&
 INTEGER(KIND=JPIM) :: JTRA
 
 
+#include "abor1.intfb.h"
 #include "fcttrm.func.h"
 
 

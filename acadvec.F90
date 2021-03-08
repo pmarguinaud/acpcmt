@@ -1,3 +1,4 @@
+!$acc routine (ACADVEC) seq
 SUBROUTINE ACADVEC (KIDIA, KFDIA, KLON, KTDIA, KLEV, PDELP, PAPHI, PVAR, PVARW, PFVAR,KSTPT,KSTSZ,PSTACK)
 
 
@@ -86,7 +87,7 @@ REAL(KIND=JPRB) :: ZLN_NEGLIG,ZUSCFL
 
 !     CHECK RELIABILITY OF INPUT ARGUMENTS.
 
-
+#include "abor1.intfb.h"
 
 ! --------------------------------------------------------
 

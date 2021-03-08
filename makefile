@@ -7,8 +7,8 @@ OPT_FRTFLAGS = -fp-model source -g -O0 -ip -check bounds -debug full
 
 FC = /home/gmap/mrpm/marguina/install/gmkpack_support/wrapper/I161150/ifort $(FRTFLAGS) $(OPT_FRTFLAGS)
 #FC = /home/gmap/mrpm/marguina/install/gmkpack_support/wrapper/I161150/ifort $(FRTFLAGS) -g -O0
-FC = pgf90 -acc -byteswapio -Mlarge_arrays -fast -Minfo=accel,all,intensity,ccff -ta=tesla:managed -O2 -g -DUSE_STACK -ta=tesla:lineinfo -DUSE_ACC
 FC = pgf90 -mp -byteswapio -Mlarge_arrays -O0 -g -DUSE_STACK
+FC = pgf90 -acc -byteswapio -Mlarge_arrays -fast -Minfo=accel,all,intensity,ccff -ta=tesla:managed -O2 -g -DUSE_STACK -ta=tesla:lineinfo -DUSE_ACC
 
 
 

@@ -1,4 +1,5 @@
 !-----------------------------------------------------------------------
+!$acc routine (ACMICRO) seq
 SUBROUTINE ACMICRO( KIDIA, KFDIA, KLON, KTDIA, KLEV,&
  !-----------------------------------------------------------------------
  ! - INPUT -
@@ -130,6 +131,7 @@ INTEGER(KIND=JPIM) :: JLON,JLEV
 
 !     CHECK RELIABILITY OF INPUT ARGUMENTS.
 
+#include "abor1.intfb.h"
 
 
 !     ------------------------------------------------------------------

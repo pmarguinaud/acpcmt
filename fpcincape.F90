@@ -1,4 +1,5 @@
 !OPTIONS XOPT(NOEVAL)
+!$acc routine (FPCINCAPE) seq
 SUBROUTINE FPCINCAPE(KIDIA,KFDIA,KLON,KLEV,KLEVST,PT,PRP,PQV,PCAPE,PCIN,KLCL,KFCL,KLNB,KSTPT,KSTSZ,PSTACK)
 
 
@@ -153,6 +154,7 @@ temp (REAL(KIND=JPRB), ZQVIN, (KLON,KLEV))
 !---------
 
 !  FUNCTIONS
+#include "abor1.intfb.h"
 #include "fctast.func.h"
 #include "fcttrm.func.h"
 #include "fcttim.func.h"

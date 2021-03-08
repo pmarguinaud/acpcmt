@@ -1,3 +1,4 @@
+!$acc routine (ACMTUD) seq
 SUBROUTINE ACMTUD ( KIDIA,KFDIA,KLON,KTDIA,KLEV,KTRA,&
 !-----------------------------------------------------------------------
 ! - INPUT  2D .
@@ -621,6 +622,7 @@ LOGICAL :: LLTEXC,LLNHACC,LLCOND1,LLCAPECIN
 
 !-----------------------------------------------------------------------
 
+#include "abor1.intfb.h"
 #include "acmtddd.intfb.h"
 #include "fcttrm.func.h"
 #include "fctdoi.func.h"
