@@ -83,7 +83,7 @@ INTEGER(KIND=JPIM) :: JLEV,JLON
 ! INITIALIZATION.
 !-------------------------------------------------
 
-PFCED=0._JPRB
+PFCED(KIDIA:KFDIA)=0._JPRB
 DO JLEV=KTDIA,KLEV
   DO JLON=KIDIA,KFDIA
     
