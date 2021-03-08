@@ -73,13 +73,11 @@ REAL(KIND=JPRB) :: ZDZL
 REAL(KIND=JPRB) :: ZDZV
 REAL(KIND=JPRB) :: ZP2
        
-temp (REAL(KIND=JPRB), ZALTIH, (KLON,0:KLEV))
 temp (REAL(KIND=JPRB), ZFDN, (KLON,0:KLEV))
 temp (REAL(KIND=JPRB), ZFUP, (KLON,0:KLEV))
 
 
 
-temp (REAL(KIND=JPRB), ZDPSG, (KLON,KLEV))
 INTEGER(KIND=JPIM) :: JLEV, JLON
 REAL(KIND=JPRB) :: ZLN_NEGLIG,ZUSCFL
 
@@ -95,17 +93,13 @@ init_stack ()
 
 alloc (ZFUP)
 alloc (ZFDN)
-alloc (ZALTIH)
-alloc (ZDPSG)
 
 
 JLON = KIDIA
 
 DO JLEV = 0, KLEV
-
     ZFDN(JLON,JLEV) = 0.0_JPRB
     ZFUP(JLON,JLEV) = 0.0_JPRB
-  
 ENDDO
 
 !- - - - - - - - - - - - - - -
@@ -113,79 +107,46 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 !- - - - - - - - - - - - - - -
 
 ! Some intialisation
-  DO JLEV = KTDIA, KLEV
-    
-      ZDPSG(JLON,JLEV) = PDELP(JLON,JLEV) / RG
-            
-  ENDDO  
-  DO JLEV = KTDIA-1, KLEV
-    
-      ZALTIH(JLON,JLEV) = PAPHI(JLON,JLEV) / RG 
-    
-  ENDDO
   ZEPS = 1.E-20_JPRB
   ZLN_NEGLIG=LOG(1.0E-2_JPRB)
 
-
 ! First loop : From top to bottom
-
   DO JLEV = KTDIA, KLEV-1
-    
-      ZDZV = MAX(0._JPRB,-PVARW(JLON,JLEV))*YRPHY2%TSPHY
-      ZDZL = ZALTIH(JLON,JLEV-1) - ZALTIH(JLON,JLEV)
+    ZDZV = MAX(0._JPRB,-PVARW(JLON,JLEV))*YRPHY2%TSPHY
+    ZDZL = (PAPHI(JLON,JLEV-1) - PAPHI(JLON,JLEV))/RG
     
     IF(YRPHY0%LADVLIM) THEN
-      
-        ZUSCFL=ZDZL/MAX(ZEPS,ZDZV)
-        ZP2  = MAX(0._JPRB,MIN(EXP(ZLN_NEGLIG*ZUSCFL),1._JPRB - ZUSCFL))
-      
+      ZUSCFL=ZDZL/MAX(ZEPS,ZDZV)
+      ZP2  = MAX(0._JPRB,MIN(EXP(ZLN_NEGLIG*ZUSCFL),1._JPRB - ZUSCFL))
     ELSE
-      
-        ZP2  = MAX(0._JPRB,1._JPRB - ZDZL/MAX(ZEPS,ZDZV))
-      
+      ZP2  = MAX(0._JPRB,1._JPRB - ZDZL/MAX(ZEPS,ZDZV))
     ENDIF
-    
-      ZP1  = MIN(1._JPRB , ZDZV/ZDZL)
-      ZFDN(JLON,JLEV) = ZP1*ZDPSG(JLON,JLEV)*PVAR(JLON,JLEV)/YRPHY2%TSPHY &
-        &+ ZP2*ZFDN(JLON,JLEV-1)
-    
+    ZP1  = MIN(1._JPRB , ZDZV/ZDZL)
+    ZFDN(JLON,JLEV) = ZP1*PDELP(JLON,JLEV)/RG*PVAR(JLON,JLEV)/YRPHY2%TSPHY &
+      &+ ZP2*ZFDN(JLON,JLEV-1)
   ENDDO    
 
 ! Second loop : From bottom to top
-
   DO JLEV = KLEV, KTDIA+1, -1
-    
-      ZDZV = MAX(0._JPRB,PVARW(JLON,JLEV))*YRPHY2%TSPHY
-      ZDZL = ZALTIH(JLON,JLEV-1) - ZALTIH(JLON,JLEV)
-    
+    ZDZV = MAX(0._JPRB,PVARW(JLON,JLEV))*YRPHY2%TSPHY
+    ZDZL = (PAPHI(JLON,JLEV-1) - PAPHI(JLON,JLEV))/RG
     IF(YRPHY0%LADVLIM) THEN
-      
         ZUSCFL=ZDZL/MAX(ZEPS,ZDZV)
         ZP2  = MAX(0._JPRB,MIN(EXP(ZLN_NEGLIG*ZUSCFL),1._JPRB - ZUSCFL))
-      
     ELSE
-      
         ZP2  = MAX(0._JPRB,1._JPRB - ZDZL/MAX(ZEPS,ZDZV))
-      
     ENDIF
-    
-      ZP1 = MIN(1._JPRB , ZDZV/ZDZL)
-      ZFUP(JLON,JLEV-1) = ZP1*ZDPSG(JLON,JLEV)*PVAR(JLON,JLEV)/YRPHY2%TSPHY &
-        &+ ZP2*ZFUP(JLON,JLEV)
-    
+    ZP1 = MIN(1._JPRB , ZDZV/ZDZL)
+    ZFUP(JLON,JLEV-1) = ZP1*PDELP(JLON,JLEV)/RG*PVAR(JLON,JLEV)/YRPHY2%TSPHY &
+      &+ ZP2*ZFUP(JLON,JLEV)
   ENDDO    
-
-
 !- - - - - - - - - - - - - - - - - - - - - - -
 ENDIF  ! End of test on TSPHY > 0.0_JPRB
 !- - - - - - - - - - - - - - - - - - - - - - -
 
 !  Final loop construction of net flux
-
 DO JLEV = KTDIA, KLEV-1
-  
     PFVAR(JLON,JLEV) = ZFDN(JLON,JLEV) - ZFUP(JLON,JLEV) 
-  
 ENDDO   
 
 ! --------------------------------------------------------

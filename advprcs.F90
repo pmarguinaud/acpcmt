@@ -162,29 +162,29 @@ REAL(KIND=JPRB) :: ZWORK1
 
 REAL(KIND=JPRB) :: ZDZ
 REAL(KIND=JPRB) :: ZQPSTOT
-temp (REAL(KIND=JPRB), ZAUTOI, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZAUTOL, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZQSATI, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZQSATW, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZQPS, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZQPR, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZQI, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZQL, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZFVEL, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZCRIM, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZCACC, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZCAGG, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZCSU2, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZCSU1, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZCEV2, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZCEV1, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZNS, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZEFFA, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZDELT, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZDPSGDT, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZDPSG, (KLON,KFLEV))
-temp (REAL(KIND=JPRB), ZALTIH, (KLON,0:KFLEV))
-temp (REAL(KIND=JPRB), ZRHO, (KLON,KFLEV))
+REAL(KIND=JPRB) :: ZAUTOI
+REAL(KIND=JPRB) :: ZAUTOL
+REAL(KIND=JPRB) :: ZQSATI
+REAL(KIND=JPRB) :: ZQSATW
+REAL(KIND=JPRB) :: ZQPS
+REAL(KIND=JPRB) :: ZQPR
+REAL(KIND=JPRB) :: ZQI
+REAL(KIND=JPRB) :: ZQL
+REAL(KIND=JPRB) :: ZFVEL
+REAL(KIND=JPRB) :: ZCRIM
+REAL(KIND=JPRB) :: ZCACC
+REAL(KIND=JPRB) :: ZCAGG
+REAL(KIND=JPRB) :: ZCSU2
+REAL(KIND=JPRB) :: ZCSU1
+REAL(KIND=JPRB) :: ZCEV2
+REAL(KIND=JPRB) :: ZCEV1
+REAL(KIND=JPRB) :: ZNS
+REAL(KIND=JPRB) :: ZEFFA
+REAL(KIND=JPRB) :: ZDELT
+REAL(KIND=JPRB) :: ZDPSGDT
+REAL(KIND=JPRB) :: ZDPSG
+REAL(KIND=JPRB) :: ZALTIH
+REAL(KIND=JPRB) :: ZRHO
 INTEGER(KIND=JPIM) :: JLEV, JLON
 
 #include "abor1.intfb.h"
@@ -196,34 +196,6 @@ INTEGER(KIND=JPIM) :: JLEV, JLON
 
 init_stack ()
 
-alloc (ZRHO)
-alloc (ZALTIH)
-alloc (ZDPSG)
-alloc (ZDPSGDT)
-alloc (ZDELT)
-alloc (ZEFFA)
-alloc (ZNS)
-alloc (ZCEV1)
-alloc (ZCEV2)
-alloc (ZCSU1)
-alloc (ZCSU2)
-alloc (ZCAGG)
-alloc (ZCACC)
-alloc (ZCRIM)
-alloc (ZFVEL)
-alloc (ZQL)
-alloc (ZQI)
-alloc (ZQPR)
-alloc (ZQPS)
-alloc (ZQSATW)
-alloc (ZQSATI)
-alloc (ZAUTOL)
-alloc (ZAUTOI)
-
-
-
-
-
 ZDZL   = YRPHY0%TFVL*YRPHY2%TSPHY
 ZDZI   = YRPHY0%TFVI*YRPHY2%TSPHY
 
@@ -233,63 +205,50 @@ JLON = KIDIA
 IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 !- - - - - - - - - - - - - - -
 
-      ! ---------------
-      ! Initializations
-      ! ---------------
-
-  DO JLEV = 0, KFLEV
-
-      ZALTIH(JLON,JLEV) = PAPHI(JLON,JLEV) / RG 
-    
-  ENDDO
-
     ! ==========================
     ! COMPUTE DENSITY, THICKNESS
     ! ==========================
 
   DO JLEV = KTDIA, KFLEV
     
-      ZDPSG(JLON,JLEV) = PDELP(JLON,JLEV) / RG
-      ZDPSGDT(JLON,JLEV) = ZDPSG(JLON,JLEV) * YRPHY2%TSPHY
-      ZDELT(JLON,JLEV) = PT(JLON,JLEV) - RTT
-      ZRHO(JLON,JLEV) = PAPRSF(JLON,JLEV) / PR(JLON,JLEV)&
+      ZDPSG = PDELP(JLON,JLEV) / RG
+      ZDPSGDT = ZDPSG * YRPHY2%TSPHY
+      ZDELT = PT(JLON,JLEV) - RTT
+      ZRHO = PAPRSF(JLON,JLEV) / PR(JLON,JLEV)&
        & / PT(JLON,JLEV)  
-      ZQPR(JLON,JLEV) = PQR(JLON,JLEV)
-      ZQPS(JLON,JLEV) = PQS(JLON,JLEV)
-      ZAUTOL(JLON,JLEV) = PAUTOL(JLON,JLEV) * ZDPSGDT(JLON,JLEV)
-      ZAUTOI(JLON,JLEV) = PAUTOI(JLON,JLEV) * ZDPSGDT(JLON,JLEV)
+      ZQPR = PQR(JLON,JLEV)
+      ZQPS = PQS(JLON,JLEV)
+      ZAUTOL = PAUTOL(JLON,JLEV) * ZDPSGDT
+      ZAUTOI = PAUTOI(JLON,JLEV) * ZDPSGDT
             
-  ENDDO  
-
      ! ======================================
      ! OTHER INITIALIZATIONS FOR MICROPHYSICS
      ! ======================================
 
-  DO JLEV=KTDIA,KFLEV
 !   Isolate in a loop what may not vectorize:
     
       ZWORK1=FOEW(PT(JLON,JLEV),0.0_JPRB)
       ZWORK2=FOEW(PT(JLON,JLEV),1.0_JPRB)
-      ZWORK3= ( ZRHOREF / ZRHO(JLON,JLEV) )**0.4_JPRB
+      ZWORK3= ( ZRHOREF / ZRHO )**0.4_JPRB
     
 !   This loop should vectorize:
     
 
       ZALPHA=MAX(ZEPS,PQS(JLON,JLEV))/MAX(ZEPS,PQR(JLON,JLEV)+PQS(JLON,JLEV))
-      ZFVEL(JLON,JLEV) = ZALPHA*ZFVELS + (1.0_JPRB - ZALPHA)*ZFVELR 
+      ZFVEL = ZALPHA*ZFVELS + (1.0_JPRB - ZALPHA)*ZFVELR 
        ! -----------------------------------------------------------
        ! Efficiency for ice aggregation as a function of temperature.
        ! -----------------------------------------------------------
-      ZEFFA(JLON,JLEV) = EXP(0.025_JPRB * ZDELT(JLON,JLEV))
+      ZEFFA = EXP(0.025_JPRB * ZDELT)
 
        ! ---------------------------------------------------------
        ! Intercept parameter for ice as a function of temperature.
        ! ---------------------------------------------------------
-      ZNS(JLON,JLEV) = YRPHY0%RNINTS * EXP(-0.1222_JPRB * ZDELT(JLON,JLEV))
+      ZNS = YRPHY0%RNINTS * EXP(-0.1222_JPRB * ZDELT)
 
-      ZQL(JLON,JLEV) = MAX(0.0_JPRB,PQL(JLON,JLEV) &
+      ZQL = MAX(0.0_JPRB,PQL(JLON,JLEV) &
        & -PAUTOL(JLON,JLEV)*YRPHY2%TSPHY)
-      ZQI(JLON,JLEV) = MAX(0.0_JPRB,PQI(JLON,JLEV) &
+      ZQI = MAX(0.0_JPRB,PQI(JLON,JLEV) &
        & -PAUTOI(JLON,JLEV)*YRPHY2%TSPHY)
 
       ZCLEAR = 1.0_JPRB - PNEB(JLON,JLEV)
@@ -300,49 +259,46 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
        ! -----------------------
        ! For evaporation of rain
        ! -----------------------
-      ZQSATW(JLON,JLEV) = FOQS(ZWORK1/PAPRSF(JLON,JLEV))
-      ZSSATW = 1.0_JPRB - PQ(JLON,JLEV)/ZQSATW(JLON,JLEV)
+      ZQSATW = FOQS(ZWORK1/PAPRSF(JLON,JLEV))
+      ZSSATW = 1.0_JPRB - PQ(JLON,JLEV)/ZQSATW
 
       ZCONDT = ( FOLH(PT(JLON,JLEV),0.0_JPRB)/PT(JLON,JLEV) )**2 /ZCDARV
       ZDIFFV = ZFACT4 / ZWORK1
 
       ZCEV = ZSSATW * ZCLEAR * YRPHY0%RNINTR &
-       & / ZRHO(JLON,JLEV) / (ZCONDT + ZDIFFV)  
+       & / ZRHO / (ZCONDT + ZDIFFV)  
       ZCEV = MAX(0.0_JPRB,ZCEV)
-      ZCEV1(JLON,JLEV) = ZCEV * ZCOEFF3 
-      ZCEV2(JLON,JLEV) = ZCEV * ZCOEFF4 / ZFACT3
+      ZCEV1 = ZCEV * ZCOEFF3 
+      ZCEV2 = ZCEV * ZCOEFF4 / ZFACT3
 
        ! -----------------------
        ! For sublimation of snow
        ! -----------------------
-      ZQSATI(JLON,JLEV) = FOQS(ZWORK2/PAPRSF(JLON,JLEV))
-      ZSSATI = 1.0_JPRB - PQ(JLON,JLEV)/ZQSATI(JLON,JLEV)
+      ZQSATI = FOQS(ZWORK2/PAPRSF(JLON,JLEV))
+      ZSSATI = 1.0_JPRB - PQ(JLON,JLEV)/ZQSATI
 
       ZCONDT = ( FOLH(PT(JLON,JLEV),1.0_JPRB)/PT(JLON,JLEV) )**2 /ZCDARV
       ZDIFFV = ZFACT4 / ZWORK2
 
-      ZCSU = ZSSATI * ZCLEAR * ZNS(JLON,JLEV) &
-       & / ZRHO(JLON,JLEV) / (ZCONDT + ZDIFFV)  
+      ZCSU = ZSSATI * ZCLEAR * ZNS &
+       & / ZRHO / (ZCONDT + ZDIFFV)  
       ZCSU = MAX(0.0_JPRB,ZCSU)
-      ZCSU1(JLON,JLEV) = ZCSU * ZCOEFF5
-      ZCSU2(JLON,JLEV) = ZCSU * ZCOEFF6 / ZFACT3
+      ZCSU1 = ZCSU * ZCOEFF5
+      ZCSU2 = ZCSU * ZCOEFF6 / ZFACT3
 
        ! ------------------------
        ! For collection processes
        ! ------------------------
-      ZCACC(JLON,JLEV) = ZCOEFF1 * ZWORK3
-      ZCRIM(JLON,JLEV) = ZCOEFF2 * ZWORK3
-      ZCAGG(JLON,JLEV) = ZCOEFF2B * ZWORK3 * ZEFFA(JLON,JLEV)
+      ZCACC = ZCOEFF1 * ZWORK3
+      ZCRIM = ZCOEFF2 * ZWORK3
+      ZCAGG = ZCOEFF2B * ZWORK3 * ZEFFA
 
     
-  ENDDO
 
     ! =============================================
     ! PERFORM STATISTICAL ADVECTION OF PRECIPITATION
     ! =============================================
 
-    !-- -- -- -- -- --
-  DO JLEV=KTDIA,KFLEV  
     !-- -- -- -- -- --
 
 
@@ -356,15 +312,13 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
       ! In this version there is only one falling speed, depending of 
       ! the nature of the precipitation (like ADVPRC)
       ! =================================================
-
     
+      ZDZ   = ZFVEL*YRPHY2%TSPHY
     
-      ZDZ   = ZFVEL(JLON,JLEV)*YRPHY2%TSPHY
-    
-      ZWORK3 = MAX(0.0_JPRB,ZDPSG(JLON,JLEV)*ZQPR(JLON,JLEV) + &
-       &              YRPHY2%TSPHY*(PFPLSL(JLON,JLEV-1)) + ZAUTOL(JLON,JLEV))
-      ZQPSTOT = MAX(0.0_JPRB,ZDPSG(JLON,JLEV)*ZQPS(JLON,JLEV) + &
-       &              YRPHY2%TSPHY*(PFPLSN(JLON,JLEV-1)) + ZAUTOI(JLON,JLEV))
+      ZWORK3 = MAX(0.0_JPRB,ZDPSG*ZQPR + &
+       &              YRPHY2%TSPHY*(PFPLSL(JLON,JLEV-1)) + ZAUTOL)
+      ZQPSTOT = MAX(0.0_JPRB,ZDPSG*ZQPS + &
+       &              YRPHY2%TSPHY*(PFPLSN(JLON,JLEV-1)) + ZAUTOI)
 
 !  New formulation which does not take into account initial contents
 ! This implies a total independence to CFL criteria therefore to the layers thickness
@@ -372,30 +326,18 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 !      ZWORK3(JLON) = MAX(0.0_JPRB,TSPHY*(PFPLSL(JLON,JLEV-1))+ZAUTOL(JLON,JLEV))
 !      ZQPSTOT(JLON) = MAX(0.0_JPRB,TSPHY*(PFPLSN(JLON,JLEV-1))+ZAUTOI(JLON,JLEV))
 
-    
-
-    
-
       ZQR = ZWORK3 / ZDZ
       ZQS = ZQPSTOT / ZDZ
       
       IF (YRPHY%LEVAPP) THEN
-
         ZWORK1 =  ZQR / ZNRHOW
-        ZWORK2 =  ZQS / ZNS(JLON,JLEV)
-
+        ZWORK2 =  ZQS / ZNS
       ENDIF
 
-    
-
-    IF (YRPHY%LEVAPP) THEN
-      
-        ZPOW1=ZCEV2(JLON,JLEV)*ZWORK1**ZEXP6
-        ZPOW2=ZCSU1(JLON,JLEV)*ZWORK2**ZEXP4
-      
-    ENDIF
-
-    
+     IF (YRPHY%LEVAPP) THEN
+         ZPOW1=ZCEV2*ZWORK1**ZEXP6
+         ZPOW2=ZCSU1*ZWORK2**ZEXP4
+     ENDIF
 
       ZTQEVAPPL = 0.0_JPRB
       ZTQEVAPPN = 0.0_JPRB
@@ -410,13 +352,11 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
       ZACCR     = 0.0_JPRB
 
       IF (YRPHY%LEVAPP) THEN
-
            ! ----------------------------------------
            ! Evaporation/Sublimation of precipitation
            ! ----------------------------------------
-
-        ZEVAPPL = ZCEV1(JLON,JLEV)*SQRT(ZWORK1) + ZPOW1
-        ZEVAPPN = ZPOW2 + ZCSU2(JLON,JLEV)*ZWORK2
+        ZEVAPPL = ZCEV1*SQRT(ZWORK1) + ZPOW1
+        ZEVAPPN = ZPOW2 + ZCSU2*ZWORK2
 
         ZINT1 = 1.0_JPRB / MAX(ZEPS,ZEVAPPL+ZEVAPPN)
 
@@ -426,14 +366,13 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
           ZEVAPPN = ZSUBSA*ZEVAPPN
         ENDIF
 
-        ZSUBSA = ZINT1 * ZEVAPPL * (ZQSATW(JLON,JLEV) - PQ(JLON,JLEV))
+        ZSUBSA = ZINT1 * ZEVAPPL * (ZQSATW - PQ(JLON,JLEV))
         ZTQEVAPPL = MAX(0.0_JPRB, MIN( ZWORK3,  &
-         & ZEVAPPL * ZDPSGDT(JLON,JLEV), ZSUBSA * ZDPSG(JLON,JLEV) ))   
+         & ZEVAPPL * ZDPSGDT, ZSUBSA * ZDPSG ))   
 
-        ZSUBSA = ZINT1 * ZEVAPPN * (ZQSATI(JLON,JLEV) - PQ(JLON,JLEV))
+        ZSUBSA = ZINT1 * ZEVAPPN * (ZQSATI - PQ(JLON,JLEV))
         ZTQEVAPPN = MAX(0.0_JPRB, MIN( ZQPSTOT,  &
-         & ZEVAPPN * ZDPSGDT(JLON,JLEV), ZSUBSA * ZDPSG(JLON,JLEV) ))   
-
+         & ZEVAPPN * ZDPSGDT, ZSUBSA * ZDPSG ))   
       ENDIF
 
       ZQPRTOT1 = ZWORK3 - ZTQEVAPPL
@@ -447,28 +386,24 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
            ! ----------------------------------------
            ! Collection of cloud liquid water by rain
            ! ----------------------------------------
-
-        ZACCR = ZQL(JLON,JLEV)*(1.0_JPRB-EXP(-ZCACC(JLON,JLEV)*ZQR*YRPHY2%TSPHY)) &
+        ZACCR = ZQL*(1.0_JPRB-EXP(-ZCACC*ZQR*YRPHY2%TSPHY)) &
         &     * MAX(0.0_JPRB,SIGN(1.0_JPRB,PT(JLON,JLEV)-RTT))
-        
 
            ! -------------------------------
            ! Collection of cloud ice by snow
            ! -------------------------------
-        ZAGGR = ZQI(JLON,JLEV)*(1.0_JPRB-EXP(-ZCAGG(JLON,JLEV)*ZQS*YRPHY2%TSPHY))
-
+        ZAGGR = ZQI*(1.0_JPRB-EXP(-ZCAGG*ZQS*YRPHY2%TSPHY))
            ! ----------------------------------------
            ! Collection of cloud liquid water by snow
            ! ----------------------------------------
-        ZRIMI = ZQL(JLON,JLEV)*(1.0_JPRB-EXP(-ZCRIM(JLON,JLEV)*ZQS*YRPHY2%TSPHY))
-
+        ZRIMI = ZQL*(1.0_JPRB-EXP(-ZCRIM*ZQS*YRPHY2%TSPHY))
            ! ----------------------------
            ! Sum up collection processes
            ! ----------------------------
-        ZTCOLLL = MAX(0.0_JPRB, MIN(ZACCR+ZRIMI,ZQL(JLON,JLEV)) ) &
-         & * ZDPSG(JLON,JLEV)
-        ZTCOLLN = MAX(0.0_JPRB, MIN(ZAGGR      ,ZQI(JLON,JLEV)) ) &
-         & * ZDPSG(JLON,JLEV)
+        ZTCOLLL = MAX(0.0_JPRB, MIN(ZACCR+ZRIMI,ZQL) ) &
+         & * ZDPSG
+        ZTCOLLN = MAX(0.0_JPRB, MIN(ZAGGR      ,ZQI) ) &
+         & * ZDPSG
 
       ENDIF
 
@@ -481,13 +416,13 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
            ! Snow melting
            ! ----------------------------
         ZLHFUS = FOLH(PT(JLON,JLEV),1.0_JPRB) - FOLH(PT(JLON,JLEV),0.0_JPRB)
-        ZQMLTX = ZDPSG(JLON,JLEV) * PCP(JLON,JLEV) &
-         & * MAX(0.0_JPRB,ZDELT(JLON,JLEV)) / ZLHFUS
+        ZQMLTX = ZDPSG * PCP(JLON,JLEV) &
+         & * MAX(0.0_JPRB,ZDELT) / ZLHFUS
 
          IF (.NOT. YRPHY%LSMOOTHMELT) THEN 
           ZQMLT = MIN ( ZQMLTX , ZQPSTOT2 - ZTQEVAPPN )
          ELSE
-          ZQMLT=(ZQPSTOT2-ZTQEVAPPN)*(1+TANH(ZDELT(JLON,JLEV)/YRPHY0%RSMOOTHMELT))/2.0_JPRB
+          ZQMLT=(ZQPSTOT2-ZTQEVAPPN)*(1+TANH(ZDELT/YRPHY0%RSMOOTHMELT))/2.0_JPRB
          ENDIF
        ENDIF 
        IF (LLFREEZ) THEN  
@@ -496,13 +431,12 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
            ! Rain freezing
            ! ----------------------------
         
-        ZQFRZX = ZDPSG(JLON,JLEV) * PCP(JLON,JLEV) &
-         & * MAX(0.0_JPRB,-ZDELT(JLON,JLEV)) / ZLHFUS
+        ZQFRZX = ZDPSG * PCP(JLON,JLEV) &
+         & * MAX(0.0_JPRB,-ZDELT) / ZLHFUS
         
         ZQFRZ = MIN ( ZQFRZX , ZQPRTOT2 - ZTQEVAPPL ) 
         
       ENDIF
-
       
       PFPEVPL(JLON,JLEV) = PFPEVPL(JLON,JLEV-1) &
        & + ( ZTQEVAPPL - ZQMLT + ZQFRZ) / YRPHY2%TSPHY
@@ -510,19 +444,16 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
        & + ( ZTQEVAPPN + ZQMLT - ZQFRZ) / YRPHY2%TSPHY
 
       PFPFPL (JLON,JLEV) = PFPFPL (JLON,JLEV-1) &
-       & + ( ZTCOLLL + ZAUTOL(JLON,JLEV) ) / YRPHY2%TSPHY
+       & + ( ZTCOLLL + ZAUTOL ) / YRPHY2%TSPHY
       PFPFPN (JLON,JLEV) = PFPFPN (JLON,JLEV-1) &
-       & + ( ZTCOLLN + ZAUTOI(JLON,JLEV) ) / YRPHY2%TSPHY
-
-
+       & + ( ZTCOLLN + ZAUTOI ) / YRPHY2%TSPHY
            ! ----------------------------
            ! Computation of fundamental proportions
            ! needed by the statistical algorithm
            ! (only YB formulation !)
            ! ----------------------------
-
 ! Rain and snow           
-      ZDZS = ZALTIH(JLON,JLEV-1) - ZALTIH(JLON,JLEV)
+      ZDZS = (PAPHI(JLON,JLEV-1) - PAPHI(JLON,JLEV))/RG
       ZP1  = MIN(1._JPRB , ZDZ/ZDZS)
       ZP2  = MAX(0._JPRB,1._JPRB - ZDZS/ZDZ)
       ZP3  = (ZP1 + ZP2)/2.0_JPRB
@@ -532,7 +463,6 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 ! Cloud ice
       ZP1I  = MIN(1._JPRB , ZDZI/ZDZS)
       ZP2I  = MAX(0._JPRB,1._JPRB - ZDZS/MAX(ZEPS,ZDZI))
-
       
 ! WARNING ! : Dans cette version pour coller a ADVPRC il n'y a pas de traitement separe de la neige 
 !             et de la pluie. Ceci serait difficile dans ADVPRC mais trivial dans ADVPRCS      
@@ -540,23 +470,23 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
     ! COMPUTE FLUX ASSOCIATED TO FALLING OF PRECIPITATION
     ! ================================================================
 
-      PFPLSL(JLON,JLEV) = (ZP1*ZDPSG(JLON,JLEV)*ZQPR(JLON,JLEV)      &
+      PFPLSL(JLON,JLEV) = (ZP1*ZDPSG*ZQPR      &
       &                 + ZP2*YRPHY2%TSPHY*PFPLSL(JLON,JLEV-1)              &      
-      &                 + ZP3*(ZAUTOL(JLON,JLEV) + ZTCOLLL + ZQMLT)) &
+      &                 + ZP3*(ZAUTOL + ZTCOLLL + ZQMLT)) &
       &                 * MAX(0.0_JPRB,                              &
       &                (1._JPRB - (ZTQEVAPPL+ZQFRZ)/MAX(ZEPS,ZQPRTOT2))) / YRPHY2%TSPHY
       
 
-      PFPLSN(JLON,JLEV) = (ZP1*ZDPSG(JLON,JLEV)*ZQPS(JLON,JLEV)      &
+      PFPLSN(JLON,JLEV) = (ZP1*ZDPSG*ZQPS      &
       &                 + ZP2*YRPHY2%TSPHY*PFPLSN(JLON,JLEV-1)              &      
-      &                 + ZP3*(ZAUTOI(JLON,JLEV) + ZTCOLLN + ZQFRZ)) &
+      &                 + ZP3*(ZAUTOI + ZTCOLLN + ZQFRZ)) &
       &                 * MAX(0.0_JPRB,                              &
       &                (1._JPRB - (ZTQEVAPPN+ZQMLT)/MAX(ZEPS,ZQPSTOT2))) / YRPHY2%TSPHY
 
-      PSEDIQL(JLON,JLEV) = (ZP1L*ZDPSG(JLON,JLEV)*ZQL(JLON,JLEV)      &
+      PSEDIQL(JLON,JLEV) = (ZP1L*ZDPSG*ZQL      &
        &                  + ZP2L*YRPHY2%TSPHY*PSEDIQL(JLON,JLEV-1) ) / YRPHY2%TSPHY
        
-      PSEDIQN(JLON,JLEV) = (ZP1I*ZDPSG(JLON,JLEV)*ZQI(JLON,JLEV)      &
+      PSEDIQN(JLON,JLEV) = (ZP1I*ZDPSG*ZQI      &
        &                  + ZP2I*YRPHY2%TSPHY*PSEDIQN(JLON,JLEV-1) ) / YRPHY2%TSPHY
        
      ! JLON = KIDIA, KFDIA
