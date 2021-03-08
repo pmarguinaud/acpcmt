@@ -155,15 +155,15 @@ ZARG2 = 0.5_JPRB*LOG(ABS((1.0_JPRB+ZARG2)/(1.0_JPRB-ZARG2)))
 ZALPH = (ZARG1 - ZARG2)/(YRPHY0%RQICRT2-YRPHY0%RQICRT1)
 ZBETA = ZARG1 - YRPHY0%RQICRT2 * ZALPH
  
+JLON = KIDIA
+
 DO JLEV=KTDIA,KLEV
-  DO JLON=KIDIA,KFDIA
     ZDELT(JLON,JLEV) = PT(JLON,JLEV) - RTT
 
 ! Efficiency for ice conversion as a function of temperature.
 ! -----------------------------------------------------------
     ZEFFA(JLON,JLEV) = EXP(YRPHY0%RAUTSBET*ZDELT(JLON,JLEV))
 
-  ENDDO
 ENDDO
 
 ! ---------------------------------------------------
@@ -171,7 +171,6 @@ ENDDO
 ! ---------------------------------------------------
 
 DO JLEV=KTDIA,KLEV
-  DO JLON=KIDIA,KFDIA
 
 ! Compute in-cloud values
 ! -----------------------
@@ -204,7 +203,6 @@ DO JLEV=KTDIA,KLEV
     PAUTOL(JLON,JLEV) = ZAUTOL(JLON,JLEV) * PNEBST(JLON,JLEV)
     PAUTOI(JLON,JLEV) = ZAUTOI(JLON,JLEV) * PNEBST(JLON,JLEV)
 
-  ENDDO 
 ENDDO 
 
 

@@ -157,14 +157,14 @@ REAL(KIND=JPRB) :: ZEPS,ZFVELR,ZFVELS,ZTMELT,ZRHOW,ZNRHOW      &
  & , ZALPHA,ZDZS, ZP1, ZP2, ZP3, ZDZL, ZDZI, ZP1L, ZP2L, ZP1I, ZP2I &
  & , ZFCGEN1, ZFCGEN2, ZFCGEN3, ZFCGEN4, ZFCGEN5
 
-temp (REAL(KIND=JPRB), ZPOW2, (KLON))
-temp (REAL(KIND=JPRB), ZPOW1, (KLON))
-temp (REAL(KIND=JPRB), ZWORK3, (KLON))
-temp (REAL(KIND=JPRB), ZWORK2, (KLON))
-temp (REAL(KIND=JPRB), ZWORK1, (KLON))
+REAL(KIND=JPRB) :: ZPOW2
+REAL(KIND=JPRB) :: ZPOW1
+REAL(KIND=JPRB) :: ZWORK3
+REAL(KIND=JPRB) :: ZWORK2
+REAL(KIND=JPRB) :: ZWORK1
 
-temp (REAL(KIND=JPRB), ZDZ, (KLON))
-temp (REAL(KIND=JPRB), ZQPSTOT, (KLON))
+REAL(KIND=JPRB) :: ZDZ
+REAL(KIND=JPRB) :: ZQPSTOT
 temp (REAL(KIND=JPRB), ZAUTOI, (KLON,KFLEV))
 temp (REAL(KIND=JPRB), ZAUTOL, (KLON,KFLEV))
 temp (REAL(KIND=JPRB), ZQSATI, (KLON,KFLEV))
@@ -202,13 +202,6 @@ INTEGER(KIND=JPIM) :: JLEV, JLON
 
 init_stack ()
 
-alloc (ZWORK1)
-alloc (ZWORK2)
-alloc (ZWORK3)
-alloc (ZPOW1)
-alloc (ZPOW2)
-alloc (ZQPSTOT)
-alloc (ZDZ)
 alloc (ZRHO)
 alloc (ZALTIH)
 alloc (ZDPSG)
@@ -239,6 +232,8 @@ alloc (ZAUTOI)
 
 ZDZL   = YRPHY0%TFVL*YRPHY2%TSPHY
 ZDZI   = YRPHY0%TFVI*YRPHY2%TSPHY
+
+JLON = KIDIA
 
 !- - - - - - - - - - - - - - -
 IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
@@ -321,9 +316,9 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
       ! ---------------
 
   DO JLEV = 0, KFLEV
-    DO JLON = KIDIA, KFDIA
+
       ZALTIH(JLON,JLEV) = PAPHI(JLON,JLEV) / RG 
-    ENDDO
+    
   ENDDO
 
     ! ==========================
@@ -331,7 +326,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
     ! ==========================
 
   DO JLEV = KTDIA, KFLEV
-    DO JLON = KIDIA, KFDIA
+    
       ZDPSG(JLON,JLEV) = PDELP(JLON,JLEV) / RG
       ZDPSGDT(JLON,JLEV) = ZDPSG(JLON,JLEV) * YRPHY2%TSPHY
       ZDELT(JLON,JLEV) = PT(JLON,JLEV) - RTT
@@ -341,7 +336,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
       ZQPS(JLON,JLEV) = PQS(JLON,JLEV)
       ZAUTOL(JLON,JLEV) = PAUTOL(JLON,JLEV) * ZDPSGDT(JLON,JLEV)
       ZAUTOI(JLON,JLEV) = PAUTOI(JLON,JLEV) * ZDPSGDT(JLON,JLEV)
-    ENDDO        
+            
   ENDDO  
 
      ! ======================================
@@ -350,13 +345,13 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 
   DO JLEV=KTDIA,KFLEV
 !   Isolate in a loop what may not vectorize:
-    DO JLON=KIDIA,KFDIA
-      ZWORK1(JLON)=FOEW(PT(JLON,JLEV),0.0_JPRB)
-      ZWORK2(JLON)=FOEW(PT(JLON,JLEV),1.0_JPRB)
-      ZWORK3(JLON)= ( ZRHOREF / ZRHO(JLON,JLEV) )**0.4_JPRB
-    ENDDO
+    
+      ZWORK1=FOEW(PT(JLON,JLEV),0.0_JPRB)
+      ZWORK2=FOEW(PT(JLON,JLEV),1.0_JPRB)
+      ZWORK3= ( ZRHOREF / ZRHO(JLON,JLEV) )**0.4_JPRB
+    
 !   This loop should vectorize:
-    DO JLON=KIDIA,KFDIA
+    
 
       ZALPHA=MAX(ZEPS,PQS(JLON,JLEV))/MAX(ZEPS,PQR(JLON,JLEV)+PQS(JLON,JLEV))
       ZFVEL(JLON,JLEV) = ZALPHA*ZFVELS + (1.0_JPRB - ZALPHA)*ZFVELR 
@@ -383,11 +378,11 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
        ! -----------------------
        ! For evaporation of rain
        ! -----------------------
-      ZQSATW(JLON,JLEV) = FOQS(ZWORK1(JLON)/PAPRSF(JLON,JLEV))
+      ZQSATW(JLON,JLEV) = FOQS(ZWORK1/PAPRSF(JLON,JLEV))
       ZSSATW = 1.0_JPRB - PQ(JLON,JLEV)/ZQSATW(JLON,JLEV)
 
       ZCONDT = ( FOLH(PT(JLON,JLEV),0.0_JPRB)/PT(JLON,JLEV) )**2 /ZCDARV
-      ZDIFFV = ZFACT4 / ZWORK1(JLON)
+      ZDIFFV = ZFACT4 / ZWORK1
 
       ZCEV = ZSSATW * ZCLEAR * YRPHY0%RNINTR &
        & / ZRHO(JLON,JLEV) / (ZCONDT + ZDIFFV)  
@@ -398,11 +393,11 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
        ! -----------------------
        ! For sublimation of snow
        ! -----------------------
-      ZQSATI(JLON,JLEV) = FOQS(ZWORK2(JLON)/PAPRSF(JLON,JLEV))
+      ZQSATI(JLON,JLEV) = FOQS(ZWORK2/PAPRSF(JLON,JLEV))
       ZSSATI = 1.0_JPRB - PQ(JLON,JLEV)/ZQSATI(JLON,JLEV)
 
       ZCONDT = ( FOLH(PT(JLON,JLEV),1.0_JPRB)/PT(JLON,JLEV) )**2 /ZCDARV
-      ZDIFFV = ZFACT4 / ZWORK2(JLON)
+      ZDIFFV = ZFACT4 / ZWORK2
 
       ZCSU = ZSSATI * ZCLEAR * ZNS(JLON,JLEV) &
        & / ZRHO(JLON,JLEV) / (ZCONDT + ZDIFFV)  
@@ -413,11 +408,11 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
        ! ------------------------
        ! For collection processes
        ! ------------------------
-      ZCACC(JLON,JLEV) = ZCOEFF1 * ZWORK3(JLON)
-      ZCRIM(JLON,JLEV) = ZCOEFF2 * ZWORK3(JLON)
-      ZCAGG(JLON,JLEV) = ZCOEFF2B * ZWORK3(JLON) * ZEFFA(JLON,JLEV)
+      ZCACC(JLON,JLEV) = ZCOEFF1 * ZWORK3
+      ZCRIM(JLON,JLEV) = ZCOEFF2 * ZWORK3
+      ZCAGG(JLON,JLEV) = ZCOEFF2B * ZWORK3 * ZEFFA(JLON,JLEV)
 
-    ENDDO
+    
   ENDDO
 
     ! =============================================
@@ -440,13 +435,13 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
       ! the nature of the precipitation (like ADVPRC)
       ! =================================================
 
-    DO JLON = KIDIA, KFDIA
     
-      ZDZ(JLON)   = ZFVEL(JLON,JLEV)*YRPHY2%TSPHY
     
-      ZWORK3(JLON) = MAX(0.0_JPRB,ZDPSG(JLON,JLEV)*ZQPR(JLON,JLEV) + &
+      ZDZ   = ZFVEL(JLON,JLEV)*YRPHY2%TSPHY
+    
+      ZWORK3 = MAX(0.0_JPRB,ZDPSG(JLON,JLEV)*ZQPR(JLON,JLEV) + &
        &              YRPHY2%TSPHY*(PFPLSL(JLON,JLEV-1)) + ZAUTOL(JLON,JLEV))
-      ZQPSTOT(JLON) = MAX(0.0_JPRB,ZDPSG(JLON,JLEV)*ZQPS(JLON,JLEV) + &
+      ZQPSTOT = MAX(0.0_JPRB,ZDPSG(JLON,JLEV)*ZQPS(JLON,JLEV) + &
        &              YRPHY2%TSPHY*(PFPLSN(JLON,JLEV-1)) + ZAUTOI(JLON,JLEV))
 
 !  New formulation which does not take into account initial contents
@@ -455,30 +450,30 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 !      ZWORK3(JLON) = MAX(0.0_JPRB,TSPHY*(PFPLSL(JLON,JLEV-1))+ZAUTOL(JLON,JLEV))
 !      ZQPSTOT(JLON) = MAX(0.0_JPRB,TSPHY*(PFPLSN(JLON,JLEV-1))+ZAUTOI(JLON,JLEV))
 
-    ENDDO
+    
 
-    DO JLON = KIDIA, KFDIA
+    
 
-      ZQR = ZWORK3(JLON) / ZDZ(JLON)
-      ZQS = ZQPSTOT(JLON) / ZDZ(JLON)
+      ZQR = ZWORK3 / ZDZ
+      ZQS = ZQPSTOT / ZDZ
       
       IF (YRPHY%LEVAPP) THEN
 
-        ZWORK1(JLON) =  ZQR / ZNRHOW
-        ZWORK2(JLON) =  ZQS / ZNS(JLON,JLEV)
+        ZWORK1 =  ZQR / ZNRHOW
+        ZWORK2 =  ZQS / ZNS(JLON,JLEV)
 
       ENDIF
 
-    ENDDO
+    
 
     IF (YRPHY%LEVAPP) THEN
-      DO JLON = KIDIA, KFDIA
-        ZPOW1(JLON)=ZCEV2(JLON,JLEV)*ZWORK1(JLON)**ZEXP6
-        ZPOW2(JLON)=ZCSU1(JLON,JLEV)*ZWORK2(JLON)**ZEXP4
-      ENDDO
+      
+        ZPOW1=ZCEV2(JLON,JLEV)*ZWORK1**ZEXP6
+        ZPOW2=ZCSU1(JLON,JLEV)*ZWORK2**ZEXP4
+      
     ENDIF
 
-    DO JLON = KIDIA, KFDIA
+    
 
       ZTQEVAPPL = 0.0_JPRB
       ZTQEVAPPN = 0.0_JPRB
@@ -498,8 +493,8 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
            ! Evaporation/Sublimation of precipitation
            ! ----------------------------------------
 
-        ZEVAPPL = ZCEV1(JLON,JLEV)*SQRT(ZWORK1(JLON)) + ZPOW1(JLON)
-        ZEVAPPN = ZPOW2(JLON) + ZCSU2(JLON,JLEV)*ZWORK2(JLON)
+        ZEVAPPL = ZCEV1(JLON,JLEV)*SQRT(ZWORK1) + ZPOW1
+        ZEVAPPN = ZPOW2 + ZCSU2(JLON,JLEV)*ZWORK2
 
         ZINT1 = 1.0_JPRB / MAX(ZEPS,ZEVAPPL+ZEVAPPN)
 
@@ -510,20 +505,20 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
         ENDIF
 
         ZSUBSA = ZINT1 * ZEVAPPL * (ZQSATW(JLON,JLEV) - PQ(JLON,JLEV))
-        ZTQEVAPPL = MAX(0.0_JPRB, MIN( ZWORK3(JLON),  &
+        ZTQEVAPPL = MAX(0.0_JPRB, MIN( ZWORK3,  &
          & ZEVAPPL * ZDPSGDT(JLON,JLEV), ZSUBSA * ZDPSG(JLON,JLEV) ))   
 
         ZSUBSA = ZINT1 * ZEVAPPN * (ZQSATI(JLON,JLEV) - PQ(JLON,JLEV))
-        ZTQEVAPPN = MAX(0.0_JPRB, MIN( ZQPSTOT(JLON),  &
+        ZTQEVAPPN = MAX(0.0_JPRB, MIN( ZQPSTOT,  &
          & ZEVAPPN * ZDPSGDT(JLON,JLEV), ZSUBSA * ZDPSG(JLON,JLEV) ))   
 
       ENDIF
 
-      ZQPRTOT1 = ZWORK3(JLON) - ZTQEVAPPL
-      ZQPSTOT1 = ZQPSTOT(JLON) - ZTQEVAPPN
+      ZQPRTOT1 = ZWORK3 - ZTQEVAPPL
+      ZQPSTOT1 = ZQPSTOT - ZTQEVAPPN
 
-      ZQR = ZQPRTOT1 / ZDZ(JLON)
-      ZQS = ZQPSTOT1 / ZDZ(JLON)
+      ZQR = ZQPRTOT1 / ZDZ
+      ZQS = ZQPSTOT1 / ZDZ
 
       IF (YRPHY%LCOLLEC) THEN
 
@@ -555,8 +550,8 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 
       ENDIF
 
-      ZQPRTOT2  = ZWORK3(JLON) + ZTCOLLL
-      ZQPSTOT2  = ZQPSTOT(JLON) + ZTCOLLN
+      ZQPRTOT2  = ZWORK3 + ZTCOLLL
+      ZQPSTOT2  = ZQPSTOT + ZTCOLLN
 
       IF (LLMELTS) THEN
 
@@ -606,8 +601,8 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 
 ! Rain and snow           
       ZDZS = ZALTIH(JLON,JLEV-1) - ZALTIH(JLON,JLEV)
-      ZP1  = MIN(1._JPRB , ZDZ(JLON)/ZDZS)
-      ZP2  = MAX(0._JPRB,1._JPRB - ZDZS/ZDZ(JLON))
+      ZP1  = MIN(1._JPRB , ZDZ/ZDZS)
+      ZP2  = MAX(0._JPRB,1._JPRB - ZDZS/ZDZ)
       ZP3  = (ZP1 + ZP2)/2.0_JPRB
 ! Cloud liquid water      
       ZP1L  = MIN(1._JPRB , ZDZL/ZDZS)
@@ -642,7 +637,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
       PSEDIQN(JLON,JLEV) = (ZP1I*ZDPSG(JLON,JLEV)*ZQI(JLON,JLEV)      &
        &                  + ZP2I*YRPHY2%TSPHY*PSEDIQN(JLON,JLEV-1) ) / YRPHY2%TSPHY
        
-    ENDDO ! JLON = KIDIA, KFDIA
+     ! JLON = KIDIA, KFDIA
 
     !-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
   ENDDO ! LEV=1,KFLEV : end of statistical advection 
