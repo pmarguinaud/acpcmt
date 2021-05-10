@@ -5,9 +5,9 @@ FRTFLAGS = -convert big_endian -assume byterecl -traceback -qopenmp -qopenmp-thr
 #OPT_FRTFLAGS = -fp-model source -g -O2 -ip -xAVX
 OPT_FRTFLAGS = -fp-model source -g -O0 -ip -check bounds -debug full
 
-FC = /home/gmap/mrpm/marguina/install/gmkpack_support/wrapper/I161150/ifort $(FRTFLAGS) $(OPT_FRTFLAGS)
+FC = ifort $(FRTFLAGS) $(OPT_FRTFLAGS)
 #FC = /home/gmap/mrpm/marguina/install/gmkpack_support/wrapper/I161150/ifort $(FRTFLAGS) -g -O0
-
+#FC = pgf90 -mp -byteswapio -Mlarge_arrays -Minfo=mp -mp -O0 -g 
 
 all: wrap_acpcmt.x
 
