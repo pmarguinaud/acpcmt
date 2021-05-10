@@ -1,7 +1,7 @@
 #FRTFLAGS = -convert big_endian -assume byterecl -traceback -qopenmp -qopenmp-threadprivate compat -vec-report3 -fPIC  -align array64byte
 #OPT_FRTFLAGS = -fp-model source -g -O2 -ip -xAVX -ftz  -fast-transcendentals
 
-FRTFLAGS = -convert big_endian -assume byterecl -traceback -qopenmp -qopenmp-threadprivate compat -vec-report3 -fPIC
+FRTFLAGS = -convert big_endian -assume byterecl -traceback -qopenmp -qopenmp-threadprivate compat -fPIC
 #OPT_FRTFLAGS = -fp-model source -g -O2 -ip -xAVX
 OPT_FRTFLAGS = -fp-model source -g -O0 -ip -check bounds -debug full
 
