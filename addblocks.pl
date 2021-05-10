@@ -37,6 +37,12 @@ for my $pu (@pu)
         }
     }
 
+    {
+      my ($JLON) = &f ('.//f:T-decl-stmt//f:EN-decl[./f:EN-N/f:N/f:n/text ()="JLON"]', $pu);
+      $JLON->parentNode->insertBefore (&n ('<EN-decl><EN-N><N><n>JBLK</n></N></EN-N></EN-decl>'), $JLON);
+      $JLON->parentNode->insertBefore (&t (','), $JLON);
+    }
+
 
     my @sslt = &f ('.//f:EN-decl/f:array-spec/f:shape-spec-LT[./f:shape-spec/f:upper-bound/f:named-E/f:N/f:n/text ()="KLON"]', $pu);
 
