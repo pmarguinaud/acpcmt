@@ -76,10 +76,12 @@ INTEGER(KIND=JPIM) :: JLEV,JBLK,JLON
 
 
 
+!$acc data present (PDDAL, PDELP, PDETR_D, PDETR_U, PENTR_D, PENTR_U, PFCED, PPSIC, PPSIR, PUDAL)
 !-------------------------------------------------
 ! INITIALIZATION.
 !-------------------------------------------------
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -90,6 +92,7 @@ ENDDO
 ENDDO
 ENDDO
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZINC, ZMAXVALUE_ZINC, ZMINVALUE_ZINC) default(none)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA,KLEV
@@ -117,4 +120,5 @@ ENDDO
 
 
 
+!$acc end data
 END SUBROUTINE ACMTENTR

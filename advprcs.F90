@@ -173,6 +173,12 @@ INTEGER(KIND=JPIM) :: JLEV, JBLK,JLON
 
 #include "fcttrm.func.h"
 
+!$acc data present (PSEDIQN, PT)
+!$acc data present (PFPLSL, PFPLSN, PNEB, PQ, PQI, PQL, PQR, PQS, PR, PSEDIQL)
+!$acc data present (PAPHI, PAPRSF, PAUTOI, PAUTOL, PCP, PDELP, PFPEVPL, PFPEVPN, PFPFPL, PFPFPN)
+!$acc data create (ZQL, ZQPR, ZQPS, ZQPSTOT, ZQSATI, ZQSATW, ZRHO, ZWORK1, ZWORK2, ZWORK3)
+!$acc data create (ZDELT, ZDPSG, ZDPSGDT, ZDZ, ZEFFA, ZFVEL, ZNS, ZPOW1, ZPOW2, ZQI)
+!$acc data create (ZALTIH, ZAUTOI, ZAUTOL, ZCACC, ZCAGG, ZCEV1, ZCEV2, ZCRIM, ZCSU1, ZCSU2)
 ! --------------------------------------------------------
 
 !     CHECK RELIABILITY OF INPUT ARGUMENTS.
@@ -256,7 +262,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
       ! Initializations
       ! ---------------
 
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 0, KFLEV
@@ -272,7 +278,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
     ! COMPUTE DENSITY, THICKNESS
     ! ==========================
 
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KFLEV
@@ -296,7 +302,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
      ! OTHER INITIALIZATIONS FOR MICROPHYSICS
      ! ======================================
 
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZALPHA, ZCEV, ZCLEAR, ZCONDT, ZCSU, ZDIFFV, ZFACT3, ZFACT4, ZKDIFF, ZSSATI, ZSSATW) 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZALPHA, ZCEV, ZCLEAR, ZCONDT, ZCSU, ZDIFFV, ZFACT3, ZFACT4, ZKDIFF, ZSSATI, ZSSATW) default(none)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KFLEV
@@ -379,7 +385,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
     ! =============================================
 
     !-- -- -- -- -- --
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZACCR, ZAGGR, ZDZS, ZEVAPPL, ZEVAPPN, ZINT1, ZLHFUS, ZP1, ZP1I, ZP1L, ZP2, ZP2I, ZP2L, ZP3, ZQFPFPL, ZQFPFPN, ZQFRZ, ZQFRZX, ZQMLT, ZQMLTX, ZQPRTOT1, ZQPRTOT2, ZQPSTOT1, ZQPSTOT2, ZQR, ZQS, ZRIMI, ZSUBSA, ZTCOLLL, ZTCOLLN, ZTQEVAPPL, ZTQEVAPPN) 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZACCR, ZAGGR, ZDZS, ZEVAPPL, ZEVAPPN, ZINT1, ZLHFUS, ZP1, ZP1I, ZP1L, ZP2, ZP2I, ZP2L, ZP3, ZQFPFPL, ZQFPFPN, ZQFRZ, ZQFRZX, ZQMLT, ZQMLTX, ZQPRTOT1, ZQPRTOT2, ZQPSTOT1, ZQPSTOT2, ZQR, ZQS, ZRIMI, ZSUBSA, ZTCOLLL, ZTCOLLN, ZTQEVAPPL, ZTQEVAPPN) default(none)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KFLEV  
@@ -613,4 +619,10 @@ ENDIF  ! End of test on TSPHY > 0.0_JPRB
 !- - - - - - - - - - - - - - - - - - - - - - -
 
 
+!$acc end data
+!$acc end data
+!$acc end data
+!$acc end data
+!$acc end data
+!$acc end data
 END SUBROUTINE ADVPRCS

@@ -1,5 +1,8 @@
 MODULE YOMDIM
 
+
+#include "create.h"
+
 USE PARKIND1  ,ONLY : JPIM
 
 IMPLICIT NONE
@@ -70,6 +73,7 @@ END TYPE TDIM
 
 TYPE(TDIM) :: YRDIM 
 
+create (YRDIM)
 !     ------------------------------------------------------------------
 
 END MODULE YOMDIM

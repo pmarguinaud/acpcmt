@@ -1,5 +1,8 @@
 MODULE YOMFPC
 
+
+#include "create.h"
+
 USE PARKIND1  ,ONLY : JPIM     ,JPRB
 
 IMPLICIT NONE
@@ -8,6 +11,7 @@ SAVE
 
 REAL(KIND=JPRB) :: RENTRA
 
+create (RENTRA)
 END MODULE YOMFPC
 
 

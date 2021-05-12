@@ -1,5 +1,8 @@
 MODULE YOMPHY2
 
+
+#include "create.h"
+
 USE PARKIND1  ,ONLY : JPIM     ,JPRB
 
 IMPLICIT NONE
@@ -12,5 +15,6 @@ END TYPE TPHY2
 
 TYPE(TPHY2) :: YRPHY2 
 
+create (YRPHY2)
 !     ------------------------------------------------------------------
 END MODULE YOMPHY2

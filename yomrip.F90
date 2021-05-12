@@ -1,5 +1,8 @@
 MODULE YOMRIP
 
+
+#include "create.h"
+
 USE PARKIND1  ,ONLY : JPIM     ,JPRB
 
 IMPLICIT NONE
@@ -20,6 +23,7 @@ END TYPE TRIP
 
 TYPE(TRIP) :: YRRIP 
 
+create (YRRIP)
 !     --------------------------------------------------------------------------------
 
 END MODULE YOMRIP

@@ -1,5 +1,8 @@
 MODULE YOMCST
 
+
+#include "create.h"
+
 USE PARKIND1  ,ONLY : JPRB
 
 IMPLICIT NONE
@@ -8,32 +11,60 @@ SAVE
 
 
 REAL (KIND=JPRB)::  RA
+create (RA)
 REAL (KIND=JPRB)::  RALPD
+create (RALPD)
 REAL (KIND=JPRB)::  RALPS
+create (RALPS)
 REAL (KIND=JPRB)::  RALPW
+create (RALPW)
 REAL (KIND=JPRB)::  RATM
+create (RATM)
 REAL (KIND=JPRB)::  RBETD
+create (RBETD)
 REAL (KIND=JPRB)::  RBETS
+create (RBETS)
 REAL (KIND=JPRB)::  RBETW
+create (RBETW)
 REAL (KIND=JPRB)::  RCPD
+create (RCPD)
 REAL (KIND=JPRB)::  RCPV
+create (RCPV)
 REAL (KIND=JPRB)::  RCS
+create (RCS)
 REAL (KIND=JPRB)::  RCW
+create (RCW)
 REAL (KIND=JPRB)::  RD
+create (RD)
 REAL (KIND=JPRB)::  RDAY
+create (RDAY)
 REAL (KIND=JPRB)::  RDT
+create (RDT)
 REAL (KIND=JPRB)::  REA
+create (REA)
 REAL (KIND=JPRB)::  REPSM
+create (REPSM)
 REAL (KIND=JPRB)::  RETV
+create (RETV)
 REAL (KIND=JPRB)::  RG
+create (RG)
 REAL (KIND=JPRB)::  RGAMD
+create (RGAMD)
 REAL (KIND=JPRB)::  RGAMS
+create (RGAMS)
 REAL (KIND=JPRB)::  RGAMW
+create (RGAMW)
 REAL (KIND=JPRB)::  RKAPPA
+create (RKAPPA)
 REAL (KIND=JPRB)::  RLSTT
+create (RLSTT)
 REAL (KIND=JPRB)::  RLVTT
+create (RLVTT)
 REAL (KIND=JPRB)::  RPI
+create (RPI)
 REAL (KIND=JPRB)::  RTT
+create (RTT)
 REAL (KIND=JPRB)::  RV
 
+create (RV)
 END

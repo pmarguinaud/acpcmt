@@ -216,6 +216,11 @@ INTEGER(KIND=JPIM) :: JBLK,JLON,JLEV
 
 #include "fctdoi.func.h"
 
+!$acc data present (PTENDQ, PTS, PVETAF)
+!$acc data present (PQI, PQL, PQLI_CVPP, PQR, PQS, PR, PSEDIQL, PSEDIQN, PT, PTENDH)
+!$acc data present (PFPLSL, PFPLSN, PGM, PLSM, PNEBS, PNEB_CVPP, PNEIJ, PQ, PQCS, PQC_DET_PCMT)
+!$acc data present (PAPHI, PAPRSF, PCP, PDELP, PFCSQL, PFCSQN, PFPEVPL, PFPEVPN, PFPFPL, PFPFPN)
+!$acc data create (ZAUTOI, ZAUTOL, ZFLUXCOR, ZQ, ZQI, ZQL, ZQSATS, ZRHCRI, ZRMF, ZT)
 !     ------------------------------------------------------------------
 
 !     CHECK RELIABILITY OF INPUT ARGUMENTS.
@@ -232,7 +237,7 @@ ZEPS1=1.E-12_JPRB
 
 IF ( LDADJCLD ) THEN
 
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KLEV
@@ -252,7 +257,7 @@ IF ( LDADJCLD ) THEN
 
 ELSE
 
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KLEV
@@ -270,7 +275,7 @@ ENDIF
 ! CLOUD OVERLAP FOR STRATIFORM AND SHALLOW CLOUDS
 ! -----------------------------------------------
                                                                                 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZICE) 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZICE) default(none)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA, KLEV
@@ -303,7 +308,7 @@ CALL ACMICRO ( KIDIA, KFDIA, KGPBLKS,KLON, KTDIA, KLEV,&
 ZGDT=RG*YRPHY2%TSPHY
 ZGDTI=1.0_JPRB/ZGDT
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZDPSGDT, ZIGEL) 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZDPSGDT, ZIGEL) default(none)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA, KLEV
@@ -338,4 +343,9 @@ CALL ADVPRCS ( KIDIA, KFDIA, KGPBLKS,KLON, KTDIA, KLEV,&
              & PSEDIQL, PSEDIQN )
 
 
+!$acc end data
+!$acc end data
+!$acc end data
+!$acc end data
+!$acc end data
 END SUBROUTINE ACPLUIZ

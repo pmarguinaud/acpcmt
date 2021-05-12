@@ -69,6 +69,8 @@ REAL(KIND=JPRB) :: ZDPSG(KLON,KLEV,KGPBLKS)
 INTEGER(KIND=JPIM) :: JLEV, JBLK,JLON
 REAL(KIND=JPRB) :: ZLN_NEGLIG,ZUSCFL
 
+!$acc data present (PAPHI, PDELP, PFVAR, PVAR, PVARW)
+!$acc data create (ZALTIH, ZDPSG, ZDZL, ZDZV, ZFDN, ZFUP, ZP2)
 ! --------------------------------------------------------
 
 !     CHECK RELIABILITY OF INPUT ARGUMENTS.
@@ -77,7 +79,7 @@ REAL(KIND=JPRB) :: ZLN_NEGLIG,ZUSCFL
 
 ! --------------------------------------------------------
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -95,7 +97,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 !- - - - - - - - - - - - - - -
 
 ! Some intialisation
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KLEV
@@ -106,7 +108,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
   ENDDO
   ENDDO
   
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA-1, KLEV
@@ -123,7 +125,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 
 ! First loop : From top to bottom
 
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZP1, ZUSCFL) 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZP1, ZUSCFL) default(none)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KLEV-1
@@ -153,7 +155,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 
 ! Second loop : From bottom to top
 
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZP1, ZUSCFL) 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZP1, ZUSCFL) default(none)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = KLEV, KTDIA+1, -1
@@ -188,7 +190,7 @@ ENDIF  ! End of test on TSPHY > 0.0_JPRB
 
 !  Final loop construction of net flux
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA, KLEV-1
@@ -203,4 +205,6 @@ ENDDO
 ! --------------------------------------------------------
 
 
+!$acc end data
+!$acc end data
 END SUBROUTINE ACADVEC

@@ -244,6 +244,13 @@ INTEGER(KIND=JPIM) :: JTRA
 
 #include "fcttrm.func.h"
 
+
+!$acc data present (PTW, PU, PUM, PV, PVM)
+!$acc data present (PQN2, PQSAT, PQW, PR, PSDN, PSN2, PT, PTN2, PTRA, PTRAM)
+!$acc data present (PDELA, PDELP, PEPSI, PFORM, PLH, PLNPR, PQ, PQDN, PQLIC, PQLIS)
+!$acc data present (KLEVTEN, KNCDN, KNLAB, KNLABD, PALPH, PAPHIF, PAPRS, PAPRSF, PBCC_CD_FULL, PBET)
+!$acc data create (ZRBH, ZRVH, ZTB, ZTN, ZVVER, ZVVERFM1)
+!$acc data create (INIVBDC, ZBCC_CD_HALF, ZCP, ZDWNDP, ZFMOD, ZLH, ZMIX, ZQB, ZQN, ZRBB)
 ! -----------------------------------------------------------------------
 
 ! *
@@ -283,7 +290,7 @@ ZEPSO=1.E-12_JPRB
 
 ! ZFMOD      : FONCTION DE LA VITESE DU COURANT DESCENDANT.
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA-1,KLEV
@@ -300,7 +307,7 @@ ENDDO
 ENDDO
 
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -312,7 +319,7 @@ ENDDO
 ENDDO
 
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -357,7 +364,7 @@ ENDDO
 ! PQDN       : HUMIDITE DE DETRAINEMENT DU COURANT DESCENDANT.
 !            : DETRAINING DOWNDRAFT HUMIDITY.
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON, JTRA, ZDELTA, ZESP, ZEW, ZQW, ZTD) 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON, JTRA, ZDELTA, ZESP, ZEW, ZQW, ZTD) default(none)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -459,7 +466,7 @@ ENDDO
 !     ATMOSPHERE AND START OF THE VERTICAL LOOP.
 
 ITOP=KTDIA
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (IBDC, ICDN, IDOMDP, IKUO1, IKUO2, ILEVBDC, INUA, ISDELTAP, ISUM, ITOP, IVVER, JBLK, JIT, JLEV, JLON, JTRA, ZB, ZCPS, ZDCP, ZDELPF, ZDELQ, ZDELT, ZDELTA, ZDELTAP, ZDQW, ZENTR, ZENTRO, ZENTRT, ZESP, ZEW, ZFLO, ZFLOI, ZQW, ZTD, ZTEST, ZTNSEC, ZTVE, ZTVN, ZVVERDEN, ZVVERF, ZVVERN) 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (IBDC, ICDN, IDOMDP, IKUO1, IKUO2, ILEVBDC, INUA, ISDELTAP, ISUM, ITOP, IVVER, JBLK, JIT, JLEV, JLON, JTRA, ZB, ZCPS, ZDCP, ZDELPF, ZDELQ, ZDELT, ZDELTA, ZDELTAP, ZDQW, ZENTR, ZENTRO, ZENTRT, ZESP, ZEW, ZFLO, ZFLOI, ZQW, ZTD, ZTEST, ZTNSEC, ZTVE, ZTVN, ZVVERDEN, ZVVERF, ZVVERN) default(none)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA+1,KLEV
@@ -764,4 +771,10 @@ ENDDO
 
 
 
+!$acc end data
+!$acc end data
+!$acc end data
+!$acc end data
+!$acc end data
+!$acc end data
 END SUBROUTINE ACMTDDD

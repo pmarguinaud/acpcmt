@@ -98,6 +98,7 @@ INTEGER(KIND=JPIM) :: JLEV, JBLK,JLON
 
 REAL(KIND=JPRB) :: ZEPS1, ZRH, ZRHLIM, ZNEB, ZBIN, ZARGLI, ZRHEXP
 
+!$acc data present (PNEB, PQ, PQC, PQSAT)
 !*
 !     ------------------------------------------------------------------
 !     I - CALCUL DE LA NEBULOSITE.
@@ -108,7 +109,7 @@ ZEPS1=1.E-6_JPRB
 ZARGLI=125._JPRB**(1.0_JPRB/YRPHY0%QXRTGH)
 
 IF (YRPHY%LQXRTGH) THEN
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZBIN, ZNEB, ZRH, ZRHEXP, ZRHLIM) 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZBIN, ZNEB, ZRH, ZRHEXP, ZRHLIM) default(none)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KLEV
@@ -127,7 +128,7 @@ IF (YRPHY%LQXRTGH) THEN
   ENDDO
 
 ELSE
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZBIN, ZNEB, ZRH, ZRHLIM) 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZBIN, ZNEB, ZRH, ZRHLIM) default(none)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KLEV
@@ -146,4 +147,5 @@ ELSE
 ENDIF
 
 
+!$acc end data
 END SUBROUTINE ACNEBXRS

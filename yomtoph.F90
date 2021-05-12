@@ -1,5 +1,8 @@
 MODULE YOMTOPH
 
+
+#include "create.h"
+
 USE PARKIND1  ,ONLY : JPIM     ,JPRB
 
 IMPLICIT NONE
@@ -101,5 +104,6 @@ END TYPE TTOPH
 TYPE(TTOPH) :: YRTOPH 
 
 
+create (YRTOPH)
 !     ------------------------------------------------------------------
 END MODULE YOMTOPH
