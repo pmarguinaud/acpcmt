@@ -108,6 +108,7 @@ ZEPS1=1.E-6_JPRB
 ZARGLI=125._JPRB**(1.0_JPRB/YRPHY0%QXRTGH)
 
 IF (YRPHY%LQXRTGH) THEN
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZBIN, ZNEB, ZRH, ZRHEXP, ZRHLIM) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KLEV
@@ -126,6 +127,7 @@ IF (YRPHY%LQXRTGH) THEN
   ENDDO
 
 ELSE
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZBIN, ZNEB, ZRH, ZRHLIM) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KLEV

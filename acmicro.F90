@@ -135,6 +135,7 @@ ZARG2 = 0.5_JPRB*LOG(ABS((1.0_JPRB+ZARG2)/(1.0_JPRB-ZARG2)))
 ZALPH = (ZARG1 - ZARG2)/(YRPHY0%RQICRT2-YRPHY0%RQICRT1)
 ZBETA = ZARG1 - YRPHY0%RQICRT2 * ZALPH
  
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA,KLEV
@@ -155,6 +156,7 @@ ENDDO
 ! MICROPHYSICAL AUTOCONVERSION IN THE STRATIFORM CASE
 ! ---------------------------------------------------
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZCAUT, ZDUM, ZFACICE, ZQCR, ZQI, ZQL) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA,KLEV

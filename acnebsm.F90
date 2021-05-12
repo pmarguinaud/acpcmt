@@ -156,6 +156,7 @@ ZFACTA=(2.0_JPRB*YRPHY0%RETAMIN-1.0_JPRB)
 ZFACTB=(1.0_JPRB-3._JPRB*YRPHY0%RETAMIN**2)
 ZFACTC=(3._JPRB*YRPHY0%RETAMIN-2.0_JPRB)*YRPHY0%RETAMIN
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON, ZFACT) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -174,6 +175,7 @@ DO JLEV=KTDIA,KLEV
   ZVETAF(JLEV) = MAX(PVETAF(JLEV),YRPHY0%RETAMIN)
 ENDDO
                                                                                 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA,KLEV
@@ -206,6 +208,7 @@ ZEPS1=1.E-12_JPRB
 ZSQRT6 = SQRT(6._JPRB)
 ZRDSRV = RD / RV
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZESAT, ZESP, ZLEFF, ZLS, ZLV, ZQC, ZQCS, ZQI, ZQL, ZQSAT, ZRAT2, ZRATQ, ZRHC, ZSIGS, ZTLIQ) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA,KLEV

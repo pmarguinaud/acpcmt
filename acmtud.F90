@@ -444,6 +444,7 @@ LOGICAL :: LLTEXC,LLNHACC,LLCOND1,LLCAPECIN
 
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV+1
@@ -455,6 +456,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV+1
@@ -467,6 +469,7 @@ ENDDO
 
 
 LLCAPECIN=.FALSE.
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -475,6 +478,7 @@ DO JLON = KIDIA, KFDIA
 ENDDO
 ENDDO
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA,KLEV
@@ -495,6 +499,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -504,6 +509,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA,KLEV
@@ -535,6 +541,7 @@ IF(YRPHY0%NCVCLOS == 4) THEN
   !-------------------------------------------------
   !
   ILEV=MAX(KTDIA,INT(YRPHY0%GSIGA*REAL(KLEV)))
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -547,6 +554,7 @@ ELSE
   !-------------------------------------------------
   ! Surface fraction PALF is diagnostic.
   !-------------------------------------------------
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -559,6 +567,7 @@ ELSE
 
 
 ENDIF
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -570,6 +579,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -581,6 +591,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -592,6 +603,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -603,6 +615,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -614,6 +627,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -625,6 +639,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -636,6 +651,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -647,6 +663,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -660,6 +677,7 @@ ENDDO
 
 ZENTR=YRPHY0%GCVRE*YRPHY0%TENTR
 ZENTRX=YRPHY0%GCVRE*YRPHY0%TENTRX
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JTRA = 1, KTRA
@@ -673,6 +691,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -684,6 +703,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -695,6 +715,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -706,6 +727,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -717,6 +739,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -728,6 +751,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -739,6 +763,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -750,6 +775,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -761,6 +787,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -772,6 +799,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV+1
@@ -783,6 +811,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV+1
@@ -794,6 +823,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -805,6 +835,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -816,6 +847,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -827,6 +859,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -838,6 +871,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -849,6 +883,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -860,6 +895,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -872,6 +908,7 @@ ENDDO
 
 
 ZTPHY=YRPHY2%TSPHY
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -883,6 +920,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -894,6 +932,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -916,6 +955,7 @@ IF(YRPHY0%REFLCAPE > 0._JPRB) THEN
   ELSE
     ZDLON=REAL(YRDIM%NDLON)
   ENDIF
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON, ZDLONL) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -929,6 +969,7 @@ IF(YRPHY0%REFLCAPE > 0._JPRB) THEN
 
 ELSE
   ! NWP tunings.
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON, ZRESOL) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -965,6 +1006,7 @@ ZNEBCX=MIN(1._JPRB-ZEPS0,YRPHY0%RNEBCX)
 
 
 ! UPDRAFT INIT
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -976,6 +1018,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -987,6 +1030,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -998,6 +1042,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1011,6 +1056,7 @@ ENDDO
 
 
 ! DOWNDRAFT INIT
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -1022,6 +1068,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1033,6 +1080,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1044,6 +1092,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1055,6 +1104,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1066,6 +1116,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1077,6 +1128,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1088,6 +1140,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1099,6 +1152,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1110,6 +1164,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1121,6 +1176,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1132,6 +1188,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JTRA = 1, KTRA
@@ -1145,6 +1202,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1173,6 +1231,7 @@ ZCCHSL=RCW-RCPD
 ZCCHSN=RCS-RCPD
 
 ZKDX=YRPHY0%RKDN*ZENTRX/ZENTR
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1182,6 +1241,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1191,6 +1251,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1202,6 +1263,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1213,6 +1275,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1224,6 +1287,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1235,6 +1299,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1246,6 +1311,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1257,6 +1323,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1268,6 +1335,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1278,6 +1346,7 @@ ENDDO
 
 
 ZDIAG_TUDAL=0._JPRB
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1289,6 +1358,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1300,6 +1370,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -1311,6 +1382,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1322,6 +1394,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1334,6 +1407,7 @@ ENDDO
 
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -1345,6 +1419,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -1356,6 +1431,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -1367,6 +1443,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -1378,6 +1455,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -1389,6 +1467,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1400,6 +1479,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1412,6 +1492,7 @@ ENDDO
 
 
 LLTEXC=YRPHY0%GCVTEXC /= 0._JPRB
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1421,6 +1502,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1430,6 +1512,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1439,6 +1522,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -1453,6 +1537,7 @@ ENDDO
 
 ZMOD_MIN=YRPHY0%GCVEZ
 ZMOD_MAX=1.0_JPRB
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1462,6 +1547,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZIWGREAT, ZPPS) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA,KLEV
@@ -1506,6 +1592,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1515,6 +1602,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1530,6 +1618,7 @@ ENDDO
 ! OTHER PRELIMINARY CALCULATION
 
 ! THETAE
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (IE0, JBLK, JLON, ZE, ZR, ZTCOND) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1556,6 +1645,7 @@ DO JLON = KIDIA, KFDIA
 ENDDO
 ENDDO
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (IE0, JBLK, JLEV, JLON, ZR, ZTCOND) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA,KLEV
@@ -1593,6 +1683,7 @@ IF(LLNHACC) THEN
   ! locate maximum of thetav, on the levels where vertical divergency of wd is
   ! larger than the threshold GNHACC.
   ! The result is put in (ZTBASE, ZQBASE): (T, qv) at ascent base.
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -1603,6 +1694,7 @@ IF(LLNHACC) THEN
   ENDDO
 
   ILEV=MAX(KTDIA,INT(0.95_JPRB*REAL(KLEV)))
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZBIN, ZDIVERG, ZTKLEV) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=ILEV,KLEV
@@ -1622,6 +1714,7 @@ IF(LLNHACC) THEN
 ENDIF
 
 IF(YRPHY0%GCLOEB > 0._JPRB) THEN
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KLEV
@@ -1636,6 +1729,7 @@ IF(YRPHY0%GCLOEB > 0._JPRB) THEN
 
 ENDIF
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA,KLEV
@@ -1660,6 +1754,7 @@ ENDDO
 ! KNLAB    : FINAL LAYER ACTIVITY INDEX
 ! KNND     : PHYSICAL SOLUTION FLAG
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON, ZDELTA, ZESP, ZEW, ZQW, ZRT, ZTD) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1783,6 +1878,7 @@ ENDDO
 LLCOND1 = YRPHY0%NCVENTR == 1
 
 ITOP=KLEV+1
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (ICHIS, ICIN, IDOMDP, IENTR, INUA, ISDELTAP, ISUM, ITOP, IVVER, IVVN, IVVX, JBLK, JIT, JLEV, JLON, ZA1RIO, ZB, ZBETA1RIO, ZBRIO, ZCHI0, ZCHI02, ZCHIS, ZCPBW, ZCPH, ZCRIO, ZDCHI0, ZDCP, ZDELPF, ZDELQ, ZDELT, ZDELTA, ZDELTAP, ZDLOGM, ZDPLAB, ZDQW, ZENTRO, ZENTR_TUR, ZEPS_ORG0, ZEPS_TURL, ZESP, ZEW, ZEXP, ZFER, ZFLO_OMEGA, ZFMDQN, ZFMDSN, ZFORMV, ZHEIGHT, ZINCRQ, ZKDL, ZLHTBW, ZLIQ, ZNCHI0, ZQSTLE, ZQSTLN, ZQW, ZSE, ZSN, ZTD, ZTLE, ZTLN, ZTNSEC, ZTVEL, ZTVLE, ZTVLN, ZTVNL, ZVVERDEN, ZVVERN) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV=KLEV-1,KTDIA,-1
@@ -2662,6 +2758,7 @@ IF(YRPHY0%LCVNHD) THEN
   ! equations, using NH pressure-gradient terms.
   !-------------------------------------------------
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -2678,6 +2775,7 @@ IF(YRPHY0%LCVNHD) THEN
   ! Vertical smoothing of evaporation.
   !-------------------------------------------------
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -2689,6 +2787,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
   ! DOWNWARD SMOOTHING.
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA+1,KLEV
@@ -2704,6 +2803,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
   ! UPWARD SMOOTHING.
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KLEV-1,KTDIA,-1
@@ -2717,6 +2817,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
   ! Average upward and downward smoothings, with a weight depending on altitude.
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZWEIGHT) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KLEV
@@ -2730,6 +2831,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KLEV
@@ -2749,6 +2851,7 @@ IF(YRPHY0%LCVNHD) THEN
   !-------------------------------------------------
 
   ! Tendency due to advection: direct computation.
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -2760,6 +2863,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -2771,6 +2875,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KLEV
@@ -2786,6 +2891,7 @@ IF(YRPHY0%LCVNHD) THEN
 
 
   ! Buoyancy.
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -2797,6 +2903,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -2808,6 +2915,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZTVEL, ZTVNL) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KLEV
@@ -2827,6 +2935,7 @@ IF(YRPHY0%LCVNHD) THEN
 
 
   ! Dynamical production.
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -2838,6 +2947,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -2849,6 +2959,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KLEV
@@ -2865,6 +2976,7 @@ IF(YRPHY0%LCVNHD) THEN
 
 
   ! Friction.
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -2876,6 +2988,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -2887,6 +3000,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KLEV
@@ -2902,6 +3016,7 @@ IF(YRPHY0%LCVNHD) THEN
 
   ! Target wd: a vertical smoothing of wd + buoyancy effect.
   ! 1. Buoyancy effect.
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KLEV
@@ -2913,6 +3028,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
   ! 2. Vertical smoothing.
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -2924,6 +3040,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
   ! DOWNWARD SMOOTHING.
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA+1,KLEV
@@ -2939,6 +3056,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
   ! UPWARD SMOOTHING.
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KLEV-1,KTDIA,-1
@@ -2952,6 +3070,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
   ! Average upward and downward smoothings, with a weight depending on altitude.
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -2963,6 +3082,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -2974,6 +3094,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -2985,6 +3106,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZWEIGHT) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KLEV
@@ -3001,6 +3123,7 @@ IF(YRPHY0%LCVNHD) THEN
 
 
   ! Temporal integration.
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -3012,6 +3135,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -3023,6 +3147,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -3034,6 +3159,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -3045,6 +3171,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -3056,6 +3183,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -3067,6 +3195,7 @@ IF(YRPHY0%LCVNHD) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZA, ZB, ZC, ZD, ZWNEW) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KLEV
@@ -3131,6 +3260,7 @@ IF (ITOP < KLEV+1) THEN
 
   ! LAST LEVEL SUMMATION (TOP).
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON, ZDPLAB, ZFMDQN, ZFMDSN, ZFORMV) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -3161,6 +3291,7 @@ IF (ITOP < KLEV+1) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=ITOP,KLEV-1
@@ -3177,6 +3308,7 @@ IF (ITOP < KLEV+1) THEN
   ! ------------------------------------------------------------------
 
   ! DIAGNOSTIC OF CAPE (FORECASTER NEED) WHATEVER CLOSURE.
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -3186,6 +3318,7 @@ IF (ITOP < KLEV+1) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -3195,6 +3328,7 @@ IF (ITOP < KLEV+1) THEN
   ENDDO
 
  ! Integral of BCC multiplied by Sigma.
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=ITOP,KLEV
@@ -3220,6 +3354,7 @@ IF (ITOP < KLEV+1) THEN
   ENDDO
   ENDDO
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON, ZBINDEPTH, ZBINTKE) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -3322,6 +3457,7 @@ IF (ITOP < KLEV+1) THEN
       &ZBETD,ZDEL_ORGD,ZEPS_ORGD,ZFORD,ZQDND,ZQN2D,ZSDND,ZSN2D,ZTN2D,&
       &ZUMD,ZVMD,ZTRAMD,ZBCC_CD_FULL,&
       &INLABD)
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV=ITOP,KLEV
@@ -3345,6 +3481,7 @@ IF (ITOP < KLEV+1) THEN
       &ZBETD,ZDEL_ORGD,ZEPS_ORGD,ZFORD,ZQDND,ZQN2D,ZSDND,ZSN2D,ZTN2D,&
       &ZUMD,ZVMD,ZTRAMD,ZBCC_CD_FULL,&
       &INLABD)
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV = 1, KLEV
@@ -3356,6 +3493,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
 
 
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV=ITOP,KLEV
@@ -3368,6 +3506,7 @@ IF (ITOP < KLEV+1) THEN
 
   ELSE
     ! No downdrafts.
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV=ITOP,KLEV
@@ -3386,6 +3525,7 @@ IF (ITOP < KLEV+1) THEN
   ! // AND COMPUTE MASS FLUX AT THE INTERFACE LEVELS
   ! ------------------------------------------------------------
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=ITOP,KLEV
@@ -3416,6 +3556,7 @@ IF (ITOP < KLEV+1) THEN
   ! ABOVE ITOP (AND NORMALLY ALSO AT KLEV - BUT SEE VIB...)
 
   ! cdir unroll=8
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KLEV-1,ITOP,-1
@@ -3435,6 +3576,7 @@ IF (ITOP < KLEV+1) THEN
 
 
   IF (YRPHY0%LGPRONI1) THEN
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV=KLEV-1,ITOP,-1
@@ -3453,6 +3595,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
     ENDDO
 
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV=ITOP,KLEV-1
@@ -3479,6 +3622,7 @@ IF (ITOP < KLEV+1) THEN
 
   ! INITIALIZE WORK ARRAYS
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -3490,6 +3634,7 @@ IF (ITOP < KLEV+1) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -3501,6 +3646,7 @@ IF (ITOP < KLEV+1) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JTRA = 1, KTRA
@@ -3514,6 +3660,7 @@ IF (ITOP < KLEV+1) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -3525,6 +3672,7 @@ IF (ITOP < KLEV+1) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -3536,6 +3684,7 @@ IF (ITOP < KLEV+1) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = 1, KLEV
@@ -3547,6 +3696,7 @@ IF (ITOP < KLEV+1) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JTRA = 1, KTRA
@@ -3580,6 +3730,7 @@ IF (ITOP < KLEV+1) THEN
   ! ZVM       : AVERAGE V VALUE FROM CLOUD BASE.
   ! ZTRAM     : AVERAGE TRACER VALUE FROM CLOUD BASE.
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON, JTRA) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -3609,6 +3760,7 @@ IF (ITOP < KLEV+1) THEN
 
 
   ! cdir unroll=4
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA, ZBAS, ZMIX, ZNBA) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KLEV-1,ITOP,-1
@@ -3670,6 +3822,7 @@ IF (ITOP < KLEV+1) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA, ZZ) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=ITOP,KLEV
@@ -3689,6 +3842,7 @@ IF (ITOP < KLEV+1) THEN
   ! ------------------------------------------------------------------
   ! // FLUXES COMPUTATION
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -3704,6 +3858,7 @@ IF (ITOP < KLEV+1) THEN
 
 
   ! cdir unroll=8
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=ITOP+1,KLEV-1
@@ -3720,6 +3875,7 @@ IF (ITOP < KLEV+1) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -3735,6 +3891,7 @@ IF (ITOP < KLEV+1) THEN
     ! // CONVECTIVE TRANSPORT FLUXES
     ! ---------------------------
     ! COMPUTE ZUM AND ZVM AS UNIFORM, EQUAL TO THE MEAN VALUE ALONG CONVECTIVE LEVELS.
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV = 1, KLEV
@@ -3746,6 +3903,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
 
 
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV = 1, KLEV
@@ -3757,6 +3915,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
 
 
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     
@@ -3766,6 +3925,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
 
 
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV=ITOP,KLEV
@@ -3780,6 +3940,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
     ENDDO
 
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV=ITOP,KLEV
@@ -3805,6 +3966,7 @@ IF (ITOP < KLEV+1) THEN
     ! // CONVECTIVE TRANSPORT FLUXES: IMPLICIT COMPUTATION.
     ! ---------------------------
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=ITOP,KLEV
@@ -3828,6 +3990,7 @@ IF (ITOP < KLEV+1) THEN
 
 
     ! cdir unroll=8
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA, ZAUX, ZDPSGDT) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV=ITOP,KLEV-1
@@ -3858,6 +4021,7 @@ IF (ITOP < KLEV+1) THEN
 
 
     IF (YRPHY0%LGDDD) THEN
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV=ITOP,KLEV
@@ -3875,6 +4039,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
     ENDDO
 
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA, ZAUX, ZDPSGDT) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV=KLEV-1,ITOP,-1
@@ -3904,6 +4069,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
 
 
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV=ITOP,KLEV-1
@@ -3933,6 +4099,7 @@ IF (ITOP < KLEV+1) THEN
     ! // CONVECTIVE TRANSPORT FLUXES: EXPLICIT COMPUTATION.
     ! ---------------------------
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=ITOP,KLEV
@@ -3953,6 +4120,7 @@ IF (ITOP < KLEV+1) THEN
 
 
     ! cdir unroll=8
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA, ZAUX) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV=ITOP,KLEV-1
@@ -3981,6 +4149,7 @@ IF (ITOP < KLEV+1) THEN
 
 
     IF (YRPHY0%LGDDD) THEN
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV=ITOP,KLEV
@@ -3999,6 +4168,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
     ENDDO
 
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA, ZAUX) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV=ITOP,KLEV-1
@@ -4037,6 +4207,7 @@ IF (ITOP < KLEV+1) THEN
   ! // SETTING ALL RESULTS TO ZERO IN CASE OF NEGATIVE PRECIPITATIONS AT
   ! // THE SURFACE OR OF "KNND" ALREADY ZERO.
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON, ZZVAL) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -4049,6 +4220,7 @@ IF (ITOP < KLEV+1) THEN
 
   IF(YRPHY0%LCVNAUV) THEN
     ! RECOMPUTE PSTRCU AND PSTRCV FROM AN IDEA INSPIRED BY FRANCOIS BOUYSSEL (2012-08-01) AND 3MT.
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON, JTRA) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     
@@ -4067,6 +4239,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
     ENDDO
 
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA, ZBAS, ZMIX, ZNBA) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV=KLEV-1,ITOP,-1
@@ -4102,6 +4275,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
     ENDDO
 
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA, ZZ) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV=ITOP,KLEV
@@ -4120,6 +4294,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
     ENDDO
 
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     
@@ -4129,6 +4304,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
 
 
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV = 0, KLEV
@@ -4140,6 +4316,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
 
 
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV = 0, KLEV
@@ -4151,6 +4328,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
 
 
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JTRA = 1, KTRA
@@ -4164,6 +4342,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
 
 
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA, ZAUX, ZDPSGDT, ZZ) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JLEV=ITOP,KLEV-1
@@ -4198,6 +4377,7 @@ IF (ITOP < KLEV+1) THEN
   ! AND ALSO RESET PUDOM AND PUDAL
   ! ------------------------------------------------------------------
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=ITOP,KLEV
@@ -4226,6 +4406,7 @@ IF (ITOP < KLEV+1) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KLEV
@@ -4240,6 +4421,7 @@ IF (ITOP < KLEV+1) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=ITOP,KLEV
@@ -4277,6 +4459,7 @@ IF (ITOP < KLEV+1) THEN
 
   ZA=0.5_JPRB
   ZA2=ZA*0.5_JPRB
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=KLEV-1,ITOP,-1
@@ -4298,6 +4481,7 @@ IF (ITOP < KLEV+1) THEN
   ENDDO
 
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV=ITOP,KLEV-1
@@ -4315,6 +4499,7 @@ ENDIF ! IF ITOP < KLEV+1
 ! Momentum is not transported as thermodynamic variables (theta, qt).
 !-------------------------------------------------
 !
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA,KLEV
@@ -4340,6 +4525,7 @@ IF (YRPHY0%NCAPEMOD /= 0) THEN
   !- - - - - - - - - - - - - - -
   ! Set the "SBCAPE" to zero :
   !- - - - - - - - - - - - - - -
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -4362,6 +4548,7 @@ IF (YRPHY0%NCAPEMOD /= 0) THEN
   !- - - - - - - - - - - - - - - - - - - - - - -
   IF (YRPHY0%NCAPEMOD == 1) THEN
     ! "inactive" if : KNND(JLON)=0.0
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     
@@ -4373,6 +4560,7 @@ IF (YRPHY0%NCAPEMOD /= 0) THEN
 
   ELSEIF (YRPHY0%NCAPEMOD == 2) THEN
     ! "inactive" if : ZDIAG_WMAX(JLON) < WCAPEMOD
+    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) 
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     

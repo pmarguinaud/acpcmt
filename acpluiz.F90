@@ -232,6 +232,7 @@ ZEPS1=1.E-12_JPRB
 
 IF ( LDADJCLD ) THEN
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KLEV
@@ -251,6 +252,7 @@ IF ( LDADJCLD ) THEN
 
 ELSE
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KLEV
@@ -268,6 +270,7 @@ ENDIF
 ! CLOUD OVERLAP FOR STRATIFORM AND SHALLOW CLOUDS
 ! -----------------------------------------------
                                                                                 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZICE) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA, KLEV
@@ -300,6 +303,7 @@ CALL ACMICRO ( KIDIA, KFDIA, KGPBLKS,KLON, KTDIA, KLEV,&
 ZGDT=RG*YRPHY2%TSPHY
 ZGDTI=1.0_JPRB/ZGDT
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZDPSGDT, ZIGEL) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA, KLEV

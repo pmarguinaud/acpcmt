@@ -244,7 +244,6 @@ INTEGER(KIND=JPIM) :: JTRA
 
 #include "fcttrm.func.h"
 
-
 ! -----------------------------------------------------------------------
 
 ! *
@@ -284,6 +283,7 @@ ZEPSO=1.E-12_JPRB
 
 ! ZFMOD      : FONCTION DE LA VITESE DU COURANT DESCENDANT.
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA-1,KLEV
@@ -300,6 +300,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -311,6 +312,7 @@ ENDDO
 ENDDO
 
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
@@ -355,6 +357,7 @@ ENDDO
 ! PQDN       : HUMIDITE DE DETRAINEMENT DU COURANT DESCENDANT.
 !            : DETRAINING DOWNDRAFT HUMIDITY.
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON, JTRA, ZDELTA, ZESP, ZEW, ZQW, ZTD) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -456,6 +459,7 @@ ENDDO
 !     ATMOSPHERE AND START OF THE VERTICAL LOOP.
 
 ITOP=KTDIA
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (IBDC, ICDN, IDOMDP, IKUO1, IKUO2, ILEVBDC, INUA, ISDELTAP, ISUM, ITOP, IVVER, JBLK, JIT, JLEV, JLON, JTRA, ZB, ZCPS, ZDCP, ZDELPF, ZDELQ, ZDELT, ZDELTA, ZDELTAP, ZDQW, ZENTR, ZENTRO, ZENTRT, ZESP, ZEW, ZFLO, ZFLOI, ZQW, ZTD, ZTEST, ZTNSEC, ZTVE, ZTVN, ZVVERDEN, ZVVERF, ZVVERN) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA+1,KLEV

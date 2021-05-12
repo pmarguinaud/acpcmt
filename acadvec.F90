@@ -77,6 +77,7 @@ REAL(KIND=JPRB) :: ZLN_NEGLIG,ZUSCFL
 
 ! --------------------------------------------------------
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
@@ -94,6 +95,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 !- - - - - - - - - - - - - - -
 
 ! Some intialisation
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KLEV
@@ -104,6 +106,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
   ENDDO
   ENDDO
   
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA-1, KLEV
@@ -120,6 +123,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 
 ! First loop : From top to bottom
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZP1, ZUSCFL) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KLEV-1
@@ -149,6 +153,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 
 ! Second loop : From bottom to top
 
+  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZP1, ZUSCFL) 
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JLEV = KLEV, KTDIA+1, -1
@@ -183,6 +188,7 @@ ENDIF  ! End of test on TSPHY > 0.0_JPRB
 
 !  Final loop construction of net flux
 
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) 
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA, KLEV-1
