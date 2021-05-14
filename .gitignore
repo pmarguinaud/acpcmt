@@ -8,3 +8,4 @@
 *.COUNT
 *.x
 slurm-*.out
+loop.*.F90
