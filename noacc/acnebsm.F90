@@ -175,8 +175,8 @@ DO JLEV=KTDIA,KLEV
 ENDDO
                                                                                 
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA,KLEV
+DO JLON = KIDIA, KFDIA
   
     PRHCRI(JLON,JLEV,JBLK) = ZA(JLON,JBLK) * ZVETAF(JLEV)**3 &
      & + ZB(JLON,JBLK) * ZVETAF(JLEV)**2 &
@@ -207,8 +207,8 @@ ZSQRT6 = SQRT(6._JPRB)
 ZRDSRV = RD / RV
 
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA,KLEV
+DO JLON = KIDIA, KFDIA
   
       !
     ZRHC = PRHCRI(JLON,JLEV,JBLK)

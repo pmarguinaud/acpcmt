@@ -257,8 +257,8 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
       ! ---------------
 
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV = 0, KFLEV
+  DO JLON = KIDIA, KFDIA
     
       ZALTIH(JLON,JLEV,JBLK) = PAPHI(JLON,JLEV,JBLK) / RG 
     
@@ -272,8 +272,8 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
     ! ==========================
 
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KFLEV
+  DO JLON = KIDIA, KFDIA
     
       ZDPSG(JLON,JLEV,JBLK) = PDELP(JLON,JLEV,JBLK) / RG
       ZDPSGDT(JLON,JLEV,JBLK) = ZDPSG(JLON,JLEV,JBLK) * YRPHY2%TSPHY
@@ -295,8 +295,8 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
      ! ======================================
 
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KFLEV
+  DO JLON = KIDIA, KFDIA
 !   Isolate in a loop what may not vectorize:
     
       ZWORK1(JLON,JBLK)=FOEW(PT(JLON,JLEV,JBLK),0.0_JPRB)
@@ -377,8 +377,8 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 
     !-- -- -- -- -- --
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
-  DO JLEV=KTDIA,KFLEV  
+  DO JLEV=KTDIA,KFLEV
+  DO JLON = KIDIA, KFDIA  
     !-- -- -- -- -- --
 
 
