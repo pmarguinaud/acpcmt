@@ -262,26 +262,27 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
       ! Initializations
       ! ---------------
 
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV = 0, KFLEV
+  DO JLON = KIDIA, KFDIA
     
       ZALTIH(JLON,JLEV,JBLK) = PAPHI(JLON,JLEV,JBLK) / RG 
     
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
 
 
     ! ==========================
     ! COMPUTE DENSITY, THICKNESS
     ! ==========================
 
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KFLEV
+  DO JLON = KIDIA, KFDIA
     
       ZDPSG(JLON,JLEV,JBLK) = PDELP(JLON,JLEV,JBLK) / RG
       ZDPSGDT(JLON,JLEV,JBLK) = ZDPSG(JLON,JLEV,JBLK) * YRPHY2%TSPHY
@@ -296,16 +297,17 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
   
 
      ! ======================================
      ! OTHER INITIALIZATIONS FOR MICROPHYSICS
      ! ======================================
 
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZALPHA, ZCEV, ZCLEAR, ZCONDT, ZCSU, ZDIFFV, ZFACT3, ZFACT4, ZKDIFF, ZSSATI, ZSSATW) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KFLEV
+  DO JLON = KIDIA, KFDIA
 !   Isolate in a loop what may not vectorize:
     
       ZWORK1(JLON,JBLK)=FOEW(PT(JLON,JLEV,JBLK),0.0_JPRB)
@@ -378,6 +380,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
 
 
     ! =============================================
@@ -385,10 +388,10 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
     ! =============================================
 
     !-- -- -- -- -- --
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZACCR, ZAGGR, ZDZS, ZEVAPPL, ZEVAPPN, ZINT1, ZLHFUS, ZP1, ZP1I, ZP1L, ZP2, ZP2I, ZP2L, ZP3, ZQFPFPL, ZQFPFPN, ZQFRZ, ZQFRZX, ZQMLT, ZQMLTX, ZQPRTOT1, ZQPRTOT2, ZQPSTOT1, ZQPSTOT2, ZQR, ZQS, ZRIMI, ZSUBSA, ZTCOLLL, ZTCOLLN, ZTQEVAPPL, ZTQEVAPPN) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
-  DO JLEV=KTDIA,KFLEV  
+  DO JLEV=KTDIA,KFLEV
+  DO JLON = KIDIA, KFDIA  
     !-- -- -- -- -- --
 
 
@@ -611,6 +614,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
  ! LEV=1,KFLEV : end of statistical advection 
     !-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 

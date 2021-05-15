@@ -237,10 +237,10 @@ ZEPS1=1.E-12_JPRB
 
 IF ( LDADJCLD ) THEN
 
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KLEV
+  DO JLON = KIDIA, KFDIA
     
       ZT(JLON,JLEV,JBLK) = PT(JLON,JLEV,JBLK)+YRPHY2%TSPHY*PTENDH(JLON,JLEV,JBLK)/PCP(JLON,JLEV,JBLK)
       ZQ(JLON,JLEV,JBLK) = MAX( 0.0_JPRB,PQ(JLON,JLEV,JBLK)+YRPHY2%TSPHY*PTENDQ(JLON,JLEV,JBLK) )
@@ -248,6 +248,7 @@ IF ( LDADJCLD ) THEN
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
 
 
   CALL ACNEBSM ( KIDIA,KFDIA,KGPBLKS,KLON,KTDIA,KLEV,&
@@ -257,10 +258,10 @@ IF ( LDADJCLD ) THEN
 
 ELSE
 
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KLEV
+  DO JLON = KIDIA, KFDIA
     
       ZT(JLON,JLEV,JBLK) = PT(JLON,JLEV,JBLK)
       ZQ(JLON,JLEV,JBLK) = PQ(JLON,JLEV,JBLK)
@@ -268,6 +269,7 @@ ELSE
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
 
 
 ENDIF
@@ -275,10 +277,10 @@ ENDIF
 ! CLOUD OVERLAP FOR STRATIFORM AND SHALLOW CLOUDS
 ! -----------------------------------------------
                                                                                 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZICE) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA, KLEV
+DO JLON = KIDIA, KFDIA
   
     ZICE = FONICE(ZT(JLON,JLEV,JBLK))
     PQCS (JLON,JLEV,JBLK) = PQCS(JLON,JLEV,JBLK) + PQLI_CVPP(JLON,JLEV,JBLK) + PQC_DET_PCMT(JLON,JLEV,JBLK)
@@ -290,6 +292,7 @@ DO JLEV = KTDIA, KLEV
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 ! - - - - - - - -
@@ -308,10 +311,10 @@ CALL ACMICRO ( KIDIA, KFDIA, KGPBLKS,KLON, KTDIA, KLEV,&
 ZGDT=RG*YRPHY2%TSPHY
 ZGDTI=1.0_JPRB/ZGDT
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZDPSGDT, ZIGEL) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA, KLEV
+DO JLON = KIDIA, KFDIA
   
     ZDPSGDT  = ZGDTI * PDELP(JLON,JLEV,JBLK)
     ZIGEL = MAX(0.0_JPRB,SIGN(1.0_JPRB,RTT-PT(JLON,JLEV,JBLK)))
@@ -328,6 +331,7 @@ DO JLEV = KTDIA, KLEV
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 ! - - - - - - - - - - - - - - - - - - -

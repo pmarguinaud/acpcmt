@@ -290,10 +290,10 @@ ZEPSO=1.E-12_JPRB
 
 ! ZFMOD      : FONCTION DE LA VITESE DU COURANT DESCENDANT.
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA-1,KLEV
+DO JLON = KIDIA, KFDIA
   
 
 !      MISE A UN DE LA FONCTION DE MODULATION.
@@ -305,30 +305,33 @@ DO JLEV=KTDIA-1,KLEV
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
+DO JLON = KIDIA, KFDIA
 
 ZBCC_CD_HALF(JLON,JLEV,JBLK) = 0._JPRB
 
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
+DO JLON = KIDIA, KFDIA
 
 PBCC_CD_FULL(JLON,JLEV,JBLK) = 0._JPRB
 
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 
@@ -364,7 +367,7 @@ ENDDO
 ! PQDN       : HUMIDITE DE DETRAINEMENT DU COURANT DESCENDANT.
 !            : DETRAINING DOWNDRAFT HUMIDITY.
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON, JTRA, ZDELTA, ZESP, ZEW, ZQW, ZTD) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -448,6 +451,7 @@ DO JLON = KIDIA, KFDIA
 
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 ! *
@@ -466,10 +470,10 @@ ENDDO
 !     ATMOSPHERE AND START OF THE VERTICAL LOOP.
 
 ITOP=KTDIA
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (IBDC, ICDN, IDOMDP, IKUO1, IKUO2, ILEVBDC, INUA, ISDELTAP, ISUM, ITOP, IVVER, JBLK, JIT, JLEV, JLON, JTRA, ZB, ZCPS, ZDCP, ZDELPF, ZDELQ, ZDELT, ZDELTA, ZDELTAP, ZDQW, ZENTR, ZENTRO, ZENTRT, ZESP, ZEW, ZFLO, ZFLOI, ZQW, ZTD, ZTEST, ZTNSEC, ZTVE, ZTVN, ZVVERDEN, ZVVERF, ZVVERN) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA+1,KLEV
+DO JLON = KIDIA, KFDIA
 
 !     ADIABATIQUE SATUREE AVEC ENTRAINEMENT.
 !     SATURATED ADIABAT WITH ENTRAINMENT.
@@ -768,6 +772,7 @@ DO JLEV=KTDIA+1,KLEV
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 

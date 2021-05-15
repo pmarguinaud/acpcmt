@@ -79,10 +79,10 @@ REAL(KIND=JPRB) :: ZLN_NEGLIG,ZUSCFL
 
 ! --------------------------------------------------------
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
+DO JLON = KIDIA, KFDIA
   
     ZFDN(JLON,JLEV,JBLK) = 0.0_JPRB
     ZFUP(JLON,JLEV,JBLK) = 0.0_JPRB
@@ -90,6 +90,7 @@ DO JLEV = 0, KLEV
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 !- - - - - - - - - - - - - - -
@@ -97,27 +98,29 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 !- - - - - - - - - - - - - - -
 
 ! Some intialisation
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KLEV
+  DO JLON = KIDIA, KFDIA
     
       ZDPSG(JLON,JLEV,JBLK) = PDELP(JLON,JLEV,JBLK) / RG
             
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
   
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA-1, KLEV
+  DO JLON = KIDIA, KFDIA
     
       ZALTIH(JLON,JLEV,JBLK) = PAPHI(JLON,JLEV,JBLK) / RG 
     
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
 
   ZEPS = 1.E-20_JPRB
   ZLN_NEGLIG=LOG(1.0E-2_JPRB)
@@ -125,10 +128,10 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 
 ! First loop : From top to bottom
 
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZP1, ZUSCFL) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KLEV-1
+  DO JLON = KIDIA, KFDIA
     
       ZDZV(JLON,JBLK) = MAX(0._JPRB,-PVARW(JLON,JLEV,JBLK))*YRPHY2%TSPHY
       ZDZL(JLON,JBLK) = ZALTIH(JLON,JLEV-1,JBLK) - ZALTIH(JLON,JLEV,JBLK)
@@ -151,14 +154,15 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
     
 
 ! Second loop : From bottom to top
 
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZP1, ZUSCFL) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV = KLEV, KTDIA+1, -1
+  DO JLON = KIDIA, KFDIA
     
       ZDZV(JLON,JBLK) = MAX(0._JPRB,PVARW(JLON,JLEV,JBLK))*YRPHY2%TSPHY
       ZDZL(JLON,JBLK) = ZALTIH(JLON,JLEV-1,JBLK) - ZALTIH(JLON,JLEV,JBLK)
@@ -181,6 +185,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
     
 
 
@@ -190,16 +195,17 @@ ENDIF  ! End of test on TSPHY > 0.0_JPRB
 
 !  Final loop construction of net flux
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA, KLEV-1
+DO JLON = KIDIA, KFDIA
   
     PFVAR(JLON,JLEV,JBLK) = ZFDN(JLON,JLEV,JBLK) - ZFUP(JLON,JLEV,JBLK) 
   
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
    
 
 ! --------------------------------------------------------

@@ -109,10 +109,10 @@ ZEPS1=1.E-6_JPRB
 ZARGLI=125._JPRB**(1.0_JPRB/YRPHY0%QXRTGH)
 
 IF (YRPHY%LQXRTGH) THEN
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZBIN, ZNEB, ZRH, ZRHEXP, ZRHLIM) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KLEV
+  DO JLON = KIDIA, KFDIA
     
       ZRH=MIN(ZARGLI,MAX(ZEPS1,PQ(JLON,JLEV,JBLK)/PQSAT(JLON,JLEV,JBLK)))
       ZRHEXP=EXP(-2.0_JPRB*ZRH**YRPHY0%QXRTGH)
@@ -126,12 +126,13 @@ IF (YRPHY%LQXRTGH) THEN
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
 
 ELSE
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZBIN, ZNEB, ZRH, ZRHLIM) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KLEV
+  DO JLON = KIDIA, KFDIA
     
       ZRH=MIN(YRPHY0%QXRHX,PQ(JLON,JLEV,JBLK)/PQSAT(JLON,JLEV,JBLK))
       ZRHLIM=MAX(ZEPS1,MIN(1.0_JPRB-ZEPS1,ZRH))
@@ -143,6 +144,7 @@ ELSE
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
 
 ENDIF
 

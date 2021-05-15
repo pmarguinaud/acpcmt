@@ -81,21 +81,22 @@ INTEGER(KIND=JPIM) :: JLEV,JBLK,JLON
 ! INITIALIZATION.
 !-------------------------------------------------
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
+DO JLON = KIDIA, KFDIA
   
     PFCED(JLON,JLEV,JBLK)=0._JPRB
   
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZINC, ZMAXVALUE_ZINC, ZMINVALUE_ZINC) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA,KLEV
+DO JLON = KIDIA, KFDIA
   
     
     ! PSIC INCREMENT.
@@ -117,6 +118,7 @@ DO JLEV=KTDIA,KLEV
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 

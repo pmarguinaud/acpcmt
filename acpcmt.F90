@@ -363,19 +363,20 @@ LOGICAL         :: LLADJCLD
 ZEPS=1.E-12_JPRB
 ZCCHSL=RCW-RCPD
 ZCCHSN=RCS-RCPD
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
+DO JLON = KIDIA, KFDIA
 
 PFIMCC(JLON,JLEV,JBLK)= 0._JPRB
 
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -383,45 +384,49 @@ ZDAL(JLON,JBLK)= 0._JPRB
 
 ENDDO
 ENDDO
+!$acc end kernels
 
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
+DO JLON = KIDIA, KFDIA
 
 PQC_DET_PCMT(JLON,JLEV,JBLK)= 0._JPRB
 
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
+DO JLON = KIDIA, KFDIA
 
 ZEVAPO(JLON,JLEV,JBLK)= 0._JPRB
 
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 IF(YRPHY0%LCVNHD) THEN
   ! Evaporation from previous time step is got from the PDDAL buffer.
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KLEV
+  DO JLON = KIDIA, KFDIA
   
   ZEVAPO(JLON,JLEV,JBLK)=PDDAL(JLON,JLEV,JBLK)
   
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
 
 ENDIF
 
@@ -442,10 +447,10 @@ CALL ACMTUD ( KIDIA,KFDIA,KGPBLKS,KLON,KTDIA,KLEV,KTRA,&
 
 IF(YRPHY0%NCVQLI == 2) THEN
   ! Radiative condensates and cloudiness, due to convection, computed as ql+qi+qr+qs.
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KLEV
+  DO JLON = KIDIA, KFDIA
     
       PQLIC(JLON,JLEV,JBLK)=PQLCONV(JLON,JLEV,JBLK)+PQICONV(JLON,JLEV,JBLK) &
         & +PQRCONV(JLON,JLEV,JBLK)+PQSCONV(JLON,JLEV,JBLK)
@@ -454,56 +459,61 @@ IF(YRPHY0%NCVQLI == 2) THEN
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
 
 ENDIF
 
 ! INITIALIZE CONVECTIVE PROFILES: INTRA-TIME-STEP EVOLUTION.
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
+DO JLON = KIDIA, KFDIA
 
 ZQLC(JLON,JLEV,JBLK)= PQLCONV(JLON,JLEV,JBLK)
 
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
+DO JLON = KIDIA, KFDIA
 
 ZQIC(JLON,JLEV,JBLK)= PQICONV(JLON,JLEV,JBLK)
 
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
+DO JLON = KIDIA, KFDIA
 
 ZQRC(JLON,JLEV,JBLK)= PQRCONV(JLON,JLEV,JBLK)
 
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
+DO JLON = KIDIA, KFDIA
 
 ZQSC(JLON,JLEV,JBLK)= PQSCONV(JLON,JLEV,JBLK)
 
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 
@@ -516,10 +526,10 @@ CALL ACMTENTR(KIDIA, KFDIA, KGPBLKS,KLON, KTDIA, KLEV, PDELP, ZQLC, PQL, PUDAL, 
 CALL ACMTENTR(KIDIA, KFDIA, KGPBLKS,KLON, KTDIA, KLEV, PDELP, ZQIC, PQI, PUDAL, PDDAL, &
   & ZENTR_U, ZENTR_D, ZDETR_U, ZDETR_D, PFEDQIC)
 ! Detrainment of rain and snow is smaller from that of lagrangian species (liquid and ice).
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA-1, KLEV
+DO JLON = KIDIA, KFDIA
   
     ZDETR_U_RS(JLON,JLEV,JBLK)=YRPHY0%GREDDRS*ZDETR_U(JLON,JLEV,JBLK)
     ZDETR_D_RS(JLON,JLEV,JBLK)=YRPHY0%GREDDRS*ZDETR_D(JLON,JLEV,JBLK)
@@ -527,16 +537,17 @@ DO JLEV = KTDIA-1, KLEV
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 CALL ACMTENTR(KIDIA, KFDIA, KGPBLKS,KLON, KTDIA, KLEV, PDELP, ZQRC, PRR, PUDAL, PDDAL, &
   & ZENTR_U, ZENTR_D, ZDETR_U_RS, ZDETR_D_RS, PFEDQRC)
 CALL ACMTENTR(KIDIA, KFDIA, KGPBLKS,KLON, KTDIA, KLEV, PDELP, ZQSC, PS,  PUDAL, PDDAL, &
   & ZENTR_U, ZENTR_D, ZDETR_U_RS, ZDETR_D_RS, PFEDQSC)
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA, KLEV
+DO JLON = KIDIA, KFDIA
   
     ! UPDATE INTRA-TIME-STEP VALUES FROM ENTRAINMENT/DETRAINMENT FLUXES.
     ZQLC(JLON,JLEV,JBLK)=MAX(0._JPRB,ZQLC(JLON,JLEV,JBLK)-RG*(&
@@ -560,37 +571,40 @@ DO JLEV = KTDIA, KLEV
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
+DO JLON = KIDIA, KFDIA
 
 ZQLCED(JLON,JLEV,JBLK)= ZQLC(JLON,JLEV,JBLK)
 
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
+DO JLON = KIDIA, KFDIA
 
 ZQICED(JLON,JLEV,JBLK)= ZQIC(JLON,JLEV,JBLK)
 
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 ! UPDATE INTRA-TIME-STEP CONVECTIVE VALUES FROM CONDENSATION FLUXES.
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA, KLEV
+DO JLON = KIDIA, KFDIA
   
     ZQLC(JLON,JLEV,JBLK)=ZQLC(JLON,JLEV,JBLK)-RG*(&
       &-PFCCQL(JLON,JLEV,JBLK)+PFCCQL(JLON,JLEV-1,JBLK) &
@@ -602,6 +616,7 @@ DO JLEV = KTDIA, KLEV
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 !-------------------------------------------------
@@ -609,10 +624,10 @@ ENDDO
 !-------------------------------------------------
 
 ! QCCONV = QLCONV + QICONV.
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA, KLEV
+DO JLON = KIDIA, KFDIA
   
     ZQLIC_MICRO(JLON,JLEV,JBLK)=ZQLC(JLON,JLEV,JBLK)+ZQIC(JLON,JLEV,JBLK)
     ZQ_COND_XR96(JLON,JLEV,JBLK)=ZQLC(JLON,JLEV,JBLK)+ZQIC(JLON,JLEV,JBLK) &
@@ -621,29 +636,32 @@ DO JLEV = KTDIA, KLEV
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
+DO JLON = KIDIA, KFDIA
 
 ZFCCQLTMP(JLON,JLEV,JBLK)= 0._JPRB
 
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
+DO JLON = KIDIA, KFDIA
 
 ZFCCQNTMP(JLON,JLEV,JBLK)= 0._JPRB
 
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 IF(YRPHY%LNEBNXR) THEN
@@ -651,10 +669,10 @@ IF(YRPHY%LNEBNXR) THEN
   CALL ACNEBXRS ( KIDIA,KFDIA,KGPBLKS,KLON,KTDIA,KLEV,&
     & PQ,ZQ_COND_XR96,PQSAT,&
     & ZNEBC_MICRO)
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KLEV
+  DO JLON = KIDIA, KFDIA
     
       PQLIC(JLON,JLEV,JBLK)=ZQ_COND_XR96(JLON,JLEV,JBLK)
       PNEBC(JLON,JLEV,JBLK)=ZNEBC_MICRO(JLON,JLEV,JBLK)*YRPHY0%FNEBC
@@ -662,25 +680,27 @@ IF(YRPHY%LNEBNXR) THEN
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
 
 ELSE
   IF(YRPHY0%LCVMICC) THEN
-    !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+    !$acc kernels
     DO JBLK = 1, KGPBLKS
-    DO JLON = KIDIA, KFDIA
     DO JLEV = KTDIA, KLEV
+    DO JLON = KIDIA, KFDIA
       
         ZDAL(JLON,JBLK)=MAX(ZDAL(JLON,JBLK),PUDAL(JLON,JLEV,JBLK)+PDDAL(JLON,JLEV,JBLK))
       
     ENDDO
     ENDDO
     ENDDO
+    !$acc end kernels
 
   ENDIF
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (INEBC, IQLIC, IQLIC_MICRO, JBLK, JLEV, JLON) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KLEV
+  DO JLON = KIDIA, KFDIA
     
       ! CONSISTENCY BETWEEN CLOUDINESS AND CLOUD CONDENSATE:
       ! ZNEBC_MICRO=PUDAL+PDDAL WHERE >0, ZQLIC_MICRO/3.E-3 OTHERWISE
@@ -700,50 +720,54 @@ ELSE
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
 
 ENDIF
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
+DO JLON = KIDIA, KFDIA
 
 ZEROV(JLON,JLEV,JBLK)= 0._JPRB
 
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
+DO JLON = KIDIA, KFDIA
 
 PFCCQL(JLON,JLEV,JBLK)= 0._JPRB
 
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 0, KLEV
+DO JLON = KIDIA, KFDIA
 
 PFCCQN(JLON,JLEV,JBLK)= 0._JPRB
 
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 
 ! Microphysics occurs in a shell between updraft and its resolved environment.
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA, KLEV
+DO JLON = KIDIA, KFDIA
 
 ZTMIC(JLON,JLEV,JBLK)=(1._JPRB-YRPHY0%GSHELL)*PTU(JLON,JLEV,JBLK) &
   & +YRPHY0%GSHELL*PT(JLON,JLEV,JBLK)
@@ -751,11 +775,12 @@ ZTMIC(JLON,JLEV,JBLK)=(1._JPRB-YRPHY0%GSHELL)*PTU(JLON,JLEV,JBLK) &
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA, KLEV
+DO JLON = KIDIA, KFDIA
 
 ZQMIC(JLON,JLEV,JBLK)=(1._JPRB-YRPHY0%GSHELL)*PQU(JLON,JLEV,JBLK) &
   & +YRPHY0%GSHELL*PQ(JLON,JLEV,JBLK)
@@ -763,6 +788,7 @@ ZQMIC(JLON,JLEV,JBLK)=(1._JPRB-YRPHY0%GSHELL)*PQU(JLON,JLEV,JBLK) &
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 ! Call microphysics.
@@ -776,10 +802,10 @@ CALL ACPLUIZ ( KIDIA,KFDIA,KGPBLKS,KLON,KTDIA,KLEV,&
   & PFPEVPCL, PFPEVPCN, PFPFPCL, PFPFPCN, PDIFCQLC, PDIFCQIC )
 
 ! UPDATE INTRA-TIME-STEP CONVECTIVE VALUES FROM MICROPHYSICAL FLUXES.
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA, KLEV
+DO JLON = KIDIA, KFDIA
   
     ZQLC(JLON,JLEV,JBLK)=ZQLC(JLON,JLEV,JBLK)-RG*(&
       &+PFPFPCL(JLON,JLEV,JBLK)-PFPFPCL(JLON,JLEV-1,JBLK) &
@@ -801,16 +827,17 @@ DO JLEV = KTDIA, KLEV
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 !-------------------------------------------------
 ! VERTICAL TRANSPORT OF QLCONV AND QICONV.
 !-------------------------------------------------
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA, KLEV
+DO JLON = KIDIA, KFDIA
   
     ZUDW(JLON,JLEV,JBLK)=-PUDOM(JLON,JLEV,JBLK)*PR(JLON,JLEV,JBLK)*PT(JLON,JLEV,JBLK)/(PAPRSF(JLON,JLEV,JBLK)*RG)
     ZDDW(JLON,JLEV,JBLK)=-PDDOM(JLON,JLEV,JBLK)*PR(JLON,JLEV,JBLK)*PT(JLON,JLEV,JBLK)/(PAPRSF(JLON,JLEV,JBLK)*RG)
@@ -822,6 +849,7 @@ DO JLEV = KTDIA, KLEV
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 ! CONVECTIVE TRANSPORT OF CONVECTIVE CONDENSATES IN THE UPDRAFT.
@@ -833,10 +861,10 @@ CALL ACADVEC (KIDIA, KFDIA, KGPBLKS,KLON, KTDIA, KLEV, PDELP, PAPHI, PQL, ZW_COM
 CALL ACADVEC (KIDIA, KFDIA, KGPBLKS,KLON, KTDIA, KLEV, PDELP, PAPHI, PQI, ZW_COMPENS, PDIFCQI)
 
 ! UPDATE PROFILES FROM TRANSPORT FLUXES.
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA, KLEV
+DO JLON = KIDIA, KFDIA
   
     ZQLC(JLON,JLEV,JBLK)=ZQLC(JLON,JLEV,JBLK)-RG*(&
       &+PDIFCQLC(JLON,JLEV,JBLK)-PDIFCQLC(JLON,JLEV-1,JBLK) &
@@ -848,16 +876,17 @@ DO JLEV = KTDIA, KLEV
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 !-------------------------------------------------
 ! PRODUCE ICING OF CONVECTIVE LIQUID WATER TRANSPORTED BY THE UPDRAFT.
 !-------------------------------------------------
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZICE, ZQLCONVPREC, ZTCVIM) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = KTDIA, KLEV
+DO JLON = KIDIA, KFDIA
   
     ZQLCONVPREC=ZQLC(JLON,JLEV,JBLK)
     ZUDQC(JLON,JLEV,JBLK)=ZQLC(JLON,JLEV,JBLK)+ZQIC(JLON,JLEV,JBLK)
@@ -870,20 +899,22 @@ DO JLEV = KTDIA, KLEV
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 !
 ! CUMULATE DEPTH OF LAYERS WHERE VERTICAL VELOCITY IS GREATER THAN A GIVEN THRESHOLD.
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 ZDEPTH(JLON,JBLK)= 0._JPRB
 ENDDO
 ENDDO
+!$acc end kernels
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA,KLEV
+DO JLON = KIDIA, KFDIA
    
       ! CONVECTIVE CLOUD DEPTH:
       ! CUMULATE DEPTH OF LAYERS WHERE VERTICAL VELOCITY IS GREATER THAN A GIVEN THRESHOLD.
@@ -893,6 +924,7 @@ DO JLEV=KTDIA,KLEV
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 !-------------------------------------------------
@@ -902,7 +934,7 @@ ENDDO
 !-------------------------------------------------
 IF(YRPHY%LCVPPKF.OR.YRPHY%LEDKF) THEN
   ! PAIPCMT: Activity Index of PCMT: 1. if PCMT is active, 0. else case.
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -910,6 +942,7 @@ IF(YRPHY%LCVPPKF.OR.YRPHY%LEDKF) THEN
   
   ENDDO
   ENDDO
+  !$acc end kernels
 
 !  ! Is PCMT convection precipitating?
 !  ZMAX(:)=0._JPRB
@@ -923,10 +956,10 @@ IF(YRPHY%LCVPPKF.OR.YRPHY%LEDKF) THEN
 !    PAIPCMT(JLON)=MAX(0._JPRB,SIGN(1._JPRB,ZMAX(JLON)-THPCMT))
 !  ENDDO
   ! One applies the PAIPCMT activity index to the PCMT fluxes.
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA-1,KLEV
+  DO JLON = KIDIA, KFDIA
     
       PDIFCQ(JLON,JLEV,JBLK)=PAIPCMT(JLON,JBLK)*PDIFCQ(JLON,JLEV,JBLK)
       PDIFCQL(JLON,JLEV,JBLK)=PAIPCMT(JLON,JBLK)*PDIFCQL(JLON,JLEV,JBLK)
@@ -958,8 +991,9 @@ IF(YRPHY%LCVPPKF.OR.YRPHY%LEDKF) THEN
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
 
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, JTRA) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JTRA = 1, KTRA
@@ -971,11 +1005,12 @@ IF(YRPHY%LCVPPKF.OR.YRPHY%LEDKF) THEN
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
 
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV=KTDIA,KLEV
+  DO JLON = KIDIA, KFDIA
     
       PNEBC(JLON,JLEV,JBLK)=PAIPCMT(JLON,JBLK)*PNEBC(JLON,JLEV,JBLK)
       PQLIC(JLON,JLEV,JBLK)=PAIPCMT(JLON,JBLK)*PQLIC(JLON,JLEV,JBLK)
@@ -983,13 +1018,14 @@ IF(YRPHY%LCVPPKF.OR.YRPHY%LEDKF) THEN
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
 
 ELSE
   ! One has called the PCMT scheme, and no external shallow convection
   ! is activated. In this case, PCMT is expected to produce both
   ! precipitating and non-precipitating convection fluxes,
   ! the activity index PAIPCMT is set to 1..
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -997,9 +1033,10 @@ ELSE
 
   ENDDO
   ENDDO
+  !$acc end kernels
 
 
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLON) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -1007,6 +1044,7 @@ ELSE
 
   ENDDO
   ENDDO
+  !$acc end kernels
 
 
 ENDIF
@@ -1018,16 +1056,17 @@ IF(YRPHY0%NCVCLOS == 4) THEN
   ! to advect ZALF surface active fraction in 3D from one step to the next.
   !-------------------------------------------------
   !
-  !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+  !$acc kernels
   DO JBLK = 1, KGPBLKS
-  DO JLON = KIDIA, KFDIA
   DO JLEV = KTDIA, KLEV
+  DO JLON = KIDIA, KFDIA
     
       PUDAL(JLON,JLEV,JBLK) = ZALF(JLON,JBLK)
     
   ENDDO
   ENDDO
   ENDDO
+  !$acc end kernels
 
 ENDIF
 
@@ -1036,22 +1075,23 @@ ENDIF
 ! PCSGC: resolved condensates located Close to SubGrid Convection: 1. if close, 0. if "far".
 !-------------------------------------------------
 !
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV = 1, KLEV
+DO JLON = KIDIA, KFDIA
 
 PCSGC(JLON,JLEV,JBLK)= 1._JPRB
 
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
-!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON, ZFRACP, ZTH) default(none)
+!$acc kernels
 DO JBLK = 1, KGPBLKS
-DO JLON = KIDIA, KFDIA
 DO JLEV=KTDIA,KLEV
+DO JLON = KIDIA, KFDIA
   
     ZFRACP=EXP((PAPRSF(JLON,JLEV,JBLK)-YRPHY0%GCVFNEP1)/YRPHY0%GCVFNEP2)
     ZTH=(ZFRACP*ZFRACP-1._JPRB)/(ZFRACP*ZFRACP+1._JPRB)
@@ -1061,6 +1101,7 @@ DO JLEV=KTDIA,KLEV
 ENDDO
 ENDDO
 ENDDO
+!$acc end kernels
 
 
 
