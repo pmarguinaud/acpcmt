@@ -538,8 +538,8 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
          ELSE
           ZQMLT=(ZQPSTOT2-ZTQEVAPPN)*(1+TANH(ZDELT(JLON,JLEV,JBLK)/YRPHY0%RSMOOTHMELT))/2.0_JPRB
          ENDIF
-       ENDIF 
-       IF (LLFREEZ) THEN  
+!      ENDIF 
+!      IF (LLFREEZ) THEN  
 
            ! ----------------------------
            ! Rain freezing
