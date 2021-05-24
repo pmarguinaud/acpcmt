@@ -6,10 +6,12 @@
 #SBATCH --time 00:05:00
 #SBATCH --exclusive
 
+module load nvidia-compilers/20.11
+
 set -x
 ulimit -s unlimited
 
-module load nvidia-compilers/20.11
+nsys=$(which nsys)
 
 
 cd /gpfswork/rech/jau/ufh62jk/acpcmt/allblocks-kernels
@@ -19,8 +21,8 @@ NPROF=0
 if [ "$NPROF" -eq 0 ]
 then
 
-nsys profile --force-overwrite true -t openacc,nvtx,osrt,cuda -o acpcmt.prof \
-./wrap_acpcmt.x --case ../t1198
+srun -n 1 $nsys profile --force-overwrite true -t openacc,nvtx,osrt,cuda -o acpcmt.prof \
+./wrap_acpcmt.x --case ../t1198 --times 2
 
 nsys stats acpcmt.prof.qdrep
 
