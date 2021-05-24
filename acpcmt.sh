@@ -17,7 +17,7 @@ nsys=$(which nsys)
 cd /gpfswork/rech/jau/ufh62jk/acpcmt/allblocks-kernels
 
 NPROF=0
-GIT=$(git rev-parse HEAD)
+GIT=$(./git.pl)
 
 if [ "$NPROF" -eq 0 ]
 then
