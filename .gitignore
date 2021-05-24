@@ -8,3 +8,6 @@
 *.COUNT
 *.x
 slurm-*.out
+*.qdrep
+*.sqlite
+*.ncu-rep
