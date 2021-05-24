@@ -480,10 +480,10 @@ ZWU(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV+1
 DO JLON = KIDIA, KFDIA
@@ -505,9 +505,9 @@ DO JLON = KIDIA, KFDIA
 
 ENDDO
 ENDDO
-!$acc end kernels
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV=KTDIA,KLEV
 DO JLON = KIDIA, KFDIA
@@ -526,10 +526,10 @@ DO JLON = KIDIA, KFDIA
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -537,10 +537,10 @@ ZKEDD(JLON,JBLK) = 0._JPRB
 
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV=KTDIA,KLEV
 DO JLON = KIDIA, KFDIA
@@ -611,10 +611,10 @@ PDDAL(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -624,10 +624,10 @@ ZEPS_TUR(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -637,10 +637,10 @@ ZEPS_ORG(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -650,10 +650,10 @@ ZEMD_DIAG(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -663,10 +663,10 @@ ZDIFCQD(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -676,10 +676,10 @@ ZDIFCSD(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -689,10 +689,10 @@ ZSTRCUD(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -702,10 +702,10 @@ ZSTRCVD(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -732,10 +732,10 @@ ENDDO
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -745,10 +745,10 @@ ZEPSILON_U(JLON,JLEV,JBLK) = ZENTRX*RG
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -758,10 +758,10 @@ ZDELTA_U(JLON,JLEV,JBLK) = ZENTRX*RG
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -771,10 +771,10 @@ PENTR_U(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -784,10 +784,10 @@ PDETR_U(JLON,JLEV,JBLK) = YRPHY0%GCVENTR_MIN
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -797,10 +797,10 @@ PENTR_D(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -810,10 +810,10 @@ PDETR_D(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -823,10 +823,10 @@ ZBUOY(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -836,10 +836,10 @@ ZENTR_T_LOC(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -849,10 +849,10 @@ ZFLUXDIAG(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV+1
 DO JLON = KIDIA, KFDIA
@@ -862,10 +862,10 @@ ZPHIF_U(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV+1
 DO JLON = KIDIA, KFDIA
@@ -875,10 +875,10 @@ ZPHIF_U_EQUIP(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -888,10 +888,10 @@ ZDIFF_Z_UD(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -901,10 +901,10 @@ ZMOD(JLON,JLEV,JBLK) = YRPHY0%GCVEZ
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -914,10 +914,10 @@ ZSIGMA(JLON,JLEV,JBLK) = 1._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -927,10 +927,10 @@ ZRE(JLON,JLEV,JBLK) = 1._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -940,10 +940,10 @@ ZRE_SATDEF(JLON,JLEV,JBLK) = 1._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -953,10 +953,10 @@ ZRE_HEIGHT(JLON,JLEV,JBLK) = 1._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -980,10 +980,10 @@ ZLISS(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -993,10 +993,10 @@ PMF_UP(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1083,10 +1083,10 @@ ZFORM(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1096,10 +1096,10 @@ ZFORU(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1109,10 +1109,10 @@ ZDQCA(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1137,10 +1137,10 @@ ZFORD(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1150,10 +1150,10 @@ ZBETD(JLON,JLEV,JBLK) = 1._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1163,10 +1163,10 @@ ZDEL_ORGD(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1176,10 +1176,10 @@ ZEPS_ORGD(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1189,10 +1189,10 @@ ZQDND(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1202,10 +1202,10 @@ ZQN2D(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1215,10 +1215,10 @@ ZSN2D(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1228,10 +1228,10 @@ ZTN2D(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1241,10 +1241,10 @@ ZSDND(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1254,10 +1254,10 @@ ZUMD(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1267,10 +1267,10 @@ ZVMD(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JTRA = 1, KTRA
@@ -1282,10 +1282,10 @@ ENDDO
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1323,10 +1323,10 @@ ZDEPTH(JLON,JBLK) = 0._JPRB
 
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1334,10 +1334,10 @@ ZASCENT_BASE(JLON,JBLK) = 100000._JPRB
 
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1347,10 +1347,10 @@ ZDIAGFLO(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1360,10 +1360,10 @@ ZDIAG_ECART_TV(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1373,10 +1373,10 @@ ZDIAG_ECART_T(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1386,10 +1386,10 @@ ZDIAGFRICTION(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1399,10 +1399,10 @@ ZDIAGTRANSP(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1412,10 +1412,10 @@ ZDIAG_EPS_ORG(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1425,10 +1425,10 @@ ZDIAG_EPS_TUR(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1450,10 +1450,10 @@ ZDIAG_KNLAB(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1463,10 +1463,10 @@ ZBCC(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1476,10 +1476,10 @@ ZBCC_C_HALF(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1489,10 +1489,10 @@ ZBCC_C_FULL(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1502,11 +1502,11 @@ ZBCC_CD_FULL(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1516,10 +1516,10 @@ PFHMLTS(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1529,10 +1529,10 @@ PFHEVPP(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1542,10 +1542,10 @@ ZDIFCS_DD_DIAG(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1555,10 +1555,10 @@ ZDIFCS_UD_NOCORR_DIAG(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1568,10 +1568,10 @@ ZDIFCS_DD_NOCORR_DIAG(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1581,10 +1581,10 @@ ZBUO_W(JLON,JLEV,JBLK) = 0._JPRB
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1606,10 +1606,10 @@ ZSATDEF(JLON,JBLK) = 0._JPRB
 
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1617,10 +1617,10 @@ ZRH(JLON,JBLK) = 0._JPRB
 
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1628,10 +1628,10 @@ ZDENO(JLON,JBLK) = 0._JPRB
 
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1655,10 +1655,10 @@ ZCVGQ(JLON,JBLK) = 0._JPRB
 
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV=KTDIA,KLEV
 DO JLON = KIDIA, KFDIA
@@ -1701,10 +1701,10 @@ DO JLON = KIDIA, KFDIA
 ENDDO
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1712,10 +1712,10 @@ DO JLON = KIDIA, KFDIA
 
 ENDDO
 ENDDO
-!$acc end kernels
 
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1758,9 +1758,9 @@ DO JLON = KIDIA, KFDIA
 
 ENDDO
 ENDDO
-!$acc end kernels
 
-!$acc kernels
+
+
 DO JBLK = 1, KGPBLKS
 DO JLEV=KTDIA,KLEV
 DO JLON = KIDIA, KFDIA

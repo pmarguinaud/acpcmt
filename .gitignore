@@ -8,3 +8,5 @@
 *.COUNT
 *.x
 slurm-*.out
+*.qdrep
+*.sqlite
