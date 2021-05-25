@@ -25,7 +25,7 @@ then
 srun -n 1 $nsys profile --force-overwrite true -t openacc,nvtx,osrt,cuda -o acpcmt.$GIT.prof \
 ./wrap_acpcmt.x --case ../t1198 --times 2
 
-nsys stats acpcmt.prof.$GIT.qdrep
+nsys stats ./acpcmt.$GIT.prof.qdrep
 
 
 elif [ "$NPROF" -eq 1 ]
