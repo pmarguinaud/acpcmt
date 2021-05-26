@@ -81,7 +81,7 @@ INTEGER(KIND=JPIM) :: JLEV,JBLK,JLON
 ! INITIALIZATION.
 !-------------------------------------------------
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -93,7 +93,7 @@ ENDDO
 ENDDO
 !$acc end kernels
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV=KTDIA,KLEV
 DO JLON = KIDIA, KFDIA

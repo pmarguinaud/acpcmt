@@ -159,7 +159,7 @@ ZFACTA=(2.0_JPRB*YRPHY0%RETAMIN-1.0_JPRB)
 ZFACTB=(1.0_JPRB-3._JPRB*YRPHY0%RETAMIN**2)
 ZFACTC=(3._JPRB*YRPHY0%RETAMIN-2.0_JPRB)*YRPHY0%RETAMIN
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -179,7 +179,7 @@ DO JLEV=KTDIA,KLEV
   ZVETAF(JLEV) = MAX(PVETAF(JLEV),YRPHY0%RETAMIN)
 ENDDO
                                                                                 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV=KTDIA,KLEV
 DO JLON = KIDIA, KFDIA
@@ -213,7 +213,7 @@ ZEPS1=1.E-12_JPRB
 ZSQRT6 = SQRT(6._JPRB)
 ZRDSRV = RD / RV
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV=KTDIA,KLEV
 DO JLON = KIDIA, KFDIA

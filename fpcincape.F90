@@ -136,7 +136,7 @@ REAL(KIND=JPRB) :: ZQVIN(KLON,KLEV,KGPBLKS)
 ! INITIALIZE DEFAULT VALUES.
 !-------------------------------------------------
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -146,7 +146,7 @@ ENDDO
 ENDDO
 !$acc end kernels
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -156,7 +156,7 @@ ENDDO
 ENDDO
 !$acc end kernels
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -166,7 +166,7 @@ ENDDO
 ENDDO
 !$acc end kernels
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -176,7 +176,7 @@ ENDDO
 ENDDO
 !$acc end kernels
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -193,7 +193,7 @@ ZMINDERI=1000._JPRB
 ZMINQ=1.E-07_JPRB
 ZMAXQ=1.0_JPRB-ZMINQ
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV=1,KLEV
 DO JLON = KIDIA, KFDIA
@@ -207,7 +207,7 @@ ENDDO
 !$acc end kernels
 
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -217,7 +217,7 @@ ENDDO
 ENDDO
 !$acc end kernels
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -227,7 +227,7 @@ ENDDO
 ENDDO
 !$acc end kernels
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -237,7 +237,7 @@ ENDDO
 ENDDO
 !$acc end kernels
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -247,7 +247,7 @@ ENDDO
 ENDDO
 !$acc end kernels
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -258,7 +258,7 @@ ENDDO
 !$acc end kernels
 
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -269,7 +269,7 @@ ENDDO
 !$acc end kernels
 
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV=KLEVST,YRTOPH%NTCVIM+1,-1
 DO JLON = KIDIA, KFDIA

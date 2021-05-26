@@ -79,7 +79,7 @@ REAL(KIND=JPRB) :: ZLN_NEGLIG,ZUSCFL
 
 ! --------------------------------------------------------
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -98,7 +98,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 !- - - - - - - - - - - - - - -
 
 ! Some intialisation
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = KTDIA, KLEV
   DO JLON = KIDIA, KFDIA
@@ -110,7 +110,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
   ENDDO
   !$acc end kernels
   
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = KTDIA-1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -128,7 +128,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 
 ! First loop : From top to bottom
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = KTDIA, KLEV-1
   DO JLON = KIDIA, KFDIA
@@ -159,7 +159,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
 
 ! Second loop : From bottom to top
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = KLEV, KTDIA+1, -1
   DO JLON = KIDIA, KFDIA
@@ -195,7 +195,7 @@ ENDIF  ! End of test on TSPHY > 0.0_JPRB
 
 !  Final loop construction of net flux
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = KTDIA, KLEV-1
 DO JLON = KIDIA, KFDIA

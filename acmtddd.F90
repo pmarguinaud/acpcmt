@@ -290,7 +290,7 @@ ZEPSO=1.E-12_JPRB
 
 ! ZFMOD      : FONCTION DE LA VITESE DU COURANT DESCENDANT.
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV=KTDIA-1,KLEV
 DO JLON = KIDIA, KFDIA
@@ -308,7 +308,7 @@ ENDDO
 !$acc end kernels
 
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -321,7 +321,7 @@ ENDDO
 !$acc end kernels
 
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -367,7 +367,7 @@ ENDDO
 ! PQDN       : HUMIDITE DE DETRAINEMENT DU COURANT DESCENDANT.
 !            : DETRAINING DOWNDRAFT HUMIDITY.
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -470,7 +470,7 @@ ENDDO
 !     ATMOSPHERE AND START OF THE VERTICAL LOOP.
 
 ITOP=KTDIA
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV=KTDIA+1,KLEV
 DO JLON = KIDIA, KFDIA

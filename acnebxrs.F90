@@ -109,7 +109,7 @@ ZEPS1=1.E-6_JPRB
 ZARGLI=125._JPRB**(1.0_JPRB/YRPHY0%QXRTGH)
 
 IF (YRPHY%LQXRTGH) THEN
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA,KLEV
   DO JLON = KIDIA, KFDIA
@@ -129,7 +129,7 @@ IF (YRPHY%LQXRTGH) THEN
   !$acc end kernels
 
 ELSE
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA,KLEV
   DO JLON = KIDIA, KFDIA

@@ -237,7 +237,7 @@ ZEPS1=1.E-12_JPRB
 
 IF ( LDADJCLD ) THEN
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = KTDIA, KLEV
   DO JLON = KIDIA, KFDIA
@@ -258,7 +258,7 @@ IF ( LDADJCLD ) THEN
 
 ELSE
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = KTDIA, KLEV
   DO JLON = KIDIA, KFDIA
@@ -277,7 +277,7 @@ ENDIF
 ! CLOUD OVERLAP FOR STRATIFORM AND SHALLOW CLOUDS
 ! -----------------------------------------------
                                                                                 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = KTDIA, KLEV
 DO JLON = KIDIA, KFDIA
@@ -311,7 +311,7 @@ CALL ACMICRO ( KIDIA, KFDIA, KGPBLKS,KLON, KTDIA, KLEV,&
 ZGDT=RG*YRPHY2%TSPHY
 ZGDTI=1.0_JPRB/ZGDT
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = KTDIA, KLEV
 DO JLON = KIDIA, KFDIA

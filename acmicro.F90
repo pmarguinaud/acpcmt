@@ -137,7 +137,7 @@ ZARG2 = 0.5_JPRB*LOG(ABS((1.0_JPRB+ZARG2)/(1.0_JPRB-ZARG2)))
 ZALPH = (ZARG1 - ZARG2)/(YRPHY0%RQICRT2-YRPHY0%RQICRT1)
 ZBETA = ZARG1 - YRPHY0%RQICRT2 * ZALPH
  
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV=KTDIA,KLEV
 DO JLON = KIDIA, KFDIA
@@ -159,7 +159,7 @@ ENDDO
 ! MICROPHYSICAL AUTOCONVERSION IN THE STRATIFORM CASE
 ! ---------------------------------------------------
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV=KTDIA,KLEV
 DO JLON = KIDIA, KFDIA

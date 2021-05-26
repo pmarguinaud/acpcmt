@@ -363,7 +363,7 @@ LOGICAL         :: LLADJCLD
 ZEPS=1.E-12_JPRB
 ZCCHSL=RCW-RCPD
 ZCCHSN=RCS-RCPD
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -376,7 +376,7 @@ ENDDO
 !$acc end kernels
 
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -387,7 +387,7 @@ ENDDO
 !$acc end kernels
 
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -401,7 +401,7 @@ ENDDO
 
 
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -416,7 +416,7 @@ ENDDO
 
 IF(YRPHY0%LCVNHD) THEN
   ! Evaporation from previous time step is got from the PDDAL buffer.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = KTDIA, KLEV
   DO JLON = KIDIA, KFDIA
@@ -447,7 +447,7 @@ CALL ACMTUD ( KIDIA,KFDIA,KGPBLKS,KLON,KTDIA,KLEV,KTRA,&
 
 IF(YRPHY0%NCVQLI == 2) THEN
   ! Radiative condensates and cloudiness, due to convection, computed as ql+qi+qr+qs.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = KTDIA, KLEV
   DO JLON = KIDIA, KFDIA
@@ -464,7 +464,7 @@ IF(YRPHY0%NCVQLI == 2) THEN
 ENDIF
 
 ! INITIALIZE CONVECTIVE PROFILES: INTRA-TIME-STEP EVOLUTION.
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -477,7 +477,7 @@ ENDDO
 !$acc end kernels
 
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -490,7 +490,7 @@ ENDDO
 !$acc end kernels
 
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -503,7 +503,7 @@ ENDDO
 !$acc end kernels
 
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -526,7 +526,7 @@ CALL ACMTENTR(KIDIA, KFDIA, KGPBLKS,KLON, KTDIA, KLEV, PDELP, ZQLC, PQL, PUDAL, 
 CALL ACMTENTR(KIDIA, KFDIA, KGPBLKS,KLON, KTDIA, KLEV, PDELP, ZQIC, PQI, PUDAL, PDDAL, &
   & ZENTR_U, ZENTR_D, ZDETR_U, ZDETR_D, PFEDQIC)
 ! Detrainment of rain and snow is smaller from that of lagrangian species (liquid and ice).
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = KTDIA-1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -544,7 +544,7 @@ CALL ACMTENTR(KIDIA, KFDIA, KGPBLKS,KLON, KTDIA, KLEV, PDELP, ZQRC, PRR, PUDAL, 
 CALL ACMTENTR(KIDIA, KFDIA, KGPBLKS,KLON, KTDIA, KLEV, PDELP, ZQSC, PS,  PUDAL, PDDAL, &
   & ZENTR_U, ZENTR_D, ZDETR_U_RS, ZDETR_D_RS, PFEDQSC)
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = KTDIA, KLEV
 DO JLON = KIDIA, KFDIA
@@ -574,7 +574,7 @@ ENDDO
 !$acc end kernels
 
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -587,7 +587,7 @@ ENDDO
 !$acc end kernels
 
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -601,7 +601,7 @@ ENDDO
 
 
 ! UPDATE INTRA-TIME-STEP CONVECTIVE VALUES FROM CONDENSATION FLUXES.
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = KTDIA, KLEV
 DO JLON = KIDIA, KFDIA
@@ -624,7 +624,7 @@ ENDDO
 !-------------------------------------------------
 
 ! QCCONV = QLCONV + QICONV.
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = KTDIA, KLEV
 DO JLON = KIDIA, KFDIA
@@ -638,7 +638,7 @@ ENDDO
 ENDDO
 !$acc end kernels
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -651,7 +651,7 @@ ENDDO
 !$acc end kernels
 
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -669,7 +669,7 @@ IF(YRPHY%LNEBNXR) THEN
   CALL ACNEBXRS ( KIDIA,KFDIA,KGPBLKS,KLON,KTDIA,KLEV,&
     & PQ,ZQ_COND_XR96,PQSAT,&
     & ZNEBC_MICRO)
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = KTDIA, KLEV
   DO JLON = KIDIA, KFDIA
@@ -684,7 +684,7 @@ IF(YRPHY%LNEBNXR) THEN
 
 ELSE
   IF(YRPHY0%LCVMICC) THEN
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV = KTDIA, KLEV
     DO JLON = KIDIA, KFDIA
@@ -697,7 +697,7 @@ ELSE
     !$acc end kernels
 
   ENDIF
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = KTDIA, KLEV
   DO JLON = KIDIA, KFDIA
@@ -723,7 +723,7 @@ ELSE
   !$acc end kernels
 
 ENDIF
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -736,7 +736,7 @@ ENDDO
 !$acc end kernels
 
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -749,7 +749,7 @@ ENDDO
 !$acc end kernels
 
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -764,7 +764,7 @@ ENDDO
 
 
 ! Microphysics occurs in a shell between updraft and its resolved environment.
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = KTDIA, KLEV
 DO JLON = KIDIA, KFDIA
@@ -777,7 +777,7 @@ ENDDO
 ENDDO
 !$acc end kernels
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = KTDIA, KLEV
 DO JLON = KIDIA, KFDIA
@@ -802,7 +802,7 @@ CALL ACPLUIZ ( KIDIA,KFDIA,KGPBLKS,KLON,KTDIA,KLEV,&
   & PFPEVPCL, PFPEVPCN, PFPFPCL, PFPFPCN, PDIFCQLC, PDIFCQIC )
 
 ! UPDATE INTRA-TIME-STEP CONVECTIVE VALUES FROM MICROPHYSICAL FLUXES.
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = KTDIA, KLEV
 DO JLON = KIDIA, KFDIA
@@ -834,7 +834,7 @@ ENDDO
 ! VERTICAL TRANSPORT OF QLCONV AND QICONV.
 !-------------------------------------------------
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = KTDIA, KLEV
 DO JLON = KIDIA, KFDIA
@@ -861,7 +861,7 @@ CALL ACADVEC (KIDIA, KFDIA, KGPBLKS,KLON, KTDIA, KLEV, PDELP, PAPHI, PQL, ZW_COM
 CALL ACADVEC (KIDIA, KFDIA, KGPBLKS,KLON, KTDIA, KLEV, PDELP, PAPHI, PQI, ZW_COMPENS, PDIFCQI)
 
 ! UPDATE PROFILES FROM TRANSPORT FLUXES.
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = KTDIA, KLEV
 DO JLON = KIDIA, KFDIA
@@ -883,7 +883,7 @@ ENDDO
 ! PRODUCE ICING OF CONVECTIVE LIQUID WATER TRANSPORTED BY THE UPDRAFT.
 !-------------------------------------------------
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = KTDIA, KLEV
 DO JLON = KIDIA, KFDIA
@@ -903,7 +903,7 @@ ENDDO
 
 !
 ! CUMULATE DEPTH OF LAYERS WHERE VERTICAL VELOCITY IS GREATER THAN A GIVEN THRESHOLD.
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 ZDEPTH(JLON,JBLK)= 0._JPRB
@@ -911,7 +911,7 @@ ENDDO
 ENDDO
 !$acc end kernels
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV=KTDIA,KLEV
 DO JLON = KIDIA, KFDIA
@@ -934,7 +934,7 @@ ENDDO
 !-------------------------------------------------
 IF(YRPHY%LCVPPKF.OR.YRPHY%LEDKF) THEN
   ! PAIPCMT: Activity Index of PCMT: 1. if PCMT is active, 0. else case.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -956,7 +956,7 @@ IF(YRPHY%LCVPPKF.OR.YRPHY%LEDKF) THEN
 !    PAIPCMT(JLON)=MAX(0._JPRB,SIGN(1._JPRB,ZMAX(JLON)-THPCMT))
 !  ENDDO
   ! One applies the PAIPCMT activity index to the PCMT fluxes.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA-1,KLEV
   DO JLON = KIDIA, KFDIA
@@ -993,7 +993,7 @@ IF(YRPHY%LCVPPKF.OR.YRPHY%LEDKF) THEN
   ENDDO
   !$acc end kernels
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JTRA = 1, KTRA
@@ -1007,7 +1007,7 @@ IF(YRPHY%LCVPPKF.OR.YRPHY%LEDKF) THEN
   ENDDO
   !$acc end kernels
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA,KLEV
   DO JLON = KIDIA, KFDIA
@@ -1025,7 +1025,7 @@ ELSE
   ! is activated. In this case, PCMT is expected to produce both
   ! precipitating and non-precipitating convection fluxes,
   ! the activity index PAIPCMT is set to 1..
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -1036,7 +1036,7 @@ ELSE
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -1056,7 +1056,7 @@ IF(YRPHY0%NCVCLOS == 4) THEN
   ! to advect ZALF surface active fraction in 3D from one step to the next.
   !-------------------------------------------------
   !
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = KTDIA, KLEV
   DO JLON = KIDIA, KFDIA
@@ -1075,7 +1075,7 @@ ENDIF
 ! PCSGC: resolved condensates located Close to SubGrid Convection: 1. if close, 0. if "far".
 !-------------------------------------------------
 !
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1088,7 +1088,7 @@ ENDDO
 !$acc end kernels
 
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV=KTDIA,KLEV
 DO JLON = KIDIA, KFDIA

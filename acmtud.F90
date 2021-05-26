@@ -470,7 +470,7 @@ LOGICAL :: LLTEXC,LLNHACC,LLCOND1,LLCAPECIN
 !$acc data create (ZALF_CVGQ, ZASCENT_BASE, ZBCC, ZBCC_CD_FULL, ZBCC_C_FULL, ZBCC_C_HALF, ZBET, ZBETD, ZBINBUO, ZBINID)
 !$acc data create (INCDN, INIVBAC, INLABD, INLFC, IQLIC, ZA13, ZA14, ZA15, ZALFAVEC, ZALFX)
 !$acc data create (IBAC, ICDN, IEL, IFCL, IKUO5, IKUO6, ILCL, ILEVTEN, ILFC, INBAS)
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV+1
 DO JLON = KIDIA, KFDIA
@@ -497,7 +497,7 @@ ENDDO
 
 
 LLCAPECIN=.FALSE.
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -573,7 +573,7 @@ IF(YRPHY0%NCVCLOS == 4) THEN
   !-------------------------------------------------
   !
   ILEV=MAX(KTDIA,INT(YRPHY0%GSIGA*REAL(KLEV)))
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -587,7 +587,7 @@ ELSE
   !-------------------------------------------------
   ! Surface fraction PALF is diagnostic.
   !-------------------------------------------------
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -601,7 +601,7 @@ ELSE
 
 
 ENDIF
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -720,7 +720,7 @@ ENDDO
 
 ZENTR=YRPHY0%GCVRE*YRPHY0%TENTR
 ZENTRX=YRPHY0%GCVRE*YRPHY0%TENTRX
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 DO JTRA = 1, KTRA
@@ -970,7 +970,7 @@ ENDDO
 
 
 ZTPHY=YRPHY2%TSPHY
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1020,7 +1020,7 @@ IF(YRPHY0%REFLCAPE > 0._JPRB) THEN
   ELSE
     ZDLON=REAL(YRDIM%NDLON)
   ENDIF
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -1035,7 +1035,7 @@ IF(YRPHY0%REFLCAPE > 0._JPRB) THEN
 
 ELSE
   ! NWP tunings.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -1073,7 +1073,7 @@ ZNEBCX=MIN(1._JPRB-ZEPS0,YRPHY0%RNEBCX)
 
 
 ! UPDRAFT INIT
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1127,7 +1127,7 @@ ENDDO
 
 
 ! DOWNDRAFT INIT
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 0, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1315,7 +1315,7 @@ ZCCHSL=RCW-RCPD
 ZCCHSN=RCS-RCPD
 
 ZKDX=YRPHY0%RKDN*ZENTRX/ZENTR
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1440,7 +1440,7 @@ ENDDO
 
 
 ZDIAG_TUDAL=0._JPRB
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV = 1, KLEV
 DO JLON = KIDIA, KFDIA
@@ -1598,7 +1598,7 @@ ENDDO
 
 
 LLTEXC=YRPHY0%GCVTEXC /= 0._JPRB
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1647,7 +1647,7 @@ ENDDO
 
 ZMOD_MIN=YRPHY0%GCVEZ
 ZMOD_MAX=1.0_JPRB
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1732,7 +1732,7 @@ ENDDO
 ! OTHER PRELIMINARY CALCULATION
 
 ! THETAE
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1799,7 +1799,7 @@ IF(LLNHACC) THEN
   ! locate maximum of thetav, on the levels where vertical divergency of wd is
   ! larger than the threshold GNHACC.
   ! The result is put in (ZTBASE, ZQBASE): (T, qv) at ascent base.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -1811,7 +1811,7 @@ IF(LLNHACC) THEN
   !$acc end kernels
 
   ILEV=MAX(KTDIA,INT(0.95_JPRB*REAL(KLEV)))
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=ILEV,KLEV
   DO JLON = KIDIA, KFDIA
@@ -1832,7 +1832,7 @@ IF(LLNHACC) THEN
 ENDIF
 
 IF(YRPHY0%GCLOEB > 0._JPRB) THEN
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA,KLEV
   DO JLON = KIDIA, KFDIA
@@ -1848,7 +1848,7 @@ IF(YRPHY0%GCLOEB > 0._JPRB) THEN
 
 ENDIF
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV=KTDIA,KLEV
 DO JLON = KIDIA, KFDIA
@@ -1874,7 +1874,7 @@ ENDDO
 ! KNLAB    : FINAL LAYER ACTIVITY INDEX
 ! KNND     : PHYSICAL SOLUTION FLAG
 
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA
 
@@ -1999,7 +1999,7 @@ ENDDO
 LLCOND1 = YRPHY0%NCVENTR == 1
 
 ITOP=KLEV+1
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV=KLEV-1,KTDIA,-1
 DO JLON = KIDIA, KFDIA
@@ -2880,7 +2880,7 @@ IF(YRPHY0%LCVNHD) THEN
   ! equations, using NH pressure-gradient terms.
   !-------------------------------------------------
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -2898,7 +2898,7 @@ IF(YRPHY0%LCVNHD) THEN
   ! Vertical smoothing of evaporation.
   !-------------------------------------------------
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -2911,7 +2911,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
   ! DOWNWARD SMOOTHING.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA+1,KLEV
   DO JLON = KIDIA, KFDIA
@@ -2928,7 +2928,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
   ! UPWARD SMOOTHING.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KLEV-1,KTDIA,-1
   DO JLON = KIDIA, KFDIA
@@ -2943,7 +2943,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
   ! Average upward and downward smoothings, with a weight depending on altitude.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA,KLEV
   DO JLON = KIDIA, KFDIA
@@ -2958,7 +2958,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA,KLEV
   DO JLON = KIDIA, KFDIA
@@ -2979,7 +2979,7 @@ IF(YRPHY0%LCVNHD) THEN
   !-------------------------------------------------
 
   ! Tendency due to advection: direct computation.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -2992,7 +2992,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3005,7 +3005,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA,KLEV
   DO JLON = KIDIA, KFDIA
@@ -3022,7 +3022,7 @@ IF(YRPHY0%LCVNHD) THEN
 
 
   ! Buoyancy.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3035,7 +3035,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3048,7 +3048,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA,KLEV
   DO JLON = KIDIA, KFDIA
@@ -3069,7 +3069,7 @@ IF(YRPHY0%LCVNHD) THEN
 
 
   ! Dynamical production.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3082,7 +3082,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3095,7 +3095,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA,KLEV
   DO JLON = KIDIA, KFDIA
@@ -3113,7 +3113,7 @@ IF(YRPHY0%LCVNHD) THEN
 
 
   ! Friction.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3126,7 +3126,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3139,7 +3139,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA,KLEV
   DO JLON = KIDIA, KFDIA
@@ -3156,7 +3156,7 @@ IF(YRPHY0%LCVNHD) THEN
 
   ! Target wd: a vertical smoothing of wd + buoyancy effect.
   ! 1. Buoyancy effect.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA,KLEV
   DO JLON = KIDIA, KFDIA
@@ -3169,7 +3169,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
   ! 2. Vertical smoothing.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -3182,7 +3182,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
   ! DOWNWARD SMOOTHING.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA+1,KLEV
   DO JLON = KIDIA, KFDIA
@@ -3199,7 +3199,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
   ! UPWARD SMOOTHING.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KLEV-1,KTDIA,-1
   DO JLON = KIDIA, KFDIA
@@ -3214,7 +3214,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
   ! Average upward and downward smoothings, with a weight depending on altitude.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3227,7 +3227,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3240,7 +3240,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3253,7 +3253,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA,KLEV
   DO JLON = KIDIA, KFDIA
@@ -3271,7 +3271,7 @@ IF(YRPHY0%LCVNHD) THEN
 
 
   ! Temporal integration.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3284,7 +3284,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3297,7 +3297,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3310,7 +3310,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3323,7 +3323,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3336,7 +3336,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3349,7 +3349,7 @@ IF(YRPHY0%LCVNHD) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA,KLEV
   DO JLON = KIDIA, KFDIA
@@ -3415,7 +3415,7 @@ IF (ITOP < KLEV+1) THEN
 
   ! LAST LEVEL SUMMATION (TOP).
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -3447,7 +3447,7 @@ IF (ITOP < KLEV+1) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=ITOP,KLEV-1
   DO JLON = KIDIA, KFDIA
@@ -3465,7 +3465,7 @@ IF (ITOP < KLEV+1) THEN
   ! ------------------------------------------------------------------
 
   ! DIAGNOSTIC OF CAPE (FORECASTER NEED) WHATEVER CLOSURE.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -3476,7 +3476,7 @@ IF (ITOP < KLEV+1) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -3487,7 +3487,7 @@ IF (ITOP < KLEV+1) THEN
   !$acc end kernels
 
  ! Integral of BCC multiplied by Sigma.
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=ITOP,KLEV
   DO JLON = KIDIA, KFDIA
@@ -3514,7 +3514,7 @@ IF (ITOP < KLEV+1) THEN
   ENDDO
   !$acc end kernels
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -3618,7 +3618,7 @@ IF (ITOP < KLEV+1) THEN
       &ZBETD,ZDEL_ORGD,ZEPS_ORGD,ZFORD,ZQDND,ZQN2D,ZSDND,ZSN2D,ZTN2D,&
       &ZUMD,ZVMD,ZTRAMD,ZBCC_CD_FULL,&
       &INLABD)
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV=ITOP,KLEV
     DO JLON = KIDIA, KFDIA
@@ -3643,7 +3643,7 @@ IF (ITOP < KLEV+1) THEN
       &ZBETD,ZDEL_ORGD,ZEPS_ORGD,ZFORD,ZQDND,ZQN2D,ZSDND,ZSN2D,ZTN2D,&
       &ZUMD,ZVMD,ZTRAMD,ZBCC_CD_FULL,&
       &INLABD)
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV = 1, KLEV
     DO JLON = KIDIA, KFDIA
@@ -3656,7 +3656,7 @@ IF (ITOP < KLEV+1) THEN
     !$acc end kernels
 
 
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV=ITOP,KLEV
     DO JLON = KIDIA, KFDIA
@@ -3670,7 +3670,7 @@ IF (ITOP < KLEV+1) THEN
 
   ELSE
     ! No downdrafts.
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV=ITOP,KLEV
     DO JLON = KIDIA, KFDIA
@@ -3690,7 +3690,7 @@ IF (ITOP < KLEV+1) THEN
   ! // AND COMPUTE MASS FLUX AT THE INTERFACE LEVELS
   ! ------------------------------------------------------------
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=ITOP,KLEV
   DO JLON = KIDIA, KFDIA
@@ -3722,7 +3722,7 @@ IF (ITOP < KLEV+1) THEN
   ! ABOVE ITOP (AND NORMALLY ALSO AT KLEV - BUT SEE VIB...)
 
   ! cdir unroll=8
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KLEV-1,ITOP,-1
   DO JLON = KIDIA, KFDIA
@@ -3743,7 +3743,7 @@ IF (ITOP < KLEV+1) THEN
 
 
   IF (YRPHY0%LGPRONI1) THEN
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV=KLEV-1,ITOP,-1
     DO JLON = KIDIA, KFDIA
@@ -3763,7 +3763,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
     !$acc end kernels
 
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV=ITOP,KLEV-1
     DO JLON = KIDIA, KFDIA
@@ -3791,7 +3791,7 @@ IF (ITOP < KLEV+1) THEN
 
   ! INITIALIZE WORK ARRAYS
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3804,7 +3804,7 @@ IF (ITOP < KLEV+1) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3817,7 +3817,7 @@ IF (ITOP < KLEV+1) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JTRA = 1, KTRA
@@ -3832,7 +3832,7 @@ IF (ITOP < KLEV+1) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3845,7 +3845,7 @@ IF (ITOP < KLEV+1) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3858,7 +3858,7 @@ IF (ITOP < KLEV+1) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 1, KLEV
   DO JLON = KIDIA, KFDIA
@@ -3871,7 +3871,7 @@ IF (ITOP < KLEV+1) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   DO JTRA = 1, KTRA
@@ -3906,7 +3906,7 @@ IF (ITOP < KLEV+1) THEN
   ! ZVM       : AVERAGE V VALUE FROM CLOUD BASE.
   ! ZTRAM     : AVERAGE TRACER VALUE FROM CLOUD BASE.
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -3937,7 +3937,7 @@ IF (ITOP < KLEV+1) THEN
 
 
   ! cdir unroll=4
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KLEV-1,ITOP,-1
   DO JLON = KIDIA, KFDIA
@@ -4000,7 +4000,7 @@ IF (ITOP < KLEV+1) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=ITOP,KLEV
   DO JLON = KIDIA, KFDIA
@@ -4021,7 +4021,7 @@ IF (ITOP < KLEV+1) THEN
   ! ------------------------------------------------------------------
   ! // FLUXES COMPUTATION
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -4038,7 +4038,7 @@ IF (ITOP < KLEV+1) THEN
 
 
   ! cdir unroll=8
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=ITOP+1,KLEV-1
   DO JLON = KIDIA, KFDIA
@@ -4056,7 +4056,7 @@ IF (ITOP < KLEV+1) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -4073,7 +4073,7 @@ IF (ITOP < KLEV+1) THEN
     ! // CONVECTIVE TRANSPORT FLUXES
     ! ---------------------------
     ! COMPUTE ZUM AND ZVM AS UNIFORM, EQUAL TO THE MEAN VALUE ALONG CONVECTIVE LEVELS.
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV = 1, KLEV
     DO JLON = KIDIA, KFDIA
@@ -4086,7 +4086,7 @@ IF (ITOP < KLEV+1) THEN
     !$acc end kernels
 
 
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV = 1, KLEV
     DO JLON = KIDIA, KFDIA
@@ -4099,7 +4099,7 @@ IF (ITOP < KLEV+1) THEN
     !$acc end kernels
 
 
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     
@@ -4110,7 +4110,7 @@ IF (ITOP < KLEV+1) THEN
     !$acc end kernels
 
 
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV=ITOP,KLEV
     DO JLON = KIDIA, KFDIA
@@ -4126,7 +4126,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
     !$acc end kernels
 
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV=ITOP,KLEV
     DO JLON = KIDIA, KFDIA
@@ -4153,7 +4153,7 @@ IF (ITOP < KLEV+1) THEN
     ! // CONVECTIVE TRANSPORT FLUXES: IMPLICIT COMPUTATION.
     ! ---------------------------
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=ITOP,KLEV
   DO JLON = KIDIA, KFDIA
@@ -4178,7 +4178,7 @@ IF (ITOP < KLEV+1) THEN
 
 
     ! cdir unroll=8
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV=ITOP,KLEV-1
     DO JLON = KIDIA, KFDIA
@@ -4210,7 +4210,7 @@ IF (ITOP < KLEV+1) THEN
 
 
     IF (YRPHY0%LGDDD) THEN
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV=ITOP,KLEV
     DO JLON = KIDIA, KFDIA
@@ -4229,7 +4229,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
     !$acc end kernels
 
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV=KLEV-1,ITOP,-1
     DO JLON = KIDIA, KFDIA
@@ -4260,7 +4260,7 @@ IF (ITOP < KLEV+1) THEN
     !$acc end kernels
 
 
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV=ITOP,KLEV-1
     DO JLON = KIDIA, KFDIA
@@ -4291,7 +4291,7 @@ IF (ITOP < KLEV+1) THEN
     ! // CONVECTIVE TRANSPORT FLUXES: EXPLICIT COMPUTATION.
     ! ---------------------------
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=ITOP,KLEV
   DO JLON = KIDIA, KFDIA
@@ -4313,7 +4313,7 @@ IF (ITOP < KLEV+1) THEN
 
 
     ! cdir unroll=8
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV=ITOP,KLEV-1
     DO JLON = KIDIA, KFDIA
@@ -4343,7 +4343,7 @@ IF (ITOP < KLEV+1) THEN
 
 
     IF (YRPHY0%LGDDD) THEN
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV=ITOP,KLEV
     DO JLON = KIDIA, KFDIA
@@ -4363,7 +4363,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
     !$acc end kernels
 
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV=ITOP,KLEV-1
     DO JLON = KIDIA, KFDIA
@@ -4403,7 +4403,7 @@ IF (ITOP < KLEV+1) THEN
   ! // SETTING ALL RESULTS TO ZERO IN CASE OF NEGATIVE PRECIPITATIONS AT
   ! // THE SURFACE OR OF "KNND" ALREADY ZERO.
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -4417,7 +4417,7 @@ IF (ITOP < KLEV+1) THEN
 
   IF(YRPHY0%LCVNAUV) THEN
     ! RECOMPUTE PSTRCU AND PSTRCV FROM AN IDEA INSPIRED BY FRANCOIS BOUYSSEL (2012-08-01) AND 3MT.
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     
@@ -4437,7 +4437,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
     !$acc end kernels
 
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV=KLEV-1,ITOP,-1
     DO JLON = KIDIA, KFDIA
@@ -4474,7 +4474,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
     !$acc end kernels
 
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV=ITOP,KLEV
     DO JLON = KIDIA, KFDIA
@@ -4494,7 +4494,7 @@ IF (ITOP < KLEV+1) THEN
     ENDDO
     !$acc end kernels
 
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     
@@ -4505,7 +4505,7 @@ IF (ITOP < KLEV+1) THEN
     !$acc end kernels
 
 
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV = 0, KLEV
     DO JLON = KIDIA, KFDIA
@@ -4518,7 +4518,7 @@ IF (ITOP < KLEV+1) THEN
     !$acc end kernels
 
 
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV = 0, KLEV
     DO JLON = KIDIA, KFDIA
@@ -4531,7 +4531,7 @@ IF (ITOP < KLEV+1) THEN
     !$acc end kernels
 
 
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     DO JTRA = 1, KTRA
@@ -4546,7 +4546,7 @@ IF (ITOP < KLEV+1) THEN
     !$acc end kernels
 
 
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLEV=ITOP,KLEV-1
     DO JLON = KIDIA, KFDIA
@@ -4582,7 +4582,7 @@ IF (ITOP < KLEV+1) THEN
   ! AND ALSO RESET PUDOM AND PUDAL
   ! ------------------------------------------------------------------
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=ITOP,KLEV
   DO JLON = KIDIA, KFDIA
@@ -4612,7 +4612,7 @@ IF (ITOP < KLEV+1) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA,KLEV
   DO JLON = KIDIA, KFDIA
@@ -4628,7 +4628,7 @@ IF (ITOP < KLEV+1) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=ITOP,KLEV
   DO JLON = KIDIA, KFDIA
@@ -4667,7 +4667,7 @@ IF (ITOP < KLEV+1) THEN
 
   ZA=0.5_JPRB
   ZA2=ZA*0.5_JPRB
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KLEV-1,ITOP,-1
   DO JLON = KIDIA, KFDIA
@@ -4690,7 +4690,7 @@ IF (ITOP < KLEV+1) THEN
   !$acc end kernels
 
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=ITOP,KLEV-1
   DO JLON = KIDIA, KFDIA
@@ -4709,7 +4709,7 @@ ENDIF ! IF ITOP < KLEV+1
 ! Momentum is not transported as thermodynamic variables (theta, qt).
 !-------------------------------------------------
 !
-!$acc kernels
+!$acc kernels default (present)
 DO JBLK = 1, KGPBLKS
 DO JLEV=KTDIA,KLEV
 DO JLON = KIDIA, KFDIA
@@ -4736,7 +4736,7 @@ IF (YRPHY0%NCAPEMOD /= 0) THEN
   !- - - - - - - - - - - - - - -
   ! Set the "SBCAPE" to zero :
   !- - - - - - - - - - - - - - -
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLON = KIDIA, KFDIA
   
@@ -4760,7 +4760,7 @@ IF (YRPHY0%NCAPEMOD /= 0) THEN
   !- - - - - - - - - - - - - - - - - - - - - - -
   IF (YRPHY0%NCAPEMOD == 1) THEN
     ! "inactive" if : KNND(JLON)=0.0
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     
@@ -4773,7 +4773,7 @@ IF (YRPHY0%NCAPEMOD /= 0) THEN
 
   ELSEIF (YRPHY0%NCAPEMOD == 2) THEN
     ! "inactive" if : ZDIAG_WMAX(JLON) < WCAPEMOD
-    !$acc kernels
+    !$acc kernels default (present)
     DO JBLK = 1, KGPBLKS
     DO JLON = KIDIA, KFDIA
     

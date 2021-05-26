@@ -262,7 +262,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
       ! Initializations
       ! ---------------
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = 0, KFLEV
   DO JLON = KIDIA, KFDIA
@@ -279,7 +279,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
     ! COMPUTE DENSITY, THICKNESS
     ! ==========================
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV = KTDIA, KFLEV
   DO JLON = KIDIA, KFDIA
@@ -304,7 +304,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
      ! OTHER INITIALIZATIONS FOR MICROPHYSICS
      ! ======================================
 
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA,KFLEV
   DO JLON = KIDIA, KFDIA
@@ -388,7 +388,7 @@ IF (YRPHY2%TSPHY > 0.0_JPRB) THEN
     ! =============================================
 
     !-- -- -- -- -- --
-  !$acc kernels
+  !$acc kernels default (present)
   DO JBLK = 1, KGPBLKS
   DO JLEV=KTDIA,KFLEV
   DO JLON = KIDIA, KFDIA  
