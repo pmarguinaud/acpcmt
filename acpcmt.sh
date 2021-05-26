@@ -14,7 +14,7 @@ ulimit -s unlimited
 nsys=$(which nsys)
 
 
-cd /gpfswork/rech/jau/ufh62jk/acpcmt/allblocks-kernels
+cd /gpfswork/rech/jau/ufh62jk/acpcmt/allblocks-kernels-present
 
 NPROF=0
 GIT=$(./git.pl)
