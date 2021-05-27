@@ -1371,7 +1371,15 @@ ENDDO
 ENDDO
 
 
-ZDIAG_TUDAL=0._JPRB
+!$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
+DO JBLK = 1, KGPBLKS
+DO JLON = KIDIA, KFDIA
+DO JLEV = 1, KLEV
+ZDIAG_TUDAL(JLON,JLEV,JBLK)=0._JPRB
+ENDDO
+ENDDO
+ENDDO
+
 !$acc parallel loop gang vector collapse (2) vector_length (KLON) private (JBLK, JLEV, JLON) default(none)
 DO JBLK = 1, KGPBLKS
 DO JLON = KIDIA, KFDIA

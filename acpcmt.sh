@@ -6,18 +6,29 @@
 #SBATCH --time 00:05:00
 #SBATCH --exclusive
 
+module load nvidia-compilers/20.11
+
 set -x
 ulimit -s unlimited
 
-module load nvidia-compilers/20.11
+nsys=$(which nsys)
 
 
-cd /gpfswork/rech/jau/ufh62jk/acpcmt
+cd /gpfswork/rech/jau/ufh62jk/acpcmt/allblocks
+
+NPROF=0
+GIT=$(./git.pl)
+
+if [ "$NPROF" -eq 0 ]
+then
+
+srun -n 1 $nsys profile --force-overwrite true -t openacc,nvtx,osrt,cuda -o acpcmt.$GIT.prof \
+./wrap_acpcmt.x --case ../t1198 --times 2
+
+nsys stats ./acpcmt.$GIT.prof.qdrep
 
 
-
-
-if [ 1 -eq 1 ]
+elif [ "$NPROF" -eq 1 ]
 then
 
 nvprof --print-gpu-trace --log-file nvprof.txt \
@@ -31,7 +42,6 @@ export NVCOMPILER_ACC_NOTIFY=31
 
 fi
 
-cat acpcmt.eo
 
 
 
